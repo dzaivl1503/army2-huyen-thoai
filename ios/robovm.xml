@@ -3,8 +3,14 @@
   <mainClass>${app.mainclass}</mainClass>
   <os>ios</os>
   <target>ios</target>
+  <archs>
+    <arch>arm64</arch>
+  </archs>
   <iosInfoPList>Info.plist.xml</iosInfoPList>
   <treeShaker>conservative</treeShaker>
+  <customLinkerArgs>
+    <arg>-Wl,-ld_classic</arg>
+  </customLinkerArgs>
   <resources>
     <resource>
       <directory>../assets</directory>
