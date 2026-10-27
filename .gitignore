@@ -1,0 +1,14 @@
+.gradle/
+build/
+*/build/
+out/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+AngelChipEmulator.jar
+dist/
+rms/
+*.class

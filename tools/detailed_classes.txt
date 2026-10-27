@@ -1,0 +1,1009 @@
+﻿==================================================
+FILE: GameClass066.java (610B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.BulletEntity;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass066 {
+    public String[] field542;
+    public Image[] field543;
+    public long[] field544;
+    public BulletEntity field545;
+    public boolean field546;
+    public int field547;
+    public BulletEntity field548;
+    public String[] field549;
+    public String[] field550;
+    public boolean field551;
+    public long field552;
+    public int field553;
+}
+==================================================
+FILE: GameClass074.java (928B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameClass326;
+import game.MenuScreen;
+import game.StringDecryptor;
+
+public final class GameClass074 {
+    byte field560;
+    byte field561;
+    int field562;
+    public String field563;
+
+    public GameClass074(byte by, byte by2, int n) {
+        String string = MenuScreen.method740();
+        if (n > 2) {
+            string = "";
+        }
+        this.field560 = by;
+        this.field561 = by2;
+        this.field562 = n;
+        if (by == 0) {
+            this.field563 = string + n + " item " + GameClass326.field1388[by2] + ".";
+        }
+        if (by == 1) {
+            this.field563 = string + n + MenuScreen.method776() + ".";
+        }
+        if (by == 2) {
+            this.field563 = string + n + "XP.";
+        }
+        if (by == 3) {
+            this.field563 = MenuScreen.method739();
+        }
+    }
+}
+==================================================
+FILE: GameClass097.java (689B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import javax.microedition.lcdui.Image;
+
+public final class GameClass097 {
+    public short field585;
+    public String field586;
+    public String field587;
+    public int field588;
+    public int field589;
+    public int field590;
+    public int field591;
+    public byte field592;
+    public byte field593;
+    public String field594;
+    public Image field595;
+    public String field596;
+    public String[] field597;
+    public int[] field598;
+    public int field599;
+    public int field600;
+    public int field601;
+}
+==================================================
+FILE: GameClass099.java (613B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass099 {
+    public byte[] field602;
+    public byte field603;
+    public short field604;
+    public short field605;
+    public short field606;
+    public short field607;
+    public short field608;
+
+    public GameClass099(byte[] byArray, byte by, short[] sArray) {
+        this.field602 = byArray;
+        this.field603 = by;
+        this.field604 = sArray[0];
+        this.field605 = sArray[1];
+        this.field606 = sArray[2];
+        this.field607 = sArray[3];
+        this.field608 = sArray[4];
+    }
+}
+==================================================
+FILE: GameClass105.java (1257B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameCanvas;
+import game.GameCommand;
+import game.HistoryScreen;
+import java.util.Vector;
+
+public final class GameClass105 {
+    public boolean field615;
+    public Vector field616;
+    public int field617;
+    public int field618;
+    private int field619;
+    public int field620;
+    public int field621;
+
+    public final void method208(Vector vector) {
+        byte by = (byte)(GameCanvas.field1325 ? 30 : 24);
+        this.field616 = vector;
+        this.field619 = 0;
+        this.field620 = 0;
+        for (int i = 0; i < vector.size(); ++i) {
+            GameCommand gameCommand = (GameCommand)vector.elementAt(i);
+            int n = HistoryScreen.field1301.method342(gameCommand.field1239);
+            if (n > this.field619) {
+                this.field619 = n;
+            }
+            this.field620 += by;
+        }
+        this.field619 += 10;
+        if (this.field619 < 100) {
+            this.field619 = 100;
+        }
+        this.field620 += 4;
+        this.field618 = GameCanvas.field1309 - this.field620 >> 1;
+        this.field621 = GameCanvas.field1309 - 24;
+        this.field615 = true;
+        this.field617 = 0;
+    }
+}
+==================================================
+FILE: GameClass107.java (394B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import javax.microedition.lcdui.Image;
+
+public final class GameClass107 {
+    public long field633;
+    public Image field634;
+
+    public GameClass107(long l, Image image) {
+        this.field633 = l;
+        this.field634 = image;
+    }
+}
+==================================================
+FILE: GameClass114.java (1226B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameClass332;
+import game.GuildWarScreen;
+import java.util.Vector;
+
+final class GameClass114
+implements Runnable {
+    private final Vector field639;
+    private GuildWarScreen field640;
+
+    public GameClass114(GuildWarScreen guildWarScreen) {
+        this.field640 = guildWarScreen;
+        this.field639 = new Vector();
+    }
+
+    public final void method212(GameClass332 gameClass332) {
+        this.field639.addElement(gameClass332);
+    }
+
+    @Override
+    public final void run() {
+        try {
+            while (this.field640.field530) {
+                if (this.field640.field537) {
+                    while (this.field639.size() > 0) {
+                        GuildWarScreen.method196(this.field640, (GameClass332)this.field639.elementAt(0));
+                        this.field639.removeElementAt(0);
+                    }
+                }
+                try {
+                    Thread.sleep(10L);
+                }
+                catch (InterruptedException interruptedException) {}
+            }
+        }
+        catch (Exception exception) {
+            // empty catch block
+        }
+    }
+}
+==================================================
+FILE: GameClass115.java (543B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass115 {
+    public int field641;
+    public int field642;
+    public int field643;
+    public int field644;
+    public int field645;
+    public int field646;
+
+    public GameClass115(int n, int n2) {
+        this.field641 = n;
+        this.field642 = n2;
+    }
+
+    public GameClass115(int n, int n2, int n3, int n4) {
+        this.field643 = n;
+        this.field644 = n2;
+        this.field645 = n3;
+        this.field646 = n4;
+    }
+}
+==================================================
+FILE: GameClass126.java (1328B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameCanvas;
+import game.GameClass013;
+import game.GameClass075;
+import game.GameClass191;
+import game.GameClass225;
+import game.GameCommand;
+import game.MenuScreen;
+import game.TerrainMidlet;
+import java.io.PrintStream;
+
+final class GameClass126
+implements Runnable {
+    private GameClass013 field688;
+
+    GameClass126(GameClass013 gameClass013) {
+        this.field688 = gameClass013;
+    }
+
+    @Override
+    public final void run() {
+        try {
+            PrintStream printStream = System.out;
+            GameCanvas.method355(MenuScreen.method971());
+            TerrainMidlet.method671();
+            GameCanvas.method361();
+            this.field688.field12.field1082 = 3;
+            this.field688.field12.field473 = new GameCommand(MenuScreen.method953(), new GameClass075(this));
+            this.field688.field12.field472 = new GameCommand(MenuScreen.method957(), new GameClass191());
+            this.field688.field12.field474 = new GameCommand(MenuScreen.method955(), new GameClass225(this));
+        }
+        catch (Exception exception) {
+            // empty catch block
+        }
+    }
+
+    static GameClass013 method220(GameClass126 gameClass126) {
+        return gameClass126.field688;
+    }
+}
+==================================================
+FILE: GameClass133.java (255B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import java.util.Vector;
+
+public final class GameClass133 {
+    public byte field748;
+    public Vector field749;
+
+    public GameClass133(byte by) {
+        this.field748 = by;
+    }
+}
+==================================================
+FILE: GameClass149.java (289B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass149 {
+    public int field896;
+    public String field897;
+    public String field898;
+    public int field899;
+    public int field900;
+    public int field901;
+    public boolean field902;
+}
+==================================================
+FILE: GameClass150.java (394B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import javax.microedition.lcdui.Image;
+
+public final class GameClass150 {
+    public Image field903;
+    public long field904;
+
+    public GameClass150(Image image, long l) {
+        this.field903 = image;
+        this.field904 = l;
+    }
+}
+==================================================
+FILE: GameClass157.java (1034B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.GameClass107;
+import java.util.Vector;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass157 {
+    static private Vector field911 = new Vector();
+
+    public static void method258(GameClass107 gameClass107) {
+        field911.addElement(gameClass107);
+    }
+
+    public static boolean method259(long l) {
+        for (int i = 0; i < field911.size(); ++i) {
+            if (((GameClass107)GameClass157.field911.elementAt((int)i)).field633 != l) continue;
+            return true;
+        }
+        return false;
+    }
+
+    public static Image method260(long l) {
+        for (int i = 0; i < field911.size(); ++i) {
+            if (((GameClass107)GameClass157.field911.elementAt((int)i)).field633 != l) continue;
+            return ((GameClass107)GameClass157.field911.elementAt((int)i)).field634;
+        }
+        return null;
+    }
+}
+==================================================
+FILE: GameClass176.java (1290B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.GameClass097;
+import java.util.Vector;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass176 {
+    private Vector field940 = new Vector();
+
+    public final void method263(GameClass097 gameClass097) {
+        if (this.field940.size() < 20) {
+            this.field940.addElement(gameClass097);
+        } else {
+            this.field940.removeElementAt(19);
+            this.field940.insertElementAt(gameClass097, 0);
+        }
+    }
+
+    public final boolean method264(int n) {
+        if (this.field940.size() == 0) {
+            return false;
+        }
+        for (int i = 0; i < this.field940.size(); ++i) {
+            if (((GameClass097)this.field940.elementAt((int)i)).field585 != n) continue;
+            return true;
+        }
+        return false;
+    }
+
+    public final Image method265(int n) {
+        for (int i = 0; i < this.field940.size(); ++i) {
+            GameClass097 gameClass097 = (GameClass097)this.field940.elementAt(i);
+            if (gameClass097.field585 != n) continue;
+            return gameClass097.field595;
+        }
+        return null;
+    }
+}
+==================================================
+FILE: GameClass189.java (1816B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.CharacterSelectScreen;
+import game.GameCanvas;
+import game.GameClass321;
+import game.LuckyDrawScreen;
+import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass189 {
+    private int field947;
+    public int field948;
+    static public Image field949;
+    private GameClass321 field950;
+    private int field951;
+    private int[] field952;
+    private int field953 = 20;
+
+    public GameClass189(int n) {
+        this.field947 = n - 10;
+        this.field948 = 3;
+        this.field951 = GameCanvas.field1309 / this.field953 + 2;
+        this.field952 = new int[this.field951];
+        this.field950 = new GameClass321(field949, 40, 32);
+        for (n = 0; n < this.field951; ++n) {
+            this.field952[n] = n % 3;
+        }
+    }
+
+    public final void method266(Graphics graphics) {
+        if (this.field950 != null) {
+            for (int i = 0; i < this.field951; ++i) {
+                this.field950.method372(this.field952[i], this.field947, GameCanvas.field1309 + LuckyDrawScreen.field502 - i * this.field953, 0, 3, graphics);
+            }
+        }
+    }
+
+    public final void method267() {
+        if (this.field948 < 0) {
+            CharacterSelectScreen.field299.removeElement(this);
+        }
+        if (GameCanvas.field1307 % 2 == 0) {
+            for (int i = 0; i < this.field951; ++i) {
+                int n = i;
+                this.field952[n] = this.field952[n] + 1;
+                if (this.field952[i] <= 2) continue;
+                this.field952[i] = 0;
+            }
+        }
+    }
+}
+==================================================
+FILE: GameClass222.java (1089B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameClass346;
+import game.GuildWarScreen;
+import java.io.PrintStream;
+
+final class GameClass222
+implements Runnable {
+    private GameClass346 field1050;
+
+    GameClass222(GameClass346 gameClass346) {
+        this.field1050 = gameClass346;
+    }
+
+    @Override
+    public final void run() {
+        try {
+            Thread.sleep(15000L);
+        }
+        catch (InterruptedException interruptedException) {
+            // empty catch block
+        }
+        if (this.field1050.field1800.field531) {
+            try {
+                GuildWarScreen.method192(this.field1050.field1800).close();
+            }
+            catch (Exception exception) {
+                // empty catch block
+            }
+            PrintStream printStream = System.out;
+            GuildWarScreen.field541 = true;
+            this.field1050.field1800.field531 = false;
+            this.field1050.field1800.field530 = false;
+            this.field1050.field1800.field528.method365();
+        }
+    }
+}
+==================================================
+FILE: GameClass229.java (2139B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ */
+package game;
+
+import game.BattleScreen;
+import game.BulletEntity;
+import game.GameCanvas;
+import game.HistoryScreen;
+import game.LuckyDrawScreen;
+import javax.microedition.lcdui.Graphics;
+
+public final class GameClass229 {
+    private String field1056;
+    private BulletEntity field1057;
+    private int field1058;
+    private int field1059;
+    private int field1060 = 0;
+    public boolean field1061;
+
+    public GameClass229(String string, BulletEntity bulletEntity) {
+        this.field1056 = string;
+        this.field1057 = bulletEntity;
+        this.field1058 = GameCanvas.field1308 / 2;
+        this.field1059 = GameCanvas.field1309 - 50;
+    }
+
+    public final void method308(Graphics graphics) {
+        if (this.field1061) {
+            if (this.field1057 == null) {
+                HistoryScreen.field1300.method341(graphics, this.field1056, this.field1058 + LuckyDrawScreen.field501, this.field1059 + LuckyDrawScreen.field502, 3);
+            }
+            if (this.field1057 != null) {
+                HistoryScreen.field1300.method341(graphics, this.field1056, this.field1058 + LuckyDrawScreen.field501, this.field1059 + LuckyDrawScreen.field502, 3);
+                int n = GameCanvas.field1308 / 2 + LuckyDrawScreen.field501;
+                int n2 = this.field1059 + LuckyDrawScreen.field502 + 17;
+                graphics.setColor(4156571);
+                graphics.fillRoundRect(n - 2, n2 - 2, 20, 20, 4, 4);
+                graphics.setColor(16774532);
+                graphics.fillRect(n - 1, n2 - 1, 18, 18);
+                this.field1057.method340(graphics, n, n2, this.field1057.field1284);
+            }
+        }
+    }
+
+    public final void method309() {
+        if (this.field1061) {
+            ++this.field1060;
+            this.field1059 -= 2;
+            if (this.field1060 == 80) {
+                this.field1060 = 0;
+                BattleScreen.field1530.field1590.removeElement(this);
+            }
+        }
+    }
+}
+==================================================
+FILE: GameClass235.java (187B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass235 {
+    public String field1121;
+    public String field1122;
+    public String field1123;
+}
+==================================================
+FILE: GameClass255.java (946B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ */
+package game;
+
+import game.BattleScreen;
+import game.DataUtils;
+import game.RankingScreen;
+import java.util.Vector;
+import javax.microedition.lcdui.Graphics;
+
+public final class GameClass255 {
+    private Vector field1192 = new Vector();
+
+    public final void method319(int n, int n2, int by) {
+    }
+
+    public final void method319(int n, int n2, byte by) {
+    }
+
+    public final void method320(int n, int n2, int n3, int n4, int n5) {
+    }
+
+    public final void method321(int n, int n2, int n3, int n4, int by) {
+    }
+
+    public final void method321(int n, int n2, int n3, int n4, byte by) {
+    }
+
+    public final void method322() {
+    }
+
+    public final void method323(Graphics graphics) {
+    }
+
+    public final void method324(RankingScreen rankingScreen) {
+    }
+}
+==================================================
+FILE: GameClass272.java (488B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.BattleScreen;
+import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass272 {
+    static private Image field1200 = BattleScreen.field1546;
+
+    public static void method325(Graphics graphics, int n, int n2, int n3, int n4) {
+    }
+}
+==================================================
+FILE: GameClass286.java (265B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass286 {
+    public byte field1209;
+    public String field1210;
+    public int field1211;
+    public int field1212;
+    public byte field1213;
+    public byte field1214;
+}
+==================================================
+FILE: GameClass313.java (287B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import java.util.Vector;
+
+public final class GameClass313 {
+    public byte field1287;
+    public Vector field1288;
+    public short field1289;
+
+    public GameClass313(byte by) {
+        this.field1287 = by;
+    }
+}
+==================================================
+FILE: GameClass314.java (2800B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ *  javax.microedition.lcdui.Image
+ */
+package game;
+
+import game.ChatScreen;
+import game.DataUtils;
+import game.GameClass326;
+import game.HistoryScreen;
+import game.PopupDialog;
+import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
+
+public final class GameClass314 {
+    public int field1343;
+    public String field1344;
+    public Image field1345;
+    public int field1346;
+    public long field1347 = -1L;
+    private int field1348 = 0;
+    private int field1349 = DataUtils.method134(0, 5);
+    public boolean field1350 = false;
+    public boolean field1351 = false;
+    private boolean field1352 = false;
+    private int[] field1353 = new int[]{-2, 2, -2, 2, -2, 2, 0, 0, 0, 0};
+    private int field1354;
+    private int field1355;
+
+    public final void method362(Graphics graphics, int n, int n2) {
+        this.field1354 = n;
+        this.field1355 = n2;
+        if (this.field1352) {
+            if (this.field1346 == 0 || this.field1346 == 1) {
+                HistoryScreen.field1300.method341(graphics, this.field1344, n, n2, 3);
+            }
+            if (this.field1346 == 3) {
+                GameClass326.method380(graphics, this.field1347, n - 8, n2 - 8);
+                HistoryScreen.field1300.method341(graphics, this.field1344, n + 8, n2 + 6, 3);
+            }
+            if (this.field1346 == 2 && this.field1345 != null) {
+                graphics.drawImage(this.field1345, n, n2, 3);
+                HistoryScreen.field1300.method341(graphics, this.field1344, n + 8, n2 + 6, 3);
+                return;
+            }
+        } else {
+            graphics.drawImage(PopupDialog.field1165, n + this.field1353[this.field1349], n2, 3);
+        }
+    }
+
+    public final void method363() {
+        if (this.field1350) {
+            ++this.field1348;
+            ++this.field1349;
+            if (this.field1349 == this.field1353.length) {
+                this.field1349 = 0;
+            }
+            if (this.field1346 != 2) {
+                if (this.field1348 > 15 && this.field1351) {
+                    this.field1350 = false;
+                    this.field1352 = true;
+                    this.field1351 = false;
+                    new ChatScreen(this.field1354, this.field1355 + 6, 1);
+                    return;
+                }
+            } else if (this.field1348 > 15 && this.field1345 != null && this.field1351) {
+                this.field1350 = false;
+                this.field1352 = true;
+                this.field1351 = false;
+                new ChatScreen(this.field1354, this.field1355 + 6, 1);
+            }
+        }
+    }
+}
+==================================================
+FILE: GameClass319.java (267B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameClass332;
+
+public interface GameClass319 {
+    public void method364(GameClass332 var1);
+
+    public void method365();
+
+    public void method366();
+
+    public void method367();
+}
+==================================================
+FILE: GameClass337.java (407B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public class GameClass337 {
+    public int field1463;
+    public int field1464;
+    public int field1465;
+    public int field1466;
+    public long field1467;
+    public String field1468;
+    public String field1469;
+    public int field1470;
+    public boolean field1471;
+    public boolean field1472;
+    public boolean field1473;
+}
+==================================================
+FILE: GameClass340.java (297B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass340 {
+    public byte field1626;
+    public byte field1627;
+    public boolean field1628;
+    public int field1629;
+    public String field1630;
+    public byte field1631;
+    public byte field1632;
+}
+==================================================
+FILE: GameClass341.java (388B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public final class GameClass341 {
+    public byte field1647;
+    public byte field1648;
+    public byte field1649;
+    public String field1650 = "";
+
+    public GameClass341(byte by) {
+        this.field1647 = -1;
+        this.field1648 = 0;
+        this.field1649 = by;
+    }
+
+    public GameClass341() {
+    }
+}
+==================================================
+FILE: GameClass343.java (171B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.GameClass332;
+
+public interface GameClass343 {
+    public void method187(GameClass332 var1);
+}
+==================================================
+FILE: GameClass347.java (381B)
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+public class GameClass347 {
+    public static String method596(int ... nArray) {
+        char[] cArray = new char[nArray.length];
+        for (int i = 0; i < nArray.length; ++i) {
+            cArray[i] = (char)nArray[i];
+        }
+        return new String(cArray);
+    }
+
+    private GameClass347() {
+    }
+}
+==================================================
+FILE: GameClass353.java (5037B)
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  javax.microedition.lcdui.Graphics
+ */
+package game;
+
+import game.GameCanvas;
+import game.HistoryScreen;
+import game.StringDecryptor;
+import javax.microedition.lcdui.Graphics;
+
+public class GameClass353 {
+    static private int field1998 = 18;
+    private int[] field1999 = new int[]{0, 0, 0, 0, 600841, 600841, 667658, 667658, 3346944, 0x331100, 4199680, 5052928, 0x320033, 0x3C0033, 4587571, 5046280, 0x66000A, 0x334400};
+    private int[][] field2000 = new int[][]{{18687, 16869, 15052, 13235, 11161, 9344}, {45824, 39168, 32768, 26112, 19712, 13056}, {0xFF7F00, 15037184, 0xCC6600, 11753728, 10046464, 0x804000}, {13500671, 12058853, 10682572, 9371827, 7995545, 0x660080}, {16711705, 15007767, 13369364, 11730962, 0x99000F, 0x80000D}};
+    private int[] field2001 = new int[]{2, 1, 1, 1, 1, 1};
+
+    public static GameClass353 method692() {
+        return Inner10.field1997;
+    }
+
+    public final void method693(int n, int n2, int n3, Graphics graphics) {
+        int n4;
+        int n5;
+        int n6;
+        int n7 = field1998 - 2;
+        int n8 = n3 >= 4 ? (n3 < 8 ? 1 : (n3 < 12 ? 2 : (n3 > 14 ? 4 : 3))) : 0;
+        for (n6 = 0; n6 < this.field2001.length; ++n6) {
+            n5 = n - n7 / 2 + GameClass353.method695(GameCanvas.field1307 - (n6 << 2));
+            n4 = n2 - n7 / 2 + GameClass353.method696(GameCanvas.field1307 - (n6 << 2));
+            graphics.setColor(this.field2000[n8][n6]);
+            graphics.fillRect(n5 - this.field2001[n6] / 2, n4 - this.field2001[n6] / 2, this.field2001[n6], this.field2001[n6]);
+        }
+        if (n3 == 4 || n3 == 8) {
+            for (n6 = 0; n6 < this.field2001.length; ++n6) {
+                n5 = n - n7 / 2 + GameClass353.method695(GameCanvas.field1307 - (n7 << 1) - (n6 << 2));
+                n4 = n2 - n7 / 2 + GameClass353.method696(GameCanvas.field1307 - (n7 << 1) - (n6 << 2));
+                graphics.setColor(this.field2000[n8 - 1][n6]);
+                graphics.fillRect(n5 - this.field2001[n6] / 2, n4 - this.field2001[n6] / 2, this.field2001[n6], this.field2001[n6]);
+            }
+        }
+        if (n3 != 1 && n3 != 4 && n3 != 8) {
+            for (n6 = 0; n6 < this.field2001.length; ++n6) {
+                n5 = n - n7 / 2 + GameClass353.method695(GameCanvas.field1307 - (n7 << 1) - (n6 << 2));
+                n4 = n2 - n7 / 2 + GameClass353.method696(GameCanvas.field1307 - (n7 << 1) - (n6 << 2));
+                graphics.setColor(this.field2000[n8][n6]);
+                graphics.fillRect(n5 - this.field2001[n6] / 2, n4 - this.field2001[n6] / 2, this.field2001[n6], this.field2001[n6]);
+            }
+        }
+        if (n3 != 1 && n3 != 4 && n3 != 8 && n3 != 12 && n3 != 2 && n3 != 5 && n3 != 9) {
+            for (n6 = 0; n6 < this.field2001.length; ++n6) {
+                n5 = n - n7 / 2 + GameClass353.method695(GameCanvas.field1307 - n7 - (n6 << 2));
+                n4 = n2 - n7 / 2 + GameClass353.method696(GameCanvas.field1307 - n7 - (n6 << 2));
+                graphics.setColor(this.field2000[n8][n6]);
+                graphics.fillRect(n5 - this.field2001[n6] / 2, n4 - this.field2001[n6] / 2, this.field2001[n6], this.field2001[n6]);
+            }
+        }
+        if (n3 != 1 && n3 != 4 && n3 != 8 && n3 != 12 && n3 != 2 && n3 != 5 && n3 != 9 && n3 != 13 && n3 != 3 && n3 != 6 && n3 != 10 && n3 != 15) {
+            for (n6 = 0; n6 < this.field2001.length; ++n6) {
+                n5 = n - n7 / 2 + GameClass353.method695(GameCanvas.field1307 - n7 * 3 - (n6 << 2));
+                n4 = n2 - n7 / 2 + GameClass353.method696(GameCanvas.field1307 - n7 * 3 - (n6 << 2));
+                graphics.setColor(this.field2000[n8][n6]);
+                graphics.fillRect(n5 - this.field2001[n6] / 2, n4 - this.field2001[n6] / 2, this.field2001[n6], this.field2001[n6]);
+            }
+        }
+    }
+
+    public final void method694(int n, int n2, int n3, Graphics graphics) {
+        graphics.setColor(this.field1999[Math.min(n3, 16)]);
+        graphics.fillRect(n - 1, n2 + 1, field1998 - 1, field1998 - 1);
+        HistoryScreen.field1300.method341(graphics, "+" + n3, n + 11, n2 - 5, 0);
+    }
+
+    private static int method695(int n) {
+        int n2 = field1998 - 2;
+        if ((n %= n2 * 4) >= 0 && n < n2) {
+            return n % n2;
+        }
+        if (n2 <= n && n < n2 << 1) {
+            return n2;
+        }
+        return n2 << 1 <= n && n < n2 * 3 ? n2 - n % n2 : 0;
+    }
+
+    private static int method696(int n) {
+        int n2 = field1998 - 2;
+        if ((n %= n2 * 4) >= 0 && n < n2) {
+            return 0;
+        }
+        if (n2 <= n && n < n2 << 1) {
+            return n % n2;
+        }
+        return n2 << 1 <= n && n < n2 * 3 ? n2 : n2 - n % n2;
+    }
+
+    private static final class Inner10 {
+        static public final GameClass353 field1997 = new GameClass353();
+
+        private Inner10() {
+        }
+    }
+}

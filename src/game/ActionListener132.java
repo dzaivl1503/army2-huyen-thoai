@@ -1,0 +1,26 @@
+/*
+ * Decompiled with CFR 0.152.
+ */
+package game;
+
+import game.ActionListener217;
+import game.ConnectionWatchdog;
+import game.GameCanvas;
+import game.IActionListener;
+import game.StringUtils;
+
+final class ActionListener132
+implements IActionListener {
+    private ActionListener217 Ill1lI1Il11l;
+
+    ActionListener132(ActionListener217 actionListener217) {
+        this.Ill1lI1Il11l = actionListener217;
+    }
+
+    public final void a() {
+        GameCanvas.void_a(StringUtils.ds());
+        this.Ill1lI1Il11l.a.game_ItemTemplate_a().var_int_c = 0;
+        ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)1, (byte)1, this.Ill1lI1Il11l.a.game_ItemTemplate_a().var_short_a, (byte)this.Ill1lI1Il11l.a.var_int_a);
+    }
+}
+

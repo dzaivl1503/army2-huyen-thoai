@@ -1,0 +1,26 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+sourceSets {
+  main {
+    java {
+      srcDirs = [
+        'src/main/java',
+        rootProject.file('src')
+      ]
+      exclude '**/tool/**'
+    }
+    resources {
+      srcDirs = [
+        rootProject.file('assets')
+      ]
+    }
+  }
+}
+
+dependencies {
+  api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
+  api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+}

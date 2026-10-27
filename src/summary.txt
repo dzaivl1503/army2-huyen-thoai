@@ -1,0 +1,37 @@
+Summary for C:\Users\Admin\.gemini\antigravity-ide\scratch\army2moi_classes_only.jar
+Decompiled with CFR 0.152
+
+
+game.PopupDialog
+----------------------------
+
+a()
+  Unable to fully structure code
+
+
+game.ShopScreen
+----------------------------
+
+IIIl11I1ll1()
+  Unable to fully structure code
+
+
+game.PlayerEntity
+----------------------------
+
+a()
+  Unable to fully structure code
+
+
+game.BattleScreen
+----------------------------
+
+b()
+  Unable to fully structure code
+
+
+game.RankingScreen
+----------------------------
+
+a()
+  Unable to fully structure code

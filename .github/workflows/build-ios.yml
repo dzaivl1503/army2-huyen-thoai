@@ -1,0 +1,97 @@
+name: Build iOS IPA (Army 2)
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS IPA
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Create Self-Signed Certificate in macOS Keychain
+        run: |
+          KEYCHAIN_PATH=$RUNNER_TEMP/build.keychain-db
+          KEYCHAIN_PASSWORD="ci_temp_password"
+          
+          echo "Creating temporary keychain..."
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security default-keychain -s "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+
+          echo "Generating self-signed code signing certificate..."
+          openssl req -x509 -newkey rsa:2048 -keyout /tmp/key.pem -out /tmp/cert.pem -days 365 -nodes \
+            -subj "/CN=iPhone Developer: CI/O=Army2/C=VN"
+          
+          openssl pkcs12 -export -out /tmp/cert.p12 -inkey /tmp/key.pem -in /tmp/cert.pem -passout pass:"$KEYCHAIN_PASSWORD"
+          
+          security import /tmp/cert.p12 -k "$KEYCHAIN_PATH" -P "$KEYCHAIN_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          
+          echo "Available Identities:"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+
+      - name: Compile and Build iOS IPA with RoboVM
+        run: |
+          ./gradlew :ios:createIPA \
+            -Probovm.iosSignIdentity="iPhone Developer: CI" \
+            -Probovm.iosSkipSigning=true \
+            -Probovm.archs=arm64 \
+            --stacktrace || ./gradlew :ios:createIPA -Probovm.archs=arm64 --stacktrace || true
+
+      - name: Package IPA (Payload structure)
+        run: |
+          mkdir -p output_ipa
+          
+          echo "Checking robovm output files..."
+          ls -la ios/build/robovm/ || true
+          
+          # If an IPA was generated directly
+          if ls ios/build/robovm/*.ipa 1> /dev/null 2>&1; then
+            echo "Found IPA created by RoboVM"
+            cp ios/build/robovm/*.ipa output_ipa/Army2-TuoiTho.ipa
+            cp ios/build/robovm/*.ipa output_ipa/Army2.ipa
+          fi
+          
+          # If .app folder was generated, package into standard IPA
+          APP_PATH=$(find ios/build/robovm -maxdepth 2 -name "*.app" | head -n 1)
+          if [ -n "$APP_PATH" ] && [ -d "$APP_PATH" ]; then
+            echo "Packaging App from $APP_PATH into output_ipa/Army2-TuoiTho.ipa"
+            mkdir -p payload_dir/Payload
+            cp -R "$APP_PATH" payload_dir/Payload/
+            cd payload_dir && zip -qr ../output_ipa/Army2-TuoiTho.ipa Payload/ && cd ..
+            cp output_ipa/Army2-TuoiTho.ipa output_ipa/Army2.ipa
+          fi
+          
+          # Fallback check
+          if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
+            echo "Searching whole build directory for any iOS artifacts..."
+            find ios/build -name "*.ipa" -o -name "*.app" -exec cp -R {} output_ipa/ \; || true
+          fi
+          
+          ls -la output_ipa/
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Army2-TuoiTho-iOS-IPA
+          path: output_ipa/*
+          if-no-files-found: error
