@@ -93,14 +93,6 @@ jobs:
             exit 1
           fi
 
-      - name: Upload IPA Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Army2-TuoiTho-iOS-IPA
-          path: output_ipa/Army2-TuoiTho.ipa
-          retention-days: 7
-          if-no-files-found: error
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         continue-on-error: true
@@ -121,3 +113,12 @@ jobs:
           curl -s https://bashupload.com/Army2-TuoiTho.ipa --data-binary @output_ipa/Army2-TuoiTho.ipa || true
           echo ""
           echo "=========================================================="
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: Army2-TuoiTho-iOS-IPA
+          path: output_ipa/Army2-TuoiTho.ipa
+          retention-days: 1
+          if-no-files-found: warn
