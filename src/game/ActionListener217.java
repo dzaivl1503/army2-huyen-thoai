@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package game;
 
 import game.ActionListener132;
@@ -19,8 +16,34 @@ implements IActionListener {
     }
 
     public final void a() {
-        String string = this.a.game_ItemTemplate_a().var_boolean_b ? StringUtils.t() + DataUtils.a((long)(this.a.var_game_ItemTemplate_a.var_int_f * this.a.var_int_a)) + " " + StringUtils.ar() : StringUtils.t() + DataUtils.a((long)this.a.var_game_ItemTemplate_a.var_int_f) + " " + StringUtils.ar();
-        GameCanvas.b(string, new ActionListener132(this));
+        if (this.a.game_ItemTemplate_a().var_boolean_b) {
+            GameCanvas.var_game_InputScreen_a.a("Nh\u1eadp s\u1ed1 l\u01b0\u1ee3ng:", new IActionListener() {
+                public final void a() {
+                    int qty = 1;
+                    try {
+                        String text = GameCanvas.var_game_InputScreen_a.a.java_lang_String_a().trim();
+                        qty = Integer.parseInt(text);
+                    } catch (Exception ignored) {
+                    }
+                    if (qty <= 0) {
+                        qty = 1;
+                    }
+                    ActionListener217.this.a.var_int_a = qty;
+                    GameCanvas.var_game_GameHelper21_a = null;
+                    String string = StringUtils.t() + DataUtils.a((long)ActionListener217.this.a.var_game_ItemTemplate_a.var_int_f * ActionListener217.this.a.var_int_a) + " " + StringUtils.ar();
+                    GameCanvas.b(string, new ActionListener132(ActionListener217.this));
+                }
+            }, new IActionListener() {
+                public final void a() {
+                    GameCanvas.var_game_GameHelper21_a = null;
+                }
+            }, 1);
+            GameCanvas.var_game_InputScreen_a.a.a("1");
+            GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
+        } else {
+            this.a.var_int_a = 1;
+            String string = StringUtils.t() + DataUtils.a((long)this.a.var_game_ItemTemplate_a.var_int_f) + " " + StringUtils.ar();
+            GameCanvas.b(string, new ActionListener132(this));
+        }
     }
 }
-

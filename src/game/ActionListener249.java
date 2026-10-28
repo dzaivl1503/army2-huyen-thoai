@@ -34,7 +34,7 @@ implements IActionListener {
             return;
         }
         if (itemTemplate.var_int_b > 1) {
-            GameCanvas.var_game_InputScreen_a.a("Nhập số lượng (Max " + itemTemplate.var_int_b + "):", new IActionListener() {
+            GameCanvas.var_game_InputScreen_a.a("Nh\u1eadp s\u1ed1 l\u01b0\u1ee3ng (Max " + itemTemplate.var_int_b + "):", new IActionListener() {
                 public final void a() {
                     int qty = 1;
                     try {

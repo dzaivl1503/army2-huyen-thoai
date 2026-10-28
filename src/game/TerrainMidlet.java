@@ -70,7 +70,7 @@ extends MIDlet {
         }
         catch (Exception exception) {}
         serverHost = "160.191.242.130";
-        serverPort = 19129;
+        serverPort = 19128;
         GameHelper01.d().a(ServerManager.game_ServerManager_a());
         object = MessageHandler.game_MessageHandler_a();
         MessageHandler.game_MessageHandler_a().var_game_INetworkCallback_a = GameHelper01.d();
@@ -79,11 +79,11 @@ extends MIDlet {
 
     public static void fetchAndSaveServerList() {
         GameCanvas.c(StringUtils.ds());
-        ServerInfo.var_java_lang_String_arr_a = new String[]{"Tu\u1ed5i Th\u01a1"};
+        ServerInfo.var_java_lang_String_arr_a = new String[]{"Tuoitho2"};
         ServerInfo.var_java_lang_String_arr_b = new String[]{"160.191.242.130"};
-        ServerInfo.var_short_arr_a = new short[]{(short)19129};
+        ServerInfo.var_short_arr_a = new short[]{(short)19128};
         serverHost = "160.191.242.130";
-        serverPort = 19129;
+        serverPort = 19128;
         TerrainMidlet.I11Il1ll();
         GameCanvas.d();
     }
@@ -108,11 +108,11 @@ extends MIDlet {
     }
 
     public static void loadServerList() {
-        ServerInfo.var_java_lang_String_arr_a = new String[]{"Tu\u1ed5i Th\u01a1"};
+        ServerInfo.var_java_lang_String_arr_a = new String[]{"Tuoitho2"};
         ServerInfo.var_java_lang_String_arr_b = new String[]{"160.191.242.130"};
-        ServerInfo.var_short_arr_a = new short[]{(short)19129};
+        ServerInfo.var_short_arr_a = new short[]{(short)19128};
         serverHost = "160.191.242.130";
-        serverPort = 19129;
+        serverPort = 19128;
         TerrainMidlet.I11Il1ll();
     }
 
@@ -238,7 +238,7 @@ extends MIDlet {
     }
 
     static {
-        serverPort = 19129;
+        serverPort = 19128;
         serverHost = "160.191.242.130";
         isVip = new boolean[10];
         var_int_l1IIlIll = 100;

@@ -52,6 +52,7 @@ extends ScrollDialogScreen {
 
     public ExplosionEffect() {
         this.g = new GameCommand(StringUtils.cN(), new ActionListener077(this));
+        this.f = this.g;
         this.h = this.var_game_GameCommand_I111IlIl11Il = new GameCommand(StringUtils.dH(), new ActionListener147(this));
         new GameCommand(StringUtils.q(), new ActionListener135());
     }

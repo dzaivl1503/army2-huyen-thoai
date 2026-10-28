@@ -14,6 +14,12 @@ implements IActionListener {
 
     public final void a() {
         int n = GameCanvas.var_game_GameHelper49_a.int_a();
+        if (n < 1) {
+            n = 1;
+        }
+        if (n > 20) {
+            n = 20;
+        }
         GameCanvas.l = n - 1;
         GameCanvas.a();
         DataUtils.a("speed", GameCanvas.l);

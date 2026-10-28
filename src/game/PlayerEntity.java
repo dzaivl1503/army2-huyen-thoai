@@ -1682,11 +1682,6 @@ public class PlayerEntity {
 
     private void lI1ll1ll11() {
         if (this.var_byte_f != 1) {
-            int n = Math.max(1, GameCanvas.l - 4 + 1);
-            if (++var_int_III1l1II1lI < n) {
-                return;
-            }
-            var_int_III1l1II1lI = 0;
             this.var_int_r += this.var_int_IIllIll1I;
             if (this.var_int_IIllIll1I < 15) {
                 this.var_int_IIllIll1I += 2;
@@ -1698,11 +1693,6 @@ public class PlayerEntity {
 
     private void l11lIIlllII() {
         if (this.var_byte_f != 1) {
-            int n = Math.max(1, GameCanvas.l - 4 + 1);
-            if (++var_int_III1l1II1lI < n) {
-                return;
-            }
-            var_int_III1l1II1lI = 0;
             this.var_int_r -= this.var_int_IIllIll1I;
             if (this.var_int_IIllIll1I < 15) {
                 this.var_int_IIllIll1I += 2;

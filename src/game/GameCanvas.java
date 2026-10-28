@@ -139,8 +139,33 @@ implements Runnable {
         this.var_java_lang_Thread_lI1IlIlIl1.start();
     }
 
+    public static int getTicksPerLoop() {
+        int speed = l + 1;
+        if (speed <= 5) {
+            return 1;
+        }
+        if (speed <= 8) {
+            return 2;
+        }
+        if (speed <= 11) {
+            return 3;
+        }
+        if (speed <= 14) {
+            return 4;
+        }
+        if (speed <= 17) {
+            return 5;
+        }
+        return 6;
+    }
+
     public static void a() {
-        var_long_lI1IlIlIl1 = 40L - (long)(l - 4) * 7L;
+        int speed = l + 1;
+        if (speed <= 5) {
+            var_long_lI1IlIlIl1 = 45L - (long)(speed - 1) * 5L;
+        } else {
+            var_long_lI1IlIlIl1 = Math.max(1L, 20L - (long)(speed - 5) * 2L);
+        }
     }
 
     public static void b() {
@@ -177,9 +202,6 @@ implements Runnable {
             if (k > 0) {
                 --k;
             }
-            for (n = 0; n < var_java_util_Vector_a.size(); ++n) {
-                ((Point4D)var_java_util_Vector_a.elementAt(n)).a();
-            }
             if (GameCanvas.var_game_GameHelper10_a.var_boolean_a) {
                 if (GameHelper10.h != GameHelper10.g) {
                     GameHelper10.j = GameHelper10.g - GameHelper10.h << 2;
@@ -212,7 +234,13 @@ implements Runnable {
                 }
                 GameCanvas.var_game_PopupMenu_a.d = GameCanvas.var_game_PopupMenu_a.b;
             }
-            var_game_BaseScreen_a.c();
+            int ticks = getTicksPerLoop();
+            for (int t = 0; t < ticks; ++t) {
+                for (n = 0; n < var_java_util_Vector_a.size(); ++n) {
+                    ((Point4D)var_java_util_Vector_a.elementAt(n)).a();
+                }
+                var_game_BaseScreen_a.c();
+            }
             if (var_boolean_e && ++j == 20) {
                 j = 0;
                 var_boolean_e = false;

@@ -40,7 +40,7 @@ extends BaseScreen {
 
     public final void b_() {
         this.var_java_util_Vector_lII1lI1Ill11.removeAllElements();
-        this.var_java_util_Vector_lII1lI1Ill11.addElement(new SettingSpeedItem(this, "T\u1ed1c \u0111\u1ed9 game", GameCanvas.l, 10));
+        this.var_java_util_Vector_lII1lI1Ill11.addElement(new SettingSpeedItem(this, "T\u1ed1c \u0111\u1ed9 game", GameCanvas.l, 20));
         this.var_java_util_Vector_lII1lI1Ill11.addElement(new SettingSoundItem(this, StringUtils.cx(), DataUtils.int_a("sound") / 10, 10));
         this.var_java_util_Vector_lII1lI1Ill11.addElement(new SettingVibrateItem(this, StringUtils.cw(), DataUtils.int_a("vibrate"), 10));
         byte by = BattleScreen.var_byte_a;

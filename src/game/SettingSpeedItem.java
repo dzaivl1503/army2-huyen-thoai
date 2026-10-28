@@ -11,7 +11,7 @@ import game.SettingChoiceItem;
 final class SettingSpeedItem
 extends SettingChoiceItem {
     SettingSpeedItem(ModAutoForm modAutoForm, String string, int n, int n2) {
-        super(string, n, 10);
+        super(string, n, 20);
     }
 
     public final void a() {
