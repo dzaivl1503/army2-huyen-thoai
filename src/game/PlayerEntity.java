@@ -81,6 +81,8 @@ public class PlayerEntity {
     public byte var_byte_e = 0;
     public static int var_int_p;
     public static int var_int_q;
+    public static boolean isPullingForce = false;
+    public static int fireCooldown = 0;
     public int var_int_r;
     private int var_int_IIllIll1I = 0;
     private static int var_int_III1l1II1lI;
@@ -707,7 +709,16 @@ public class PlayerEntity {
                 BaseScreen.var_boolean_o = false;
                 this.a(true);
             }
-            if (GameCanvas.var_boolean_arr_b[5] && !this.var_boolean_n && !GameCanvas.var_boolean_arr_b[4] && !GameCanvas.var_boolean_arr_b[6]) {
+            if (fireCooldown > 0) {
+                fireCooldown--;
+                isPullingForce = false;
+            } else if ((GameCanvas.var_boolean_arr_a[5] || GameCanvas.var_boolean_arr_b[5]) && !this.var_boolean_n && !GameCanvas.var_boolean_arr_b[4] && !GameCanvas.var_boolean_arr_b[6]) {
+                isPullingForce = true;
+            }
+            if (isPullingForce && (this.var_boolean_n || GameCanvas.var_boolean_arr_b[4] || GameCanvas.var_boolean_arr_b[6])) {
+                isPullingForce = false;
+            }
+            if (isPullingForce) {
                 GameCanvas.var_boolean_arr_a[12] = false;
                 GameCanvas.var_boolean_arr_a[13] = false;
                 if (this.var_byte_f != 3 && this.var_byte_d > 1) {
@@ -724,6 +735,7 @@ public class PlayerEntity {
                         }
                         BaseScreen.m();
                         var_boolean_G = true;
+                        isPullingForce = false;
                     }
                 } else if (!this.l111ll1l) {
                     this.var_byte_d = (byte)(this.var_byte_d + 1);
@@ -737,6 +749,7 @@ public class PlayerEntity {
                         this.l111ll1l = false;
                         BaseScreen.m();
                         var_boolean_G = true;
+                        isPullingForce = false;
                     }
                 }
             } else if (!this.var_boolean_u) {

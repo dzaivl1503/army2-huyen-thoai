@@ -24,9 +24,18 @@ implements IActionListener {
         catch (Exception exception) {
             n = 30;
         }
+        if (n <= 0) {
+            n = 1;
+        }
+        if (n > 100) {
+            n = 100;
+        }
         PlayerEntity.var_int_p = n;
+        PlayerEntity.isPullingForce = false;
+        PlayerEntity.fireCooldown = 25;
         PlayerEntity playerEntity = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b];
         if (playerEntity.var_byte_c != 6 && playerEntity.var_byte_c != 8) {
+            BaseScreen.m();
             GameCanvas.d();
             return;
         }

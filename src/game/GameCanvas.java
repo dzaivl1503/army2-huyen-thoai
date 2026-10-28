@@ -927,6 +927,11 @@ implements Runnable {
 
     public static void d() {
         var_game_GameHelper21_a = null;
+        BaseScreen.m();
+        var_boolean_c = false;
+        var_boolean_b = false;
+        var_boolean_arr_a[5] = false;
+        var_boolean_arr_b[5] = false;
     }
 
     static {
