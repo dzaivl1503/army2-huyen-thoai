@@ -223,7 +223,7 @@ extends BaseScreen {
         return -1;
     }
 
-    public final void void_b() {
+    public void void_b() {
         if (GameCanvas.var_boolean_c) {
             if (GameCanvas.a(this.var_int_llll11I11Il - 10, this.var_int_I1llIIII - 10, 300, 50)) {
                 this.var_boolean_llI1lI1Il = true;
@@ -339,7 +339,7 @@ extends BaseScreen {
         GameHelper18.a();
     }
 
-    public final void a(Graphics graphics) {
+    public void a(Graphics graphics) {
         Object object;
         int n;
         ClanScreen.c(graphics);
