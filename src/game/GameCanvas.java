@@ -74,6 +74,7 @@ implements Runnable {
     public static int var_int_d;
     public static int var_int_e;
     public static BaseScreen var_game_BaseScreen_a;
+    public static ZoneScreen var_game_ZoneScreen_a;
     private static boolean lIIIlI1IIIl;
     public static boolean var_boolean_a;
     public static Vector var_java_util_Vector_a;

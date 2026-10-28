@@ -116,6 +116,10 @@ implements INetworkCallback {
             if (object != null) {
                 try {
                     switch (((Message)object).a) {
+                        case -98: {
+                            BauCuaHandler.handleMessage((Message)object);
+                            return;
+                        }
                         case -100: {
                             String string = ((Message)object).java_io_DataInputStream_a().readUTF();
                             String string2 = ((Message)object).java_io_DataInputStream_a().readUTF();
@@ -619,6 +623,7 @@ implements INetworkCallback {
                         }
                         case 8: {
                             PlayerAccountInfo string20;
+                            boolean isBauCua = false;
                             Vector<PlayerAccountInfo> vector = new Vector<PlayerAccountInfo>();
                             int n = ((Message)object).java_io_DataInputStream_a().readInt();
                             int n9 = ((Message)object).java_io_DataInputStream_a().readInt();
@@ -644,17 +649,26 @@ implements INetworkCallback {
                                         string20.b();
                                     }
                                     string20.var_boolean_b = ((Message)object).java_io_DataInputStream_a().readBoolean();
-                                    ((Message)object).java_io_DataInputStream_a().readBoolean();
+                                    isBauCua = ((Message)object).java_io_DataInputStream_a().readBoolean();
                                 }
                                 vector.addElement(string20);
                                 System.out.println("[ca] PLAYER SIZE===========" + vector.size());
                             }
                             GameCanvas.d();
                             BattleScreen.var_boolean_f = false;
-                            if (BoardScreen.var_game_BoardScreen_a == null) {
-                                BoardScreen.var_game_BoardScreen_a = new BoardScreen();
+                            if (isBauCua) {
+                                ZoneScreen zoneScreen = new ZoneScreen();
+                                BoardScreen.var_game_BoardScreen_a = zoneScreen;
+                                ZoneScreen.instance = zoneScreen;
+                                GameCanvas.var_game_ZoneScreen_a = zoneScreen;
+                                zoneScreen.a(n, n9, vector);
+                                zoneScreen.updateCommands();
+                            } else {
+                                if (BoardScreen.var_game_BoardScreen_a == null || (BoardScreen.var_game_BoardScreen_a instanceof ZoneScreen)) {
+                                    BoardScreen.var_game_BoardScreen_a = new BoardScreen();
+                                }
+                                BoardScreen.var_game_BoardScreen_a.a(n, n9, vector);
                             }
-                            BoardScreen.var_game_BoardScreen_a.a(n, n9, vector);
                             for (int i = 0; i < vector.size(); ++i) {
                                 string20 = (PlayerAccountInfo)vector.elementAt(i);
                                 if (string20.var_int_a != n) continue;

@@ -50,7 +50,7 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
-public final class BoardScreen
+public class BoardScreen
 extends BaseScreen {
     public static BoardScreen var_game_BoardScreen_a;
     public static final String[] var_java_lang_String_arr_a;
@@ -518,7 +518,7 @@ extends BaseScreen {
         }
     }
 
-    public final void e() {
+    public void e() {
         for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
             PlayerAccountInfo playerAccountInfo = (PlayerAccountInfo)this.var_java_util_Vector_a.elementAt(i);
             ConnectionWatchdog.game_ConnectionWatchdog_a().a(playerAccountInfo.var_short_b);
@@ -593,7 +593,7 @@ extends BaseScreen {
         return null;
     }
 
-    public final void a(int n, int n2, Vector vector) {
+    public void a(int n, int n2, Vector vector) {
         this.var_int_lIII1III11I = n2;
         this.var_java_util_Vector_a = vector;
         this.void_a(n);

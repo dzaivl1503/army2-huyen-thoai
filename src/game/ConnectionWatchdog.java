@@ -855,5 +855,45 @@ public final class ConnectionWatchdog {
         this.var_game_IServerListener_l11llllI.a(message);
         message.void_a();
     }
+
+    public final void sendBauCuaBet(byte[] byArray) {
+        Message message = new Message((byte)-98);
+        try {
+            message.java_io_DataOutputStream_a().writeByte(1);
+            for (int i = 0; i < 6; ++i) {
+                message.java_io_DataOutputStream_a().writeByte(byArray[i]);
+            }
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
+
+    public final void sendBauCuaTransfer(byte by, byte by2, byte by3, byte by4, byte by5) {
+        Message message = new Message((byte)-98);
+        try {
+            message.java_io_DataOutputStream_a().writeByte(6);
+            message.java_io_DataOutputStream_a().writeByte(by);
+            message.java_io_DataOutputStream_a().writeByte(by2);
+            message.java_io_DataOutputStream_a().writeByte(by3);
+            message.java_io_DataOutputStream_a().writeByte(by4);
+            message.java_io_DataOutputStream_a().writeByte(by5);
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
+
+    public final void sendBauCuaPass(byte by, byte by2) {
+        Message message = new Message((byte)-98);
+        try {
+            message.java_io_DataOutputStream_a().writeByte(3);
+            message.java_io_DataOutputStream_a().writeByte(by);
+            message.java_io_DataOutputStream_a().writeByte(by2);
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
 }
 
