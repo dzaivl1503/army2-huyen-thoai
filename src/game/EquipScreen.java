@@ -33,14 +33,15 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public final class EquipScreen
-extends ScrollDialogScreen {
+        extends ScrollDialogScreen {
     public static EquipScreen var_game_EquipScreen_a;
     public static EquipDurationEntry var_game_EquipDurationEntry_a;
     private int var_int_lI1IlIl1IlIl;
     private int var_int_l11l1l11111;
+
     private int[] var_int_arr_l11l1l11111;
     private int[] var_int_arr_l1111Il1111;
-    private byte[] var_byte_arr_lI1IlIl1IlIl = new byte[]{0, 1, 2, 3, 4};
+    private byte[] var_byte_arr_lI1IlIl1IlIl = new byte[] { 0, 1, 2, 3, 4 };
     int[] var_int_arr_a = new int[5];
     public static Vector var_java_util_Vector_a;
     public Vector b = new Vector();
@@ -76,14 +77,15 @@ extends ScrollDialogScreen {
         this.e = (GameCanvas.var_int_c - BaseScreen.var_int_r) / 2 - 85;
         this.var_int_f = 150;
         this.var_int_g = 170;
-        this.var_int_arr_l11l1l11111 = new int[]{this.lIlI11l1lII1 / 2 - 52, this.lIlI11l1lII1 / 2 - 77, this.lIlI11l1lII1 / 2 - 27, this.lIlI11l1lII1 / 2 - 37, this.lIlI11l1lII1 / 2 - 67};
-        this.var_int_arr_l1111Il1111 = new int[]{this.e + 33, this.e + 55, this.e + 55, this.e + 83, this.e + 83};
+        this.var_int_arr_l11l1l11111 = new int[] { this.lIlI11l1lII1 / 2 - 52, this.lIlI11l1lII1 / 2 - 77,
+                this.lIlI11l1lII1 / 2 - 27, this.lIlI11l1lII1 / 2 - 37, this.lIlI11l1lII1 / 2 - 67 };
+        this.var_int_arr_l1111Il1111 = new int[] { this.e + 33, this.e + 55, this.e + 55, this.e + 83, this.e + 83 };
         this.var_game_GameCommand_l11l1l11111 = new GameCommand("Menu", new ActionListener232(this));
         this.f = this.var_game_GameCommand_l11l1l11111;
         this.var_game_GameCommand_lI1IlIl1IlIl = new GameCommand(StringUtils.dF(), new ActionListener238(this));
         this.g = this.var_game_GameCommand_lI1IlIl1IlIl;
         this.h = new GameCommand(StringUtils.dI(), new ActionListener234(this));
-        ((ScrollDialogScreen)this).a = StringUtils.P();
+        ((ScrollDialogScreen) this).a = StringUtils.P();
         this.var_int_h = 4;
         this.n();
         this.II11I1lI1 = this.lIlI11l1lII1 / 2 - 4;
@@ -100,8 +102,9 @@ extends ScrollDialogScreen {
 
     public final ItemTemplate a(int n) {
         for (int i = 0; i < this.b.size(); ++i) {
-            ItemTemplate itemTemplate = (ItemTemplate)this.b.elementAt(i);
-            if (itemTemplate.var_int_a != n) continue;
+            ItemTemplate itemTemplate = (ItemTemplate) this.b.elementAt(i);
+            if (itemTemplate.var_int_a != n)
+                continue;
             return itemTemplate;
         }
         return null;
@@ -109,9 +112,10 @@ extends ScrollDialogScreen {
 
     public final void a(int n, int n2) {
         for (int i = 0; i < this.b.size(); ++i) {
-            ItemTemplate itemTemplate = (ItemTemplate)this.b.elementAt(i);
+            ItemTemplate itemTemplate = (ItemTemplate) this.b.elementAt(i);
             if (!itemTemplate.var_boolean_d) {
-                if (itemTemplate.var_int_a != n) continue;
+                if (itemTemplate.var_int_a != n)
+                    continue;
                 itemTemplate.var_int_b -= n2;
                 if (itemTemplate.var_int_b <= 0) {
                     itemTemplate.var_int_b = 0;
@@ -119,7 +123,8 @@ extends ScrollDialogScreen {
                 }
                 return;
             }
-            if (itemTemplate.var_short_a != n) continue;
+            if (itemTemplate.var_short_a != n)
+                continue;
             itemTemplate.var_int_b -= n2;
             if (itemTemplate.var_int_b <= 0) {
                 itemTemplate.var_int_b = 0;
@@ -132,18 +137,22 @@ extends ScrollDialogScreen {
     public static void a(ItemTemplate itemTemplate, boolean bl) {
         boolean bl2 = true;
         for (int i = 0; i < var_java_util_Vector_a.size(); ++i) {
-            ItemTemplate itemTemplate2 = (ItemTemplate)var_java_util_Vector_a.elementAt(i);
-            new StringBuffer("[dz] all equipID = ").append(itemTemplate2.var_short_a).append(" material id= ").append(itemTemplate.var_short_a);
-            if (!itemTemplate2.var_boolean_d || itemTemplate2.var_short_a != itemTemplate.var_short_a) continue;
-            itemTemplate2.var_int_b = !bl ? ++itemTemplate2.var_int_b : (itemTemplate2.var_int_b += itemTemplate.var_int_b);
+            ItemTemplate itemTemplate2 = (ItemTemplate) var_java_util_Vector_a.elementAt(i);
+            new StringBuffer("[dz] all equipID = ").append(itemTemplate2.var_short_a).append(" material id= ")
+                    .append(itemTemplate.var_short_a);
+            if (!itemTemplate2.var_boolean_d || itemTemplate2.var_short_a != itemTemplate.var_short_a)
+                continue;
+            itemTemplate2.var_int_b = !bl ? ++itemTemplate2.var_int_b
+                    : (itemTemplate2.var_int_b += itemTemplate.var_int_b);
             bl2 = false;
             break;
         }
         if (bl2) {
             if (GameHelper37.boolean_a(itemTemplate.var_short_b)) {
-                itemTemplate.var_javax_microedition_lcdui_Image_a = GameHelper37.javax_microedition_lcdui_Image_a(itemTemplate.var_short_a);
+                itemTemplate.var_javax_microedition_lcdui_Image_a = GameHelper37
+                        .javax_microedition_lcdui_Image_a(itemTemplate.var_short_a);
             } else {
-                ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)0, itemTemplate.var_short_a, (byte)-1);
+                ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte) 0, itemTemplate.var_short_a, (byte) -1);
             }
             var_java_util_Vector_a.insertElementAt(itemTemplate, 0);
         }
@@ -161,13 +170,15 @@ extends ScrollDialogScreen {
         ItemTemplate itemTemplate;
         int n2;
         for (n2 = 0; n2 < var_java_util_Vector_a.size(); ++n2) {
-            itemTemplate = (ItemTemplate)var_java_util_Vector_a.elementAt(n2);
-            if (!itemTemplate.var_boolean_d || itemTemplate.var_short_a != n) continue;
+            itemTemplate = (ItemTemplate) var_java_util_Vector_a.elementAt(n2);
+            if (!itemTemplate.var_boolean_d || itemTemplate.var_short_a != n)
+                continue;
             itemTemplate.var_javax_microedition_lcdui_Image_a = image;
         }
         for (n2 = 0; n2 < this.b.size(); ++n2) {
-            itemTemplate = (ItemTemplate)this.b.elementAt(n2);
-            if (!itemTemplate.var_boolean_d || itemTemplate.var_short_a != n) continue;
+            itemTemplate = (ItemTemplate) this.b.elementAt(n2);
+            if (!itemTemplate.var_boolean_d || itemTemplate.var_short_a != n)
+                continue;
             itemTemplate.var_javax_microedition_lcdui_Image_a = image;
         }
     }
@@ -188,19 +199,20 @@ extends ScrollDialogScreen {
         if (!this.b.isEmpty() && (itemTemplate = this.game_ItemTemplate_a()) != null && !itemTemplate.var_boolean_d) {
             short s;
             if (itemTemplate.var_byte_e == 0) {
-                GameCanvas.void_a("Trang b\u1ecb \u0111\u00e3 h\u1ebft h\u1ea1n s\u1eed d\u1ee5ng, vui l\u00f2ng gia h\u1ea1n th\u00eam.");
+                GameCanvas.void_a(
+                        "Trang b\u1ecb \u0111\u00e3 h\u1ebft h\u1ea1n s\u1eed d\u1ee5ng, vui l\u00f2ng gia h\u1ea1n th\u00eam.");
                 return;
             }
             PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
             if (itemTemplate.var_byte_d == 1) {
                 if (itemTemplate.var_short_a != PlayerAccountInfo.i) {
-                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)1, itemTemplate.var_int_a);
+                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte) 1, itemTemplate.var_int_a);
                     return;
                 }
                 if (TerrainMidlet.isVip[playerAccountInfo.var_byte_a]) {
-                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)0, itemTemplate.var_int_a);
+                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte) 0, itemTemplate.var_int_a);
                 } else {
-                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)1, itemTemplate.var_int_a);
+                    ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte) 1, itemTemplate.var_int_a);
                 }
                 itemTemplate.var_boolean_a = !itemTemplate.var_boolean_a;
                 return;
@@ -210,20 +222,25 @@ extends ScrollDialogScreen {
                 return;
             }
             for (s = 0; s < 5; ++s) {
-                if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[s] == null || itemTemplate.var_int_a != playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[s].var_int_a) continue;
+                if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[s] == null
+                        || itemTemplate.var_int_a != playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[s].var_int_a)
+                    continue;
                 return;
             }
             for (s = 0; s < this.var_byte_arr_lI1IlIl1IlIl.length; ++s) {
-                if (itemTemplate.var_byte_a != this.var_byte_arr_lI1IlIl1IlIl[s]) continue;
+                if (itemTemplate.var_byte_a != this.var_byte_arr_lI1IlIl1IlIl[s])
+                    continue;
                 this.var_int_arr_a[s] = itemTemplate.var_int_a;
             }
             s = playerAccountInfo.var_short_arr_arr_a[playerAccountInfo.var_byte_a][itemTemplate.var_byte_a];
             EquipSlotSet.b(playerAccountInfo.var_byte_a, itemTemplate.var_byte_a, s);
             playerAccountInfo.e();
             if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate.var_byte_a] == null) {
-                playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate.var_byte_a] = EquipSlotSet.a(itemTemplate.var_byte_b, itemTemplate.var_byte_a, itemTemplate.var_short_a);
+                playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate.var_byte_a] = EquipSlotSet
+                        .a(itemTemplate.var_byte_b, itemTemplate.var_byte_a, itemTemplate.var_short_a);
             }
-            playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate.var_byte_a].b(itemTemplate);
+            playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate.var_byte_a]
+                    .b(itemTemplate);
             this.I1Il1lII1();
             this.k();
         }
@@ -243,7 +260,7 @@ extends ScrollDialogScreen {
 
     public final ItemTemplate game_ItemTemplate_a() {
         if (this.b.size() > 0) {
-            return (ItemTemplate)this.b.elementAt(this.var_int_l11l1l11111);
+            return (ItemTemplate) this.b.elementAt(this.var_int_l11l1l11111);
         }
         return null;
     }
@@ -252,13 +269,14 @@ extends ScrollDialogScreen {
         try {
             PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
             for (int i = 0; i < this.var_game_ItemTemplate_arr_lI1IlIl1IlIl.length; ++i) {
-                if (this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i] == null) continue;
-                playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i].b(this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i]);
+                if (this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i] == null)
+                    continue;
+                playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i]
+                        .b(this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i]);
             }
             this.b = this.var_java_util_Vector_l1111Il1111;
             return;
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             return;
         }
     }
@@ -267,10 +285,11 @@ extends ScrollDialogScreen {
         PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
         for (int i = 0; i < 5; ++i) {
             if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i] != null) {
-                this.var_short_arr_a[i] = (short)playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i].var_int_a;
+                this.var_short_arr_a[i] = (short) playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i].var_int_a;
                 playerAccountInfo.var_short_arr_arr_a[playerAccountInfo.var_byte_a][i] = playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i].var_short_a;
                 this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i] = new ItemTemplate();
-                this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i].b(playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i]);
+                this.var_game_ItemTemplate_arr_lI1IlIl1IlIl[i]
+                        .b(playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i]);
             } else {
                 this.var_short_arr_a[i] = -1;
             }
@@ -291,14 +310,15 @@ extends ScrollDialogScreen {
         this.l();
         playerAccountInfo.a();
         for (n2 = 0; n2 < 5; ++n2) {
-            if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[n2] == null) continue;
+            if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[n2] == null)
+                continue;
             playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[n2].void_a();
             itemTemplate = playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[n2];
             for (s = 0; s < 5; ++s) {
                 short[] sArray;
                 short[] sArray2 = sArray = playerAccountInfo.var_short_arr_b;
                 short s2 = s;
-                sArray2[s2] = (short)(sArray2[s2] + itemTemplate.var_short_arr_c[s]);
+                sArray2[s2] = (short) (sArray2[s2] + itemTemplate.var_short_arr_c[s]);
             }
         }
         for (n2 = 0; n2 < 5; ++n2) {
@@ -307,26 +327,33 @@ extends ScrollDialogScreen {
         }
         this.b.removeAllElements();
         for (n2 = 0; n2 < var_java_util_Vector_a.size(); ++n2) {
-            itemTemplate = (ItemTemplate)var_java_util_Vector_a.elementAt(n2);
-            if (itemTemplate.var_boolean_d || itemTemplate.var_byte_b != TerrainMidlet.myInfo.var_byte_a) continue;
+            itemTemplate = (ItemTemplate) var_java_util_Vector_a.elementAt(n2);
+            if (itemTemplate.var_boolean_d || itemTemplate.var_byte_b != TerrainMidlet.myInfo.var_byte_a)
+                continue;
             this.b.addElement(itemTemplate);
         }
         s = -1;
         for (n = 0; n < var_java_util_Vector_a.size(); ++n) {
-            ItemTemplate itemTemplate2 = (ItemTemplate)var_java_util_Vector_a.elementAt(n);
-            if (!itemTemplate2.var_boolean_d || s == itemTemplate2.var_short_a) continue;
+            ItemTemplate itemTemplate2 = (ItemTemplate) var_java_util_Vector_a.elementAt(n);
+            if (!itemTemplate2.var_boolean_d || s == itemTemplate2.var_short_a)
+                continue;
             s = itemTemplate2.var_short_a;
-            if (itemTemplate2.var_javax_microedition_lcdui_Image_a != null) continue;
+            if (itemTemplate2.var_javax_microedition_lcdui_Image_a != null)
+                continue;
             if (GameHelper37.boolean_a(itemTemplate2.var_short_b)) {
-                itemTemplate2.var_javax_microedition_lcdui_Image_a = GameHelper37.javax_microedition_lcdui_Image_a(itemTemplate2.var_short_b);
+                itemTemplate2.var_javax_microedition_lcdui_Image_a = GameHelper37
+                        .javax_microedition_lcdui_Image_a(itemTemplate2.var_short_b);
             }
-            ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte)0, s, (byte)-1);
+            ConnectionWatchdog.game_ConnectionWatchdog_a().a((byte) 0, s, (byte) -1);
         }
         for (n = 0; n < this.b.size(); ++n) {
-            ItemTemplate itemTemplate3 = (ItemTemplate)this.b.elementAt(n);
-            if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a] == null || playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a].var_int_a != itemTemplate3.var_int_a) continue;
+            ItemTemplate itemTemplate3 = (ItemTemplate) this.b.elementAt(n);
+            if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a] == null
+                    || playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a].var_int_a != itemTemplate3.var_int_a)
+                continue;
             playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a].void_b();
-            playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a].a(itemTemplate3);
+            playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[itemTemplate3.var_byte_a]
+                    .a(itemTemplate3);
         }
         this.var_java_util_Vector_l1111Il1111 = this.b;
         this.I1Il1lII1();
@@ -358,15 +385,17 @@ extends ScrollDialogScreen {
         ItemTemplate itemTemplate2 = null;
         if (TerrainMidlet.isVip[TerrainMidlet.myInfo.var_byte_a]) {
             for (n2 = 0; n2 < this.b.size(); ++n2) {
-                itemTemplate = (ItemTemplate)this.b.elementAt(n2);
-                if (itemTemplate.var_short_a != PlayerAccountInfo.i) continue;
+                itemTemplate = (ItemTemplate) this.b.elementAt(n2);
+                if (itemTemplate.var_short_a != PlayerAccountInfo.i)
+                    continue;
                 itemTemplate2 = itemTemplate;
                 break;
             }
         }
         for (n2 = 0; n2 < 5; ++n2) {
             itemTemplate = playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[n2];
-            if (itemTemplate == null) continue;
+            if (itemTemplate == null)
+                continue;
             for (n = 0; n < 5; ++n) {
                 int n3 = n;
                 nArray[n3] = nArray[n3] + itemTemplate.var_int_arr_a[n];
@@ -384,7 +413,7 @@ extends ScrollDialogScreen {
         }
         this.I1IlII1lIII[0] = 1000 + playerAccountInfo.var_short_arr_a[0] * 10 + nArray[0] * 10;
         this.I1IlII1lIII[0] = this.I1IlII1lIII[0] + (1000 + playerAccountInfo.var_short_arr_a[0]) * nArray2[0] / 100;
-        n2 = EquipSlotSet.a((byte)playerAccountInfo.var_byte_a).var_short_a;
+        n2 = EquipSlotSet.a((byte) playerAccountInfo.var_byte_a).var_short_a;
         int n7 = nArray[1] + playerAccountInfo.var_short_arr_a[1];
         n = nArray[2] + playerAccountInfo.var_short_arr_a[2];
         int n8 = nArray[3] + playerAccountInfo.var_short_arr_a[3];
@@ -399,10 +428,12 @@ extends ScrollDialogScreen {
     }
 
     private void lI1Il1Il1(Graphics graphics) {
-        FontRenderer.a.a(graphics, "Level: " + TerrainMidlet.myInfo.var_int_b, this.lIlI11l1lII1 / 2 + 24, this.e + 22, 3);
+        FontRenderer.a.a(graphics, "Level: " + TerrainMidlet.myInfo.var_int_b, this.lIlI11l1lII1 / 2 + 24, this.e + 22,
+                3);
         FontRenderer.a.a(graphics, TerrainMidlet.myInfo.var_int_c + "%", this.lIlI11l1lII1 / 2 + 75, this.e + 22, 3);
         for (int i = 0; i < 5; ++i) {
-            DataUtils.a(graphics, CharacterUpgradeScreen.var_javax_microedition_lcdui_Image_a, 0, i << 4, 16, 16, 0, this.lIlI11l1lII1 / 2 - 1, this.e + 46 + i * 18, 3);
+            DataUtils.a(graphics, CharacterUpgradeScreen.var_javax_microedition_lcdui_Image_a, 0, i << 4, 16, 16, 0,
+                    this.lIlI11l1lII1 / 2 - 1, this.e + 46 + i * 18, 3);
             graphics.setColor(2378093);
             graphics.fillRect(GameCanvas.var_int_b / 2 + 9, this.e + 38 + i * 18, 35, 16);
             graphics.fillRect(GameCanvas.var_int_b / 2 + 46, this.e + 38 + i * 18, 18, 16);
@@ -410,7 +441,8 @@ extends ScrollDialogScreen {
             PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
             String string = String.valueOf(Math.abs(playerAccountInfo.var_int_arr_a[i]));
             String string2 = String.valueOf(Math.abs(playerAccountInfo.var_int_arr_b[i]));
-            FontRenderer.b.a(graphics, String.valueOf(this.I1IlII1lIII[i]), this.lIlI11l1lII1 / 2 + 26, this.e + 39 + i * 18, 3);
+            FontRenderer.b.a(graphics, String.valueOf(this.I1IlII1lIII[i]), this.lIlI11l1lII1 / 2 + 26,
+                    this.e + 39 + i * 18, 3);
             if (playerAccountInfo.var_byte_arr_a[i] == 0) {
                 FontRenderer.b.a(graphics, string, this.lIlI11l1lII1 / 2 + 56, this.e + 39 + i * 18, 3);
             }
@@ -426,7 +458,8 @@ extends ScrollDialogScreen {
             if (playerAccountInfo.var_byte_arr_b[i] == 2) {
                 FontRenderer.d.a(graphics, string2, this.lIlI11l1lII1 / 2 + 75, this.e + 39 + i * 18, 3);
             }
-            if (playerAccountInfo.var_byte_arr_b[i] != 1) continue;
+            if (playerAccountInfo.var_byte_arr_b[i] != 1)
+                continue;
             FontRenderer.c.a(graphics, string2, this.lIlI11l1lII1 / 2 + 75, this.e + 39 + i * 18, 3);
         }
     }
@@ -460,12 +493,13 @@ extends ScrollDialogScreen {
         for (int i = 0; i < 5; ++i) {
             Object object = TerrainMidlet.myInfo;
             ItemTemplate itemTemplate = null;
-            if (((PlayerAccountInfo)object).var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i] != null) {
-                itemTemplate = ((PlayerAccountInfo)object).var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i];
+            if (((PlayerAccountInfo) object).var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i] != null) {
+                itemTemplate = ((PlayerAccountInfo) object).var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[i];
             }
             this.var_game_ItemTemplate_arr_l11l1l11111[i] = itemTemplate;
-            if (itemTemplate == null || (object = this.a(itemTemplate.var_int_a)) == null) continue;
-            this.var_game_ItemTemplate_arr_l11l1l11111[i] = (ItemTemplate)object;
+            if (itemTemplate == null || (object = this.a(itemTemplate.var_int_a)) == null)
+                continue;
+            this.var_game_ItemTemplate_arr_l11l1l11111[i] = (ItemTemplate) object;
         }
     }
 
@@ -479,10 +513,13 @@ extends ScrollDialogScreen {
         int n6;
         super.a(graphics);
         graphics.setColor(16767817);
-        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 9, this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 9, 17, 17);
-        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 10, this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 10, 19, 19);
+        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 9,
+                this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 9, 17, 17);
+        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 10,
+                this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 10, 19, 19);
         graphics.setColor(1521982);
-        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 11, this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 11, 21, 21);
+        graphics.drawRect(this.var_int_arr_l11l1l11111[this.lIl1II11l1] - 11,
+                this.var_int_arr_l1111Il1111[this.lIl1II11l1] - 11, 21, 21);
         for (int i = 0; i < 5; ++i) {
             n6 = this.var_int_arr_l1111Il1111[i];
             n5 = this.var_int_arr_l11l1l11111[i];
@@ -491,16 +528,21 @@ extends ScrollDialogScreen {
             graphics.setColor(16774532);
             graphics.fillRect(n5 - 9, n6 - 9, 18, 18);
             if (this.var_game_ItemTemplate_arr_l11l1l11111[i] != null) {
-                this.var_game_ItemTemplate_arr_l11l1l11111[i].a(graphics, this.var_int_arr_l11l1l11111[i] - 8, this.var_int_arr_l1111Il1111[i] - 8);
+                this.var_game_ItemTemplate_arr_l11l1l11111[i].a(graphics, this.var_int_arr_l11l1l11111[i] - 8,
+                        this.var_int_arr_l1111Il1111[i] - 8);
                 continue;
             }
-            DataUtils.a(graphics, BattleScreen.var_javax_microedition_lcdui_Image_f, 0, 0, 16, 16, 0, this.var_int_arr_l11l1l11111[i], this.var_int_arr_l1111Il1111[i], 3);
+            DataUtils.a(graphics, BattleScreen.var_javax_microedition_lcdui_Image_f, 0, 0, 16, 16, 0,
+                    this.var_int_arr_l11l1l11111[i], this.var_int_arr_l1111Il1111[i], 3);
         }
         PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
         n6 = playerAccountInfo.var_byte_a;
-        this.var_game_EquipSlotSet_lI1IlIl1IlIl = TerrainMidlet.isVip[playerAccountInfo.var_byte_a] ? playerAccountInfo.var_game_EquipSlotSet_b : playerAccountInfo.var_game_EquipSlotSet_a;
+        this.var_game_EquipSlotSet_lI1IlIl1IlIl = TerrainMidlet.isVip[playerAccountInfo.var_byte_a]
+                ? playerAccountInfo.var_game_EquipSlotSet_b
+                : playerAccountInfo.var_game_EquipSlotSet_a;
         n5 = GameCanvas.var_int_a % 5 <= 2 ? 4 : 5;
-        PlayerEntity.a(graphics, n6, n5, GameCanvas.var_int_b / 2 - 52, this.e + 71, 0, this.var_game_EquipSlotSet_lI1IlIl1IlIl);
+        PlayerEntity.a(graphics, n6, n5, GameCanvas.var_int_b / 2 - 52, this.e + 71, 0,
+                this.var_game_EquipSlotSet_lI1IlIl1IlIl);
         n6 = this.e + 102;
         n5 = this.lIlI11l1lII1 / 2 - 78;
         graphics.setColor(4156571);
@@ -512,42 +554,45 @@ extends ScrollDialogScreen {
         int n7 = 0;
         int n8 = 0;
         for (int i = 0; i < this.b.size(); ++i) {
-            object = (ItemTemplate)this.b.elementAt(i);
+            object = (ItemTemplate) this.b.elementAt(i);
             n4 = n5 + n8 * this.var_int_l1111Il1111 + this.Il1I1lI1ll;
             n2 = n3 = n6 + n7 * this.var_int_l1111Il1111 + this.Il1I1lI1ll;
             if (object != null) {
-                if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[((ItemTemplate)object).var_byte_a] != null && ((ItemTemplate)object).var_int_a == playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[((ItemTemplate)object).var_byte_a].var_int_a) {
+                if (playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[((ItemTemplate) object).var_byte_a] != null
+                        && ((ItemTemplate) object).var_int_a == playerAccountInfo.var_game_EquipSlotSet_a.var_game_ItemTemplate_arr_a[((ItemTemplate) object).var_byte_a].var_int_a) {
                     graphics.setColor(4819660);
                     graphics.fillRect(n4, n3, 16, 16);
                 }
-                if (((ItemTemplate)object).var_byte_d == 1) {
+                if (((ItemTemplate) object).var_byte_d == 1) {
                     graphics.setColor(5361158);
                     graphics.fillRect(n4, n3, 16, 16);
-                    if (TerrainMidlet.isVip[playerAccountInfo.var_byte_a] && ((ItemTemplate)object).var_short_a == PlayerAccountInfo.i) {
+                    if (TerrainMidlet.isVip[playerAccountInfo.var_byte_a]
+                            && ((ItemTemplate) object).var_short_a == PlayerAccountInfo.i) {
                         graphics.setColor(5963263);
                         graphics.fillRect(n4, n3, 16, 16);
                     }
                 }
-                if (((ItemTemplate)object).var_byte_e == 0) {
+                if (((ItemTemplate) object).var_byte_e == 0) {
                     graphics.setColor(9014930);
                     graphics.fillRect(n4, n3, 16, 16);
                 }
                 if (this.var_int_l11l1l11111 == i) {
                     graphics.setColor(16767817);
                     graphics.fillRect(n4 - 3, n3 - 3, 22, 22);
-                    ItemTemplate itemTemplate = (ItemTemplate)this.b.elementAt(this.var_int_l11l1l11111);
+                    ItemTemplate itemTemplate = (ItemTemplate) this.b.elementAt(this.var_int_l11l1l11111);
                     for (n = 0; n < this.var_byte_arr_lI1IlIl1IlIl.length; ++n) {
-                        if (itemTemplate.var_byte_a != this.var_byte_arr_lI1IlIl1IlIl[n]) continue;
+                        if (itemTemplate.var_byte_a != this.var_byte_arr_lI1IlIl1IlIl[n])
+                            continue;
                         this.lIl1II11l1 = n;
                     }
                 }
-                if (((ItemTemplate)object).var_boolean_c) {
+                if (((ItemTemplate) object).var_boolean_c) {
                     graphics.setColor(0xFFFFFF);
                     graphics.fillRect(n4, n3, 16, 16);
                 }
-                ((ItemTemplate)object).a(graphics, n4, n3);
-                if (!((ItemTemplate)object).var_boolean_d) {
-                    for (int j = 0; j < 3 - ((ItemTemplate)object).var_byte_c; ++j) {
+                ((ItemTemplate) object).a(graphics, n4, n3);
+                if (!((ItemTemplate) object).var_boolean_d) {
+                    for (int j = 0; j < 3 - ((ItemTemplate) object).var_byte_c; ++j) {
                         if (n8 != this.var_int_l11l1l11111) {
                             graphics.setColor(16377901);
                         } else {
@@ -557,7 +602,8 @@ extends ScrollDialogScreen {
                     }
                 }
             }
-            if (++n8 != this.llII1l1I) continue;
+            if (++n8 != this.llII1l1I)
+                continue;
             ++n7;
             n8 = 0;
         }
@@ -568,14 +614,15 @@ extends ScrollDialogScreen {
         graphics.fillRoundRect(this.lIlI11l1lII1 / 2 - 9, this.e + 130, 95, 16, 6, 6);
         graphics.fillRoundRect(this.lIlI11l1lII1 / 2 - 9, this.e + 148, 95, 16, 6, 6);
         PlayerAccountInfo playerAccountInfo2 = TerrainMidlet.myInfo;
-        object = DataUtils.a(playerAccountInfo2.var_long_c) + " " + StringUtils.aq() + "-" + DataUtils.a(playerAccountInfo2.e) + " " + StringUtils.ar();
-        n4 = FontRenderer.a.a((String)object);
+        object = DataUtils.a(playerAccountInfo2.var_long_c) + " " + StringUtils.aq() + "-"
+                + DataUtils.a(playerAccountInfo2.e) + " " + StringUtils.ar();
+        n4 = FontRenderer.a.a((String) object);
         if (n4 > 85) {
             EquipScreen.IIlIl1l11(this.var_game_GameHelper40_lI1IlIl1IlIl, n4 - 80);
         }
         n3 = this.var_game_GameHelper40_lI1IlIl1IlIl.a;
         n2 = this.e + 131;
-        FontRenderer.b.a(graphics, (String)object, this.II11I1lI1 + n3, n2, 0);
+        FontRenderer.b.a(graphics, (String) object, this.II11I1lI1 + n3, n2, 0);
         int n9 = this.lIlI11l1lII1 / 2 - 4;
         n = this.e + 149;
         int n10 = FontRenderer.a.a(this.var_java_lang_String_l11l1l11111);
@@ -635,8 +682,10 @@ extends ScrollDialogScreen {
                         nArray4 = itemTemplate2.var_int_arr_b;
                         playerAccountInfo.var_int_arr_b[n2] = n3 - nArray4[n2];
                     }
-                    playerAccountInfo.var_byte_arr_a[n2] = (byte)(playerAccountInfo.var_int_arr_a[n2] == 0 ? 0 : (playerAccountInfo.var_int_arr_a[n2] > 0 ? 1 : 2));
-                    playerAccountInfo.var_byte_arr_b[n2] = (byte)(playerAccountInfo.var_int_arr_b[n2] == 0 ? 0 : (playerAccountInfo.var_int_arr_b[n2] > 0 ? 1 : 2));
+                    playerAccountInfo.var_byte_arr_a[n2] = (byte) (playerAccountInfo.var_int_arr_a[n2] == 0 ? 0
+                            : (playerAccountInfo.var_int_arr_a[n2] > 0 ? 1 : 2));
+                    playerAccountInfo.var_byte_arr_b[n2] = (byte) (playerAccountInfo.var_int_arr_b[n2] == 0 ? 0
+                            : (playerAccountInfo.var_int_arr_b[n2] > 0 ? 1 : 2));
                 }
                 this.l();
                 this.var_game_GameHelper40_l11l1l11111.a = -1;
@@ -698,7 +747,8 @@ extends ScrollDialogScreen {
                 this.var_boolean_lI1IlIl1IlIl = false;
                 if (Math.abs(GameCanvas.h - GameCanvas.g) < 10) {
                     if (GameCanvas.a(this.lIlI11l1lII1 / 2 - 78, this.e + 102, 72, 67)) {
-                        int n = (II1l1IlllI + GameCanvas.g - this.e - 105) / this.var_int_l1111Il1111 * this.llII1l1I + (GameCanvas.f - this.d - 6) / this.var_int_l1111Il1111;
+                        int n = (II1l1IlllI + GameCanvas.g - this.e - 105) / this.var_int_l1111Il1111 * this.llII1l1I
+                                + (GameCanvas.f - this.d - 6) / this.var_int_l1111Il1111;
                         if (n == this.var_int_l11l1l11111 && this.g != null) {
                             this.g.var_game_IActionListener_a.a();
                         }
@@ -746,4 +796,3 @@ extends ScrollDialogScreen {
         var_java_util_Vector_a = new Vector();
     }
 }
-

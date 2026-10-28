@@ -23,6 +23,7 @@ extends GameHelper21 {
     private IActionListener var_game_IActionListener_lIlI11I1lI1l;
     private IActionListener I1Il11I111I;
     private int var_int_lIlI11I1lI1l = GameCanvas.var_boolean_d ? 15 : 0;
+    private boolean autoOpenKeyboard = false;
 
     public InputScreen() {
         this.a = new MapEntity();
@@ -42,6 +43,7 @@ extends GameHelper21 {
         this.I1Il11I111I = iActionListener2;
         ((GameHelper21)this).a = new GameCommand(StringUtils.dI(), this.I1Il11I111I);
         this.b = new GameCommand("OK", this.var_game_IActionListener_lIlI11I1lI1l);
+        this.autoOpenKeyboard = true;
     }
 
     public final void a(Graphics graphics) {
@@ -64,7 +66,11 @@ extends GameHelper21 {
 
     public final void void_a() {
         this.a.c();
-        if (GameCanvas.var_boolean_d && GameCanvas.var_boolean_c && GameCanvas.a(this.a.var_int_a, this.a.var_int_b, this.a.var_int_c, this.a.d)) {
+        if (this.autoOpenKeyboard && GameCanvas.var_boolean_d) {
+            this.autoOpenKeyboard = false;
+            this.a.void_a();
+        }
+        if (GameCanvas.var_boolean_c && (GameCanvas.a(this.a.var_int_a, this.a.var_int_b, this.a.var_int_c, this.a.d) || GameCanvas.a(8, GameCanvas.var_int_c - 102 - this.var_int_lIlI11I1lI1l, GameCanvas.var_int_b - 16, 69))) {
             this.a.void_a();
         }
         super.void_a();

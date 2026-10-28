@@ -646,21 +646,15 @@ extends BaseScreen {
                             this.g();
                         }
                         if (GameCanvas.a(this.var_game_MapEntity_a.var_int_a, this.var_game_MapEntity_a.var_int_b, this.var_game_MapEntity_a.var_int_c, this.var_game_MapEntity_a.d)) {
-                            if (this.var_int_a != 0) {
-                                this.var_int_a = 0;
-                            } else {
-                                this.var_game_MapEntity_a.void_a();
-                            }
+                            this.var_int_a = 0;
                             this.llIlllll1lII();
+                            this.var_game_MapEntity_a.void_a();
                         }
                         if (GameCanvas.a(this.var_game_MapEntity_b.var_int_a, this.var_game_MapEntity_b.var_int_b, this.var_game_MapEntity_b.var_int_c, this.var_game_MapEntity_b.d)) {
-                            if (this.var_int_a != 1) {
-                                this.var_int_a = 1;
-                            } else {
-                                this.var_game_MapEntity_b.var_boolean_c = true;
-                                this.var_game_MapEntity_b.void_a();
-                            }
+                            this.var_int_a = 1;
+                            this.var_game_MapEntity_b.var_boolean_c = true;
                             this.llIlllll1lII();
+                            this.var_game_MapEntity_b.void_a();
                         }
                     }
                 }

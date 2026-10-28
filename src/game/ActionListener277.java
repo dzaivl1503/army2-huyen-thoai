@@ -3,6 +3,7 @@
  */
 package game;
 
+import game.GameCanvas;
 import game.GameCommand;
 import game.GameHelper48;
 import game.IActionListener;
@@ -23,14 +24,44 @@ implements IActionListener {
     }
 
     public final void a() {
-        this.var_game_GameHelper48_l11Il11llI11.var_boolean_a = true;
-        this.var_game_GameHelper48_l11Il11llI11.var_int_a = 1;
-        for (int i = 0; i < this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.size(); ++i) {
-            ((ItemTemplate)this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.elementAt((int)i)).var_int_c = 0;
-            ((ItemTemplate)this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.elementAt((int)i)).var_boolean_c = false;
+        final ItemTemplate itemTemplate = this.var_game_GameHelper48_l11Il11llI11.var_game_ItemTemplate_a;
+        if (itemTemplate == null) {
+            return;
         }
-        this.var_game_GameHelper48_l11Il11llI11.g = this.var_game_GameHelper48_l11Il11llI11.var_game_ItemTemplate_a.var_int_f != -1 && this.var_game_GameHelper48_l11Il11llI11.var_game_ItemTemplate_a.var_int_e != -1 ? this.var_game_GameCommand_l11Il11llI11 : (this.var_game_GameHelper48_l11Il11llI11.var_game_ItemTemplate_a.var_int_e == -1 && this.var_game_GameHelper48_l11Il11llI11.var_game_ItemTemplate_a.var_int_f != -1 ? this.I1IIllI1I11I : this.IlI111l1);
-        this.var_game_GameHelper48_l11Il11llI11.f = null;
+        GameCanvas.var_game_InputScreen_a.a("Nhập số lượng:", new IActionListener() {
+            public final void a() {
+                int qty = 1;
+                try {
+                    String text = GameCanvas.var_game_InputScreen_a.a.java_lang_String_a().trim();
+                    qty = Integer.parseInt(text);
+                } catch (Exception ignored) {
+                }
+                if (qty <= 0) {
+                    qty = 1;
+                }
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.var_boolean_a = true;
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.var_int_a = qty;
+                for (int i = 0; i < ActionListener277.this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.size(); ++i) {
+                    ((ItemTemplate)ActionListener277.this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.elementAt(i)).var_int_c = 0;
+                    ((ItemTemplate)ActionListener277.this.var_game_GameHelper48_l11Il11llI11.var_java_util_Vector_a.elementAt(i)).var_boolean_c = false;
+                }
+                itemTemplate.var_int_c = qty;
+                itemTemplate.var_boolean_c = true;
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g = itemTemplate.var_int_f != -1 && itemTemplate.var_int_e != -1 ? ActionListener277.this.var_game_GameCommand_l11Il11llI11 : (itemTemplate.var_int_e == -1 && itemTemplate.var_int_f != -1 ? ActionListener277.this.I1IIllI1I11I : ActionListener277.this.IlI111l1);
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.f = null;
+                GameCanvas.var_game_GameHelper21_a = null;
+                if (ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g != null && ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g.var_game_IActionListener_a != null) {
+                    ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g.var_game_IActionListener_a.a();
+                }
+            }
+        }, new IActionListener() {
+            public final void a() {
+                GameCanvas.var_game_GameHelper21_a = null;
+            }
+        }, 1);
+        GameCanvas.var_game_InputScreen_a.a.a("1");
+        GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
     }
 }
+
 

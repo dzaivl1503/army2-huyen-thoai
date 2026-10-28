@@ -267,7 +267,7 @@ extends BaseScreen {
                 this.var_int_I1II111II1 = 0;
             }
         }
-        if (GameCanvas.var_boolean_c && GameCanvas.a(30, 0, 50, 50)) {
+        if (GameCanvas.var_boolean_c && (GameCanvas.a(30, 0, 50, 50) || (var_game_MapEntity_a != null && GameCanvas.a(var_game_MapEntity_a.var_int_a, var_game_MapEntity_a.var_int_b, var_game_MapEntity_a.var_int_c, var_game_MapEntity_a.d)))) {
             var_game_MapEntity_a.void_a();
         }
         super.void_b();

@@ -3,6 +3,7 @@
  */
 package game;
 
+import game.GameCanvas;
 import game.IActionListener;
 import game.InventoryScreen;
 import game.ItemTemplate;
@@ -16,29 +17,55 @@ implements IActionListener {
     }
 
     public final void a() {
-        boolean bl;
-        ItemTemplate itemTemplate;
         if (this.II1IlIlI.var_boolean_b) {
             return;
         }
         if (this.II1IlIlI.var_java_util_Vector_a.isEmpty()) {
             return;
         }
-        ItemTemplate itemTemplate2 = this.II1IlIlI.game_ItemTemplate_a();
-        if (itemTemplate2 == null) {
+        final ItemTemplate itemTemplate = this.II1IlIlI.game_ItemTemplate_a();
+        if (itemTemplate == null) {
             return;
         }
-        itemTemplate2.var_int_c = 1;
-        if (itemTemplate2.var_int_b > 1) {
-            this.II1IlIlI.var_boolean_b = true;
-            this.II1IlIlI.c = 1;
-            itemTemplate = itemTemplate2;
-            bl = true;
-        } else {
-            itemTemplate = itemTemplate2;
-            bl = !itemTemplate2.var_boolean_c;
+        if (itemTemplate.var_boolean_c) {
+            itemTemplate.var_boolean_c = false;
+            itemTemplate.var_int_c = 0;
+            this.II1IlIlI.c = 0;
+            return;
         }
-        itemTemplate.var_boolean_c = bl;
+        if (itemTemplate.var_int_b > 1) {
+            GameCanvas.var_game_InputScreen_a.a("Nhập số lượng (Max " + itemTemplate.var_int_b + "):", new IActionListener() {
+                public final void a() {
+                    int qty = 1;
+                    try {
+                        String text = GameCanvas.var_game_InputScreen_a.a.java_lang_String_a().trim();
+                        qty = Integer.parseInt(text);
+                    } catch (Exception ignored) {
+                    }
+                    if (qty <= 0) {
+                        qty = 1;
+                    }
+                    if (qty > itemTemplate.var_int_b) {
+                        qty = itemTemplate.var_int_b;
+                    }
+                    itemTemplate.var_int_c = qty;
+                    itemTemplate.var_boolean_c = true;
+                    ActionListener249.this.II1IlIlI.c = qty;
+                    GameCanvas.var_game_GameHelper21_a = null;
+                }
+            }, new IActionListener() {
+                public final void a() {
+                    GameCanvas.var_game_GameHelper21_a = null;
+                }
+            }, 1);
+            GameCanvas.var_game_InputScreen_a.a.a(String.valueOf(itemTemplate.var_int_b));
+            GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
+        } else {
+            itemTemplate.var_int_c = 1;
+            itemTemplate.var_boolean_c = true;
+            this.II1IlIlI.c = 1;
+        }
     }
 }
+
 

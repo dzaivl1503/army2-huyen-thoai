@@ -71,12 +71,15 @@ extends GameHelper32 {
 
     private void IlIIlIlI() {
         int n;
-        int[] nArray = new int[14];
+        int[] nArray = new int[18];
         for (n = 0; n < 10; ++n) {
             nArray[n] = n + 135;
         }
         for (n = 0; n < 4; ++n) {
             nArray[n + 10] = n + 117;
+        }
+        for (n = 0; n < 4; ++n) {
+            nArray[n + 14] = n + 131;
         }
         super.a(nArray);
     }
@@ -154,7 +157,10 @@ extends GameHelper32 {
     }
 
     private static boolean l1II1lI1l(ItemTemplate itemTemplate) {
-        return itemTemplate.var_short_a >= 117 && itemTemplate.var_short_a <= 120;
+        if (itemTemplate == null) {
+            return false;
+        }
+        return (itemTemplate.var_short_a >= 117 && itemTemplate.var_short_a <= 120) || (itemTemplate.var_short_a >= 131 && itemTemplate.var_short_a <= 134);
     }
 
     private static boolean l1I1l1l1lI1(ItemTemplate itemTemplate) {

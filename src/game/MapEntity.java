@@ -67,7 +67,15 @@ public final class MapEntity {
     public final void void_a() {
         var_javax_microedition_lcdui_Canvas_a = GameCanvas.var_game_GameCanvas_a;
         var_javax_microedition_midlet_MIDlet_a = TerrainMidlet.instance;
-        TextBox textBox = new TextBox("", this.var_java_lang_String_lIl11IIlII, this.I1I1l11I11ll, this.I1II11lI1 == 2 ? 65536 : (this.I1II11lI1 == 1 ? 2 : 0));
+        String title = "Nhập nội dung";
+        if (this.I1II11lI1 == 2) {
+            title = "Nhập mật khẩu";
+        } else if (this.I1II11lI1 == 1) {
+            title = "Nhập số";
+        } else if (this.I1II11lI1 == 3) {
+            title = "Nhập tài khoản";
+        }
+        TextBox textBox = new TextBox(title, this.var_java_lang_String_lIl11IIlII, this.I1I1l11I11ll, this.I1II11lI1 == 2 ? 65536 : (this.I1II11lI1 == 1 ? 2 : 0));
         textBox.addCommand(new Command("OK", 4, 0));
         textBox.addCommand(new Command("Cancel", 3, 0));
         textBox.setCommandListener((CommandListener)new GameHelper03(this, textBox));

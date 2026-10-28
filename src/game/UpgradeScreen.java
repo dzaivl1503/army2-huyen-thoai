@@ -27,7 +27,7 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 
 public final class UpgradeScreen
-extends BaseScreen {
+        extends BaseScreen {
     public static UpgradeScreen var_game_UpgradeScreen_a;
     public static String[] var_java_lang_String_arr_a;
     private int I1IlII11l1 = 12;
@@ -78,21 +78,28 @@ extends BaseScreen {
             int n4 = this.III1IIIII + n3 * this.I11IIlI1l;
             if (i == this.var_int_b && !this.var_boolean_a) {
                 graphics.setColor(3374591);
-                graphics.fillRect(n - 2 - PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() / 2, n4 - 2 - PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() / 2, PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() + 4, PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() + 4);
+                graphics.fillRect(n - 2 - PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() / 2,
+                        n4 - 2 - PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() / 2,
+                        PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() + 4,
+                        PopupDialog.var_javax_microedition_lcdui_Image_a.getWidth() + 4);
             }
             if (this.var_game_ChestBox_arr_a[i] != null) {
                 this.var_game_ChestBox_arr_a[i].a(graphics, n, n4);
             } else {
                 graphics.drawImage(PopupDialog.var_javax_microedition_lcdui_Image_a, n, n4, 3);
             }
-            if (++n2 != this.I1IIllII) continue;
+            if (++n2 != this.I1IIllII)
+                continue;
             ++n3;
             n2 = 0;
         }
         PlayerAccountInfo playerAccountInfo = TerrainMidlet.myInfo;
-        FontRenderer.e.a(graphics, DataUtils.a(playerAccountInfo.var_long_c) + " " + StringUtils.aq() + " - " + DataUtils.a(playerAccountInfo.e) + " " + StringUtils.ar(), 5, GameCanvas.var_int_c - BaseScreen.var_int_o - 20, 0);
+        FontRenderer.e.a(graphics,
+                DataUtils.a(playerAccountInfo.var_long_c) + " " + StringUtils.aq() + " - "
+                        + DataUtils.a(playerAccountInfo.e) + " " + StringUtils.ar(),
+                5, GameCanvas.var_int_c - BaseScreen.var_int_o - 20, 0);
         for (n = 0; n < BattleScreen.var_java_util_Vector_b.size(); ++n) {
-            ((ChatScreen)BattleScreen.var_java_util_Vector_b.elementAt(n)).a(graphics);
+            ((ChatScreen) BattleScreen.var_java_util_Vector_b.elementAt(n)).a(graphics);
         }
         super.a(graphics);
     }
@@ -113,11 +120,12 @@ extends BaseScreen {
             }
         }
         for (n = 0; n < 12; ++n) {
-            if (this.var_game_ChestBox_arr_a[n] == null) continue;
+            if (this.var_game_ChestBox_arr_a[n] == null)
+                continue;
             this.var_game_ChestBox_arr_a[n].a();
         }
         for (n = 0; n < BattleScreen.var_java_util_Vector_b.size(); ++n) {
-            ((ChatScreen)BattleScreen.var_java_util_Vector_b.elementAt(n)).a();
+            ((ChatScreen) BattleScreen.var_java_util_Vector_b.elementAt(n)).a();
         }
     }
 
@@ -163,7 +171,8 @@ extends BaseScreen {
                 }
             }
             if (GameCanvas.var_boolean_c) {
-                int n = (GameCanvas.g - this.III1IIIII + this.I11IIlI1l / 2) / this.I11IIlI1l * this.I1IIllII + (GameCanvas.f - this.l11IlIII + this.I11IIlI1l / 2) / this.I11IIlI1l;
+                int n = (GameCanvas.g - this.III1IIIII + this.I11IIlI1l / 2) / this.I11IIlI1l * this.I1IIllII
+                        + (GameCanvas.f - this.l11IlIII + this.I11IIlI1l / 2) / this.I11IIlI1l;
                 if (n == -1) {
                     return;
                 }
@@ -183,10 +192,10 @@ extends BaseScreen {
 
     public final ChestBox a(int n) {
         for (int i = 0; i < this.var_game_ChestBox_arr_a.length; ++i) {
-            if (this.var_game_ChestBox_arr_a[i] == null || this.var_game_ChestBox_arr_a[i].var_int_a != n) continue;
+            if (this.var_game_ChestBox_arr_a[i] == null || this.var_game_ChestBox_arr_a[i].var_int_a != n)
+                continue;
             return this.var_game_ChestBox_arr_a[i];
         }
         return null;
     }
 }
-
