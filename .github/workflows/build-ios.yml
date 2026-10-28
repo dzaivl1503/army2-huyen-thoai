@@ -7,6 +7,9 @@ on:
     branches: [ "**" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-ios:
     name: Build iOS IPA
@@ -68,7 +71,6 @@ jobs:
           if ls ios/build/robovm/*.ipa 1> /dev/null 2>&1; then
             echo "Found IPA created by RoboVM"
             cp ios/build/robovm/*.ipa output_ipa/Army2-TuoiTho.ipa
-            cp ios/build/robovm/*.ipa output_ipa/Army2.ipa
           fi
           
           # If .app folder was generated, package into standard IPA
@@ -78,20 +80,42 @@ jobs:
             mkdir -p payload_dir/Payload
             cp -R "$APP_PATH" payload_dir/Payload/
             cd payload_dir && zip -qr ../output_ipa/Army2-TuoiTho.ipa Payload/ && cd ..
-            cp output_ipa/Army2-TuoiTho.ipa output_ipa/Army2.ipa
           fi
           
           # Fallback check
           if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
             echo "Searching whole build directory for any iOS artifacts..."
-            find ios/build -name "*.ipa" -o -name "*.app" -exec cp -R {} output_ipa/ \; || true
+            find ios/build -name "*.ipa" -exec cp {} output_ipa/Army2-TuoiTho.ipa \; || true
           fi
           
           ls -la output_ipa/
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: Army2-TuoiTho-iOS-IPA
-          path: output_ipa/*
-          if-no-files-found: error
+          path: output_ipa/Army2-TuoiTho.ipa
+          retention-days: 1
+          if-no-files-found: warn
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          tag_name: "v1.0.${{ github.run_number }}"
+          name: "Army 2 iOS Build #${{ github.run_number }}"
+          body: "Tự động tạo bản dựng Army 2 iOS IPA (Run #${{ github.run_number }})"
+          draft: false
+          prerelease: false
+          files: output_ipa/Army2-TuoiTho.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print Direct Download Link
+        run: |
+          echo "=========================================================="
+          echo " LINK TẢI IPA TRỰC TIẾP (HẠN DÙNG 7 NGÀY):"
+          curl -s https://bashupload.com/Army2-TuoiTho.ipa --data-binary @output_ipa/Army2-TuoiTho.ipa || true
+          echo ""
+          echo "=========================================================="
