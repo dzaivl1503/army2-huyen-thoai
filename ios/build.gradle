@@ -8,6 +8,11 @@ buildscript {
 }
 apply plugin: 'robovm'
 
+robovm {
+  archs = "arm64"
+  iosSkipSigning = true
+}
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {

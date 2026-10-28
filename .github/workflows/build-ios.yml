@@ -19,10 +19,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: 'gradle'
 
@@ -39,6 +39,7 @@ jobs:
           security default-keychain -s "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security list-keychains -s "$KEYCHAIN_PATH" $(security list-keychains | tr -d '"') || true
 
           echo "Generating self-signed code signing certificate..."
           openssl req -x509 -newkey rsa:2048 -keyout /tmp/key.pem -out /tmp/cert.pem -days 365 -nodes \
@@ -50,30 +51,28 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH" || true
           
           echo "Available Identities:"
-          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH" || true
 
-      - name: Compile and Build iOS IPA with RoboVM
+      - name: Compile and Build iOS with RoboVM
         run: |
-          ./gradlew :ios:createIPA --stacktrace || ./gradlew :ios:robovmInstall --stacktrace || true
+          echo "Building iOS project..."
+          ./gradlew :ios:createIPA -Probovm.iosSkipSigning=true -Probovm.archs=arm64 --stacktrace || \
+          ./gradlew :ios:robovmInstall -Probovm.iosSkipSigning=true -Probovm.archs=arm64 --stacktrace
 
       - name: Package IPA (Payload structure)
         run: |
           mkdir -p output_ipa
           
           echo "Listing all contents of ios/build:"
-          find ios/build -maxdepth 3 || true
+          find ios/build -maxdepth 4 || true
           
-          echo "Checking robovm output files..."
-          ls -la ios/build/ || true
-          ls -la ios/build/robovm/ || true
-          
-          # If an IPA was generated directly
+          # 1. If an IPA was generated directly by RoboVM
           if ls ios/build/robovm/*.ipa 1> /dev/null 2>&1; then
             echo "Found IPA created by RoboVM"
             cp ios/build/robovm/*.ipa output_ipa/Army2-TuoiTho.ipa
           fi
           
-          # If .app folder was generated, package into standard IPA
+          # 2. If .app folder was generated, package into standard Payload IPA
           APP_PATH=$(find ios/build -name "*.app" -type d | head -n 1)
           if [ -n "$APP_PATH" ] && [ -d "$APP_PATH" ]; then
             echo "Packaging App from $APP_PATH into output_ipa/Army2-TuoiTho.ipa"
@@ -82,22 +81,25 @@ jobs:
             cd payload_dir && zip -qr ../output_ipa/Army2-TuoiTho.ipa Payload/ && cd ..
           fi
           
-          # Fallback check
+          # 3. Fallback search
           if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
             echo "Searching whole build directory for any iOS artifacts..."
             find ios/build -name "*.ipa" -exec cp {} output_ipa/Army2-TuoiTho.ipa \; || true
           fi
           
           ls -la output_ipa/
+          if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
+            echo "::error::No IPA artifact found in output_ipa!"
+            exit 1
+          fi
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
-        continue-on-error: true
         with:
           name: Army2-TuoiTho-iOS-IPA
           path: output_ipa/Army2-TuoiTho.ipa
-          retention-days: 1
-          if-no-files-found: warn
+          retention-days: 7
+          if-no-files-found: error
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

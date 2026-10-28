@@ -12,3 +12,4 @@ AngelChipEmulator.jar
 dist/
 /rms/
 *.class
+local.properties
