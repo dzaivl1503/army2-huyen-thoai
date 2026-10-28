@@ -2,3 +2,8 @@ plugins {
   id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
 }
 include 'lwjgl3', 'core', 'ios'
+
+def hasAndroidSdk = System.getenv("ANDROID_HOME") != null || System.getenv("ANDROID_SDK_ROOT") != null || new File(rootDir, "local.properties").exists()
+if (hasAndroidSdk) {
+  include 'android'
+}
