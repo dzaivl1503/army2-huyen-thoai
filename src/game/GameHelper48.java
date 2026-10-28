@@ -214,6 +214,7 @@ extends ScrollDialogScreen {
     private void I1l11I1IlI() {
         Object object;
         this.var_int_a = 1;
+        this.var_boolean_a = false;
         for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
             object = (ItemTemplate)this.var_java_util_Vector_a.elementAt(i);
             ((ItemTemplate)this.var_java_util_Vector_a.elementAt(i)).var_int_c = 0;

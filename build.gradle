@@ -61,6 +61,7 @@ subprojects {
   version = "$projectVersion"
   ext.appName = 'Army2'
   repositories {
+    google()
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
     mavenLocal()

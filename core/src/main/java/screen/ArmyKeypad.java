@@ -13,8 +13,8 @@ public class ArmyKeypad {
 
     public static ArmyKeypad instance;
 
-    public static final int ROW_HEIGHT = 100;
-    public static final int KEYPAD_TOTAL_HEIGHT = ROW_HEIGHT * 2; // 200px
+    public static final int ROW_HEIGHT = 150;
+    public static final int KEYPAD_TOTAL_HEIGHT = ROW_HEIGHT * 2; // 300px (150px moi hang)
 
     public static class KeyButton {
         public int x, y, w, h;
@@ -166,33 +166,33 @@ public class ArmyKeypad {
 
     private void drawSymbolUp(Graphics graphics, int cx, int cy) {
         graphics.setColor(0x000000);
-        for (int t = 0; t <= 1; t++) {
-            graphics.drawLine(cx - 7, cy + 3 + t, cx, cy - 4 + t);
-            graphics.drawLine(cx, cy - 4 + t, cx + 7, cy + 3 + t);
+        for (int t = 0; t <= 2; t++) {
+            graphics.drawLine(cx - 10, cy + 5 + t, cx, cy - 6 + t);
+            graphics.drawLine(cx, cy - 6 + t, cx + 10, cy + 5 + t);
         }
     }
 
     private void drawSymbolDown(Graphics graphics, int cx, int cy) {
         graphics.setColor(0x000000);
-        for (int t = 0; t <= 1; t++) {
-            graphics.drawLine(cx - 7, cy - 4 + t, cx, cy + 3 + t);
-            graphics.drawLine(cx, cy + 3 + t, cx + 7, cy - 4 + t);
+        for (int t = 0; t <= 2; t++) {
+            graphics.drawLine(cx - 10, cy - 5 + t, cx, cy + 6 + t);
+            graphics.drawLine(cx, cy + 6 + t, cx + 10, cy - 5 + t);
         }
     }
 
     private void drawSymbolLeft(Graphics graphics, int cx, int cy) {
         graphics.setColor(0x000000);
-        for (int t = 0; t <= 1; t++) {
-            graphics.drawLine(cx + 3 + t, cy - 7, cx - 4 + t, cy);
-            graphics.drawLine(cx - 4 + t, cy, cx + 3 + t, cy + 7);
+        for (int t = 0; t <= 2; t++) {
+            graphics.drawLine(cx + 5 + t, cy - 10, cx - 6 + t, cy);
+            graphics.drawLine(cx - 6 + t, cy, cx + 5 + t, cy + 10);
         }
     }
 
     private void drawSymbolRight(Graphics graphics, int cx, int cy) {
         graphics.setColor(0x000000);
-        for (int t = 0; t <= 1; t++) {
-            graphics.drawLine(cx - 4 + t, cy - 7, cx + 3 + t, cy);
-            graphics.drawLine(cx + 3 + t, cy, cx - 4 + t, cy + 7);
+        for (int t = 0; t <= 2; t++) {
+            graphics.drawLine(cx - 5 + t, cy - 10, cx + 6 + t, cy);
+            graphics.drawLine(cx + 6 + t, cy, cx - 5 + t, cy + 10);
         }
     }
 
@@ -207,16 +207,12 @@ public class ArmyKeypad {
                 if (btn.contains(x, y)) {
                     btn.pressed = true;
                     if (btn.type == 6) {
-                        // LUC MAX: Tu dong giu phim ban (OK/-5) cho den khi day 100% luc
-                        new Thread(() -> {
-                            try {
-                                triggerKeyDown(-5);
-                                Thread.sleep(1700);
-                            } catch (Exception ignored) {
-                            } finally {
-                                triggerKeyUp(-5);
-                            }
-                        }).start();
+                        // LUC MAX: Hien thi hop thoai nhap luc ban
+                        try {
+                            new ActionListener130().a();
+                        } catch (Throwable t) {
+                            t.printStackTrace();
+                        }
                     } else {
                         triggerKeyDown(btn.keycode);
                     }
@@ -269,15 +265,11 @@ public class ArmyKeypad {
                 } else if (btn.contains(x, y)) {
                     btn.pressed = true;
                     if (btn.type == 6) {
-                        new Thread(() -> {
-                            try {
-                                triggerKeyDown(-5);
-                                Thread.sleep(1700);
-                            } catch (Exception ignored) {
-                            } finally {
-                                triggerKeyUp(-5);
-                            }
-                        }).start();
+                        try {
+                            new ActionListener130().a();
+                        } catch (Throwable t) {
+                            t.printStackTrace();
+                        }
                     } else {
                         triggerKeyDown(btn.keycode);
                     }

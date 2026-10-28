@@ -9,9 +9,9 @@ import game.GameCanvas;
 import game.IActionListener;
 import game.PlayerEntity;
 
-final class ActionListener130
+public final class ActionListener130
 implements IActionListener {
-    ActionListener130() {
+    public ActionListener130() {
     }
 
     public final void a() {

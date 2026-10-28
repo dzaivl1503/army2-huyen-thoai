@@ -47,11 +47,12 @@ implements IActionListener {
                 }
                 itemTemplate.var_int_c = qty;
                 itemTemplate.var_boolean_c = true;
-                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g = itemTemplate.var_int_f != -1 && itemTemplate.var_int_e != -1 ? ActionListener277.this.var_game_GameCommand_l11Il11llI11 : (itemTemplate.var_int_e == -1 && itemTemplate.var_int_f != -1 ? ActionListener277.this.I1IIllI1I11I : ActionListener277.this.IlI111l1);
-                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.f = null;
+                GameCommand buyCmd = itemTemplate.var_int_f != -1 && itemTemplate.var_int_e != -1 ? ActionListener277.this.var_game_GameCommand_l11Il11llI11 : (itemTemplate.var_int_e == -1 && itemTemplate.var_int_f != -1 ? ActionListener277.this.I1IIllI1I11I : ActionListener277.this.IlI111l1);
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.f = buyCmd;
+                ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g = buyCmd;
                 GameCanvas.var_game_GameHelper21_a = null;
-                if (ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g != null && ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g.var_game_IActionListener_a != null) {
-                    ActionListener277.this.var_game_GameHelper48_l11Il11llI11.g.var_game_IActionListener_a.a();
+                if (buyCmd != null && buyCmd.var_game_IActionListener_a != null) {
+                    buyCmd.var_game_IActionListener_a.a();
                 }
             }
         }, new IActionListener() {
@@ -59,7 +60,7 @@ implements IActionListener {
                 GameCanvas.var_game_GameHelper21_a = null;
             }
         }, 1);
-        GameCanvas.var_game_InputScreen_a.a.a("1");
+        GameCanvas.var_game_InputScreen_a.a.a(this.var_game_GameHelper48_l11Il11llI11.var_int_a > 1 ? String.valueOf(this.var_game_GameHelper48_l11Il11llI11.var_int_a) : "1");
         GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
     }
 }

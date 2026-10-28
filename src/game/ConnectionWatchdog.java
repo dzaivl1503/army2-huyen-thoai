@@ -708,18 +708,22 @@ public final class ConnectionWatchdog {
         this.var_game_IServerListener_l11llllI.a(message);
     }
 
-    public final void a(byte by, byte by2, short s, byte by3) {
+    public final void a(byte by, byte by2, short s, int qty) {
         Message message = new Message(-3);
         try {
             message.java_io_DataOutputStream_a().writeByte(by);
             if (by == 1) {
                 message.java_io_DataOutputStream_a().writeByte(by2);
                 message.java_io_DataOutputStream_a().writeShort(s);
-                message.java_io_DataOutputStream_a().writeByte(by3);
+                message.java_io_DataOutputStream_a().writeShort((short) qty);
             }
         }
         catch (Exception exception) {}
         this.var_game_IServerListener_l11llllI.a(message);
+    }
+
+    public final void a(byte by, byte by2, short s, byte by3) {
+        this.a(by, by2, s, (int)(by3 & 0xFF));
     }
 
     public final void o() {
