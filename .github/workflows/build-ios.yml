@@ -51,11 +51,7 @@ jobs:
 
       - name: Compile and Build iOS IPA with RoboVM
         run: |
-          ./gradlew :ios:createIPA \
-            -Probovm.iosSignIdentity="iPhone Developer: CI" \
-            -Probovm.iosSkipSigning=true \
-            -Probovm.archs=arm64 \
-            --stacktrace
+          ./gradlew :ios:createIPA --stacktrace
 
       - name: Package IPA (Payload structure)
         run: |
