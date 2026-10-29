@@ -427,14 +427,15 @@ public final class ZoneScreen extends BoardScreen {
 
     public void updateCommands() {
         if (!this.isBettingPhase && !this.isTransferPhase) {
-            this.f = new GameCommand("Menu", new ActionListenerZoneMenu(this));
+            // Khong hien nut "Tro ra/Menu" o ben trai; nut San sang/Bat dau dat o ben phai
+            this.f = null;
             if (this.getMasterId() == TerrainMidlet.myInfo.var_int_a) {
-                this.h = new GameCommand("Bắt đầu", new ActionListenerZoneAction(this, 0));
+                this.g = new GameCommand("Bắt đầu", new ActionListenerZoneAction(this, 0));
             } else {
                 this.checkReadyStatus();
-                this.h = this.readyStatus == 0 ? new GameCommand("Sẵn sàng", new ActionListenerZoneAction(this, 0)) : new GameCommand("Hủy Sẵn sàng", new ActionListenerZoneAction(this, 0));
+                this.g = this.readyStatus == 0 ? new GameCommand("Sẵn sàng", new ActionListenerZoneAction(this, 0)) : new GameCommand("Hủy Sẵn sàng", new ActionListenerZoneAction(this, 0));
             }
-            this.g = null;
+            this.h = null;
         } else if (this.isTransferPhase && this.turnPlayerIdx != this.getMyPlayerIndex()) {
             this.f = new GameCommand("Menu", new ActionListenerZoneMenu(this));
             this.h = null;

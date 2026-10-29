@@ -916,7 +916,7 @@ implements Runnable {
     }
 
     public static void c(String string) {
-        var_game_GameHelper20_a.a(string, null, null, null);
+        var_game_GameHelper20_a.a(string, null, new GameCommand("OK", new ActionListener062()), null);
         var_game_GameHelper21_a = var_game_GameHelper20_a;
     }
 
