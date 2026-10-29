@@ -145,6 +145,14 @@ public final class BattleManager {
                 BattleManager.var_game_PlayerEntity_arr_a[by].var_boolean_v = true;
                 if (BattleManager.var_game_PlayerEntity_arr_a[by].var_byte_f != 8) {
                     BattleManager.var_game_PlayerEntity_arr_a[by].var_byte_f = 0;
+                    // Mỗi lượt mới: lực 1 bắt đầu rỗng, chưa mở lực 2
+                    BattleManager.var_game_PlayerEntity_arr_a[by].var_byte_d = 0;
+                    BattleManager.var_game_PlayerEntity_arr_a[by].var_byte_e = 0;
+                    BattleManager.var_game_PlayerEntity_arr_a[by].l111ll1l = false;
+                    PlayerEntity.isPullingForce = false;
+                    PlayerEntity.waitingSecondPressRelease = false;
+                    PlayerEntity.keyHoldFrames = 0;
+                    PlayerEntity.fireCooldown = 0;
                     var_game_PlayerEntity_arr_a[by].f();
                 }
                 BattleManager.var_game_PlayerEntity_arr_a[by].var_int_n = 0;

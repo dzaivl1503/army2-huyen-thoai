@@ -727,6 +727,10 @@ public class PlayerEntity {
                     GameCanvas.var_boolean_arr_a[12] = false;
                     GameCanvas.var_boolean_arr_a[13] = false;
                     if (this.var_byte_f != 3) {
+                        // Bắt đầu kéo lực mới: lực 1 rỗng, chưa mở lực 2
+                        this.var_byte_d = 0;
+                        this.var_byte_e = 0;
+                        this.l111ll1l = false;
                         this.var_byte_f = (byte)3;
                         this.var_byte_g = ShopScreen.a(this.var_byte_c);
                         this.var_boolean_u = ShopScreen.b(this.var_byte_g) && !this.var_boolean_o ? true : (this.var_boolean_p ? ShopScreen.b(this.var_byte_g) : false);
