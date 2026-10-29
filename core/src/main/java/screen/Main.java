@@ -79,6 +79,11 @@ public class Main extends Game {
 
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(true, WIDTH, HEIGHT);
+        this.viewport = new ExtendViewport(WIDTH, HEIGHT, camera);
+        if (viewport != null) {
+            viewport.update(pWidth, pHeight, true);
+        }
+        this.camera.setToOrtho(true, WIDTH, HEIGHT);
         this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
         this.camera.update();
 
@@ -164,7 +169,9 @@ public class Main extends Game {
     @Override
     public void resize(int width, int height) {
         updateVirtualSize(width, height);
-        Gdx.gl.glViewport(0, 0, width, height);
+        if (viewport != null) {
+            viewport.update(width, height, true);
+        }
         if (camera != null) {
             camera.setToOrtho(true, WIDTH, HEIGHT);
             camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
