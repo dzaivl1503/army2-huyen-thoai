@@ -125,6 +125,8 @@ public final class ZoneScreen extends BoardScreen {
 
     public void setState(byte state, byte turnPlayer) {
         this.lastStateChangeTime = System.currentTimeMillis();
+        // Dong dialog "Xin cho..." / dialog dang mo khi vong moi bat dau
+        GameCanvas.var_game_GameHelper21_a = null;
         if (state == 1) {
             // Giai doan dat cuoc
             this.isDiceFinished = false;
@@ -505,6 +507,7 @@ public final class ZoneScreen extends BoardScreen {
                     if (GameCanvas.var_game_PopupMenu_a != null) {
                         GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
                     }
+                    GameCanvas.var_game_GameHelper21_a = null;
                     GameCanvas.c("Đã chọn nguồn: " + animalNames[slot] + ". Chọn đích để tả.");
                 } else {
                     GameCanvas.c("Con vật này không có chip để tả!");
@@ -514,6 +517,7 @@ public final class ZoneScreen extends BoardScreen {
                 if (GameCanvas.var_game_PopupMenu_a != null) {
                     GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
                 }
+                GameCanvas.var_game_GameHelper21_a = null;
                 this.sendTransfer(this.transferSource, this.transferDest);
                 GameCanvas.c("Đã tả: " + animalNames[this.transferSource] + " -> " + animalNames[this.transferDest]);
                 this.transferSource = -1;
@@ -622,9 +626,9 @@ public final class ZoneScreen extends BoardScreen {
                 for (int i = 0; i < 3; ++i) {
                     int dx = plateStartX + i * (frameH + diceGap);
                     int frameIdx;
-                    if (this.isDiceFinished && elapsed >= 3000L) {
+                    if (this.isDiceFinished) {
                         frameIdx = this.diceResults[i];
-                    } else if (this.isBettingPhase || this.isTransferPhase) {
+                    } else if (this.isTransferPhase) {
                         if (now - this.lastRollAnimTime >= 200L) {
                             this.lastRollAnimTime = now;
                         }
