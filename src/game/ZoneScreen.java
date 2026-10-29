@@ -427,8 +427,8 @@ public final class ZoneScreen extends BoardScreen {
 
     public void updateCommands() {
         if (!this.isBettingPhase && !this.isTransferPhase) {
-            // Khong hien nut "Tro ra/Menu" o ben trai; nut San sang/Bat dau dat o ben phai
-            this.f = null;
+            // Nut Menu (trai) de truy cap Lich su / Roi phong; San sang/Bat dau o ben phai
+            this.f = new GameCommand("Menu", new ActionListenerZoneMenu(this));
             if (this.getMasterId() == TerrainMidlet.myInfo.var_int_a) {
                 this.g = new GameCommand("Bắt đầu", new ActionListenerZoneAction(this, 0));
             } else {
