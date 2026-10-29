@@ -39,6 +39,10 @@ public final class FontRenderer {
         try {
             GameHelper28 gameHelper28 = new GameHelper28("/font/font");
             this.var_javax_microedition_lcdui_Image_II11IIII = gameHelper28.a(string2);
+            if (this.var_javax_microedition_lcdui_Image_II11IIII == null) {
+                // Fallback to a known-working font image so dialog/menu text is never invisible.
+                this.var_javax_microedition_lcdui_Image_II11IIII = gameHelper28.a("fb.png");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
