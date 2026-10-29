@@ -613,7 +613,7 @@ public final class ZoneScreen extends BoardScreen {
             int row2Y = row1Y + slotW + 10;   // 144
 
             // 4. Center top: 3 dice animation / results
-            if (imgBauCua != null && this.hasDiceFinished) {
+            if (imgBauCua != null && (this.hasDiceFinished || this.isTransferPhase)) {
                 int frameH = 54;
                 int maxFrames = imgBauCua.getHeight() / frameH;
                 int diceGap = 8;
