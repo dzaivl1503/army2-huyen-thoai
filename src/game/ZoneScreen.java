@@ -62,6 +62,29 @@ public final class ZoneScreen extends BoardScreen {
         updateCommands();
     }
 
+    @Override
+    public int getMasterId() {
+        return this.var_int_llI1lI1Il;
+    }
+
+    @Override
+    public void void_a(int n) {
+        super.void_a(n);
+        this.updateCommands();
+    }
+
+    @Override
+    public void b_() {
+        super.b_();
+        this.updateCommands();
+    }
+
+    @Override
+    public void c() {
+        super.c();
+        this.updateTimer();
+    }
+
     public void resetState() {
         this.isDiceFinished = false;
         this.isBettingPhase = false;
@@ -346,6 +369,7 @@ public final class ZoneScreen extends BoardScreen {
     }
 
     public int getMyPlayerIndex() {
+        if (this.var_java_util_Vector_a == null) return -1;
         for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
             PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(i);
             if (p != null && p.var_int_a == TerrainMidlet.myInfo.var_int_a) {
@@ -356,20 +380,10 @@ public final class ZoneScreen extends BoardScreen {
     }
 
     public PlayerAccountInfo getPlayerAt(int idx) {
-        if (idx >= 0 && idx < this.var_java_util_Vector_a.size()) {
+        if (this.var_java_util_Vector_a != null && idx >= 0 && idx < this.var_java_util_Vector_a.size()) {
             return (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(idx);
         }
         return null;
-    }
-
-    public int getMasterId() {
-        if (!this.var_java_util_Vector_a.isEmpty()) {
-            PlayerAccountInfo p0 = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(0);
-            if (p0 != null && p0.var_int_a != -1) {
-                return p0.var_int_a;
-            }
-        }
-        return -1;
     }
 
     public boolean canInteract() {
@@ -379,7 +393,7 @@ public final class ZoneScreen extends BoardScreen {
         if (this.isBetPeriod) {
             return true;
         }
-        if (this.isTransferPeriod && this.turnPlayerIdx >= 0 && this.turnPlayerIdx < this.var_java_util_Vector_a.size()) {
+        if (this.isTransferPeriod && this.turnPlayerIdx >= 0 && this.var_java_util_Vector_a != null && this.turnPlayerIdx < this.var_java_util_Vector_a.size()) {
             PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(this.turnPlayerIdx);
             return p != null && p.var_int_a == TerrainMidlet.myInfo.var_int_a;
         }
@@ -396,7 +410,7 @@ public final class ZoneScreen extends BoardScreen {
 
     public void checkReadyStatus() {
         int myIdx = this.getMyPlayerIndex();
-        if (myIdx >= 0 && myIdx < this.var_java_util_Vector_a.size()) {
+        if (this.var_java_util_Vector_a != null && myIdx >= 0 && myIdx < this.var_java_util_Vector_a.size()) {
             PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(myIdx);
             this.readyStatus = (p != null && p.var_boolean_b) ? 1 : 0;
         } else {
@@ -438,7 +452,7 @@ public final class ZoneScreen extends BoardScreen {
             int gap = 5;
             int centerX = GameCanvas.var_int_b / 2;
             int startX = centerX - (3 * slotW + 2 * gap) / 2;
-            int row1Y = 10 + 54 + 20;
+            int row1Y = 20 + 54 + 20;
             int row2Y = row1Y + slotW + 10;
 
             for (int col = 0; col < 3; col++) {
@@ -461,19 +475,17 @@ public final class ZoneScreen extends BoardScreen {
         }
     }
 
-    public void onSlotSelected(int slot) {
+    private void onSlotSelected(int slot) {
         if (!canInteract()) {
             return;
         }
         if (this.isBettingPhase) {
-            this.myBets[slot] = this.myBets[slot] + 1;
+            this.myBets[slot]++;
             if (this.myBets[slot] > 6) {
                 this.myBets[slot] = 6;
             }
             this.sendBet();
         } else if (this.isTransferPhase) {
-            int myIdx = this.getMyPlayerIndex();
-            if (myIdx < 0) return;
             if (this.isSelectingSource) {
                 boolean hasChips = false;
                 for (int i = 0; i < 8; ++i) {
@@ -530,20 +542,65 @@ public final class ZoneScreen extends BoardScreen {
     @Override
     public void a(Graphics graphics) {
         try {
-            // Nen toan man hinh mau xanh reu ban cuoc
+            // 1. Clear background: black first, then table dark cyan/teal
+            graphics.setColor(0);
+            graphics.fillRect(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
             graphics.setColor(0, 102, 102);
             graphics.fillRect(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
+
+            // 2. Touch screen translation
+            if (GameCanvas.var_boolean_d) {
+                graphics.translate(0, -15);
+                graphics.translate(0, -5);
+            }
+
+            // 3. Bottom wooden panels / border lines
+            graphics.setColor(12965614);
+            graphics.fillRect(0, GameCanvas.var_int_c - 96, GameCanvas.var_int_b, 45);
+            if (imgLine != null && imgLine.getWidth() > 0) {
+                for (int n = 0; n < GameCanvas.var_int_b / imgLine.getWidth(); ++n) {
+                    DataUtils.a(graphics, imgLine, 0, 16, 33, 8, 0, (n + 1) * 33, GameCanvas.var_int_c - 96, 0);
+                }
+            }
+            graphics.fillRect(0, GameCanvas.var_int_c - 68, GameCanvas.var_int_b, 68);
+            graphics.fillRect(0, GameCanvas.var_int_c - 96 - 12, 75, 45);
+            graphics.fillRect(GameCanvas.var_int_b - 75, GameCanvas.var_int_c - 96 - 12, 75, 45);
+            graphics.setColor(6985149);
+            graphics.drawRect(-1, GameCanvas.var_int_c - 96 - 12, 76, 45);
+            graphics.drawRect(GameCanvas.var_int_b - 76, GameCanvas.var_int_c - 96 - 12, 76, 45);
+            graphics.setColor(9289);
+            graphics.drawLine(76, GameCanvas.var_int_c - 96 - 12, 76, GameCanvas.var_int_c - 96 + 33);
+            graphics.drawLine(GameCanvas.var_int_b - 77, GameCanvas.var_int_c - 96 - 12, GameCanvas.var_int_b - 77, GameCanvas.var_int_c - 96 + 33);
+            if (imgLine != null) {
+                for (int n = 0; n < GameCanvas.var_int_b; ++n) {
+                    DataUtils.a(graphics, imgLine, 0, 16, 33, 8, 0, n * 33, GameCanvas.var_int_c - 68, 0);
+                }
+            }
+            graphics.setColor(6985149);
+            graphics.drawLine(0, GameCanvas.var_int_c - 60, GameCanvas.var_int_b, GameCanvas.var_int_c - 60);
+            if (imgLine != null) {
+                for (int n = 0; n < 2; ++n) {
+                    DataUtils.a(graphics, imgLine, 0, 16, 33, 8, 0, n * 33, GameCanvas.var_int_c - 96 - 20, 0);
+                    DataUtils.a(graphics, imgLine, 0, 16, 33, 8, 0, GameCanvas.var_int_b - n * 33, GameCanvas.var_int_c - 96 - 20, 24);
+                }
+                DataUtils.a(graphics, imgLine, 0, 0, 33, 8, 0, 66, GameCanvas.var_int_c - 96 - 20, 0);
+                DataUtils.a(graphics, imgLine, 0, 8, 33, 8, 0, GameCanvas.var_int_b - 66, GameCanvas.var_int_c - 96 - 20, 24);
+            }
+            graphics.translate(0, -graphics.getTranslateY());
+            if (GameCanvas.var_boolean_d) {
+                graphics.translate(0, -15);
+            }
 
             int slotW = 40;
             int slotGap = 5;
             int centerX = GameCanvas.var_int_b / 2;
             int startX = centerX - (3 * slotW + 2 * slotGap) / 2;
             int dicePlateH = 54;
-            int row1Y = 20 + dicePlateH + 20;
-            int row2Y = row1Y + slotW + 10;
+            int row1Y = 20 + dicePlateH + 20; // 94
+            int row2Y = row1Y + slotW + 10;   // 144
 
-            // 1. Ve dia xuc xac o giua phia tren
-            if (imgBauCua != null && this.hasDiceFinished) {
+            // 4. Center top: 3 dice animation / results
+            if (imgBauCua != null && (this.hasDiceFinished || this.isBettingPhase || this.isTransferPhase)) {
                 int frameH = 54;
                 int maxFrames = imgBauCua.getHeight() / frameH;
                 int diceGap = 8;
@@ -565,11 +622,11 @@ public final class ZoneScreen extends BoardScreen {
                         frameIdx = 0;
                     }
                     if (frameIdx >= maxFrames) frameIdx = 0;
-                    graphics.drawRegion(imgBauCua, 0, frameIdx * frameH, frameH, frameH, 0, dx, 10, 0);
+                    DataUtils.a(graphics, imgBauCua, 0, frameIdx * frameH, frameH, frameH, 0, dx, 10, 0);
                 }
             }
 
-            // 2. Ve 6 o dat (3 o tren, 3 o duoi)
+            // 5. 6 Animal betting slots (3 on row 1, 3 on row 2)
             if (imgODat != null) {
                 for (int col = 0; col < 3; ++col) {
                     int sx = startX + col * (slotW + slotGap);
@@ -582,26 +639,32 @@ public final class ZoneScreen extends BoardScreen {
                 }
             }
 
-            // 3. Ve nguoi choi xung quanh
+            // 6. Clear lower felt area before painting players
+            graphics.setColor(0, 102, 102);
+            graphics.fillRect(0, GameCanvas.var_int_c - 65, GameCanvas.var_int_b, 70);
+
+            // 7. Paint players around room
             paintPlayers(graphics);
 
-            // 4. Ve thong tin trang thai / thoi gian / ket qua
+            // 8. Paint game status text & results
             paintGameStatus(graphics, dicePlateH, row2Y + slotW + 20);
 
-            // 5. Ve thanh softkey phia duoi
+            // 9. Softkeys at bottom
             graphics.translate(-graphics.getTranslateX(), -graphics.getTranslateY());
             graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
             BaseScreen.c(graphics);
 
             int fontOffset = GameCanvas.var_boolean_d ? 12 : 3;
-            if (this.f != null) {
-                FontRenderer.a.a(graphics, this.f.var_java_lang_String_a, 5, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 0);
-            }
-            if (this.h != null) {
-                FontRenderer.a.a(graphics, this.h.var_java_lang_String_a, GameCanvas.var_int_b / 2, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 2);
-            }
-            if (this.g != null) {
-                FontRenderer.a.a(graphics, this.g.var_java_lang_String_a, GameCanvas.var_int_b - 5, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 1);
+            if (GameCanvas.var_game_GameHelper21_a == null) {
+                if (this.f != null) {
+                    FontRenderer.a.a(graphics, this.f.var_java_lang_String_a, 5, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 0);
+                }
+                if (this.h != null) {
+                    FontRenderer.a.a(graphics, this.h.var_java_lang_String_a, GameCanvas.var_int_b / 2, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 2);
+                }
+                if (this.g != null) {
+                    FontRenderer.a.a(graphics, this.g.var_java_lang_String_a, GameCanvas.var_int_b - 5, GameCanvas.var_int_c - FontRenderer.a.a() - fontOffset, 1);
+                }
             }
         } catch (Throwable t) {
             t.printStackTrace();
@@ -609,27 +672,51 @@ public final class ZoneScreen extends BoardScreen {
     }
 
     private void drawAnimalSlot(Graphics graphics, int slotIdx, int sx, int sy, int slotW) {
-        // Con tro vi tri dang chon
+        // Circular cursor + arrow when selected
         if (canInteract() && this.selectedSlot == slotIdx) {
-            graphics.setColor(0x00FF00);
-            graphics.drawRect(sx - 2, sy - 2, slotW + 3, slotW + 3);
+            int cx = sx + slotW / 2;
+            int cy = sy + slotW / 2;
+            graphics.setColor(65280); // Green
+            int r = slotW / 2 + 3;
+            for (int cr = r; cr >= r - 2; --cr) {
+                for (int deg = 0; deg < 360; deg += 10) {
+                    int px = cx + (int) ((double) cr * Math.cos(deg * Math.PI / 180.0));
+                    int py = cy + (int) ((double) cr * Math.sin(deg * Math.PI / 180.0));
+                    if (px >= 0 && px < GameCanvas.var_int_b && py >= 0 && py < GameCanvas.var_int_c) {
+                        graphics.drawLine(px, py, px, py);
+                    }
+                }
+            }
+            // Yellow pointer
             graphics.setColor(0xFFFF00);
-            graphics.fillRect(sx + slotW / 2 - 2, sy + slotW + 2, 4, 6);
+            graphics.fillRect(cx - 1, sy + slotW + 4, 3, 6);
+            int arrowTipY = sy + slotW;
+            for (int step = 0; step < 4; ++step) {
+                int w = step + 1;
+                for (int x = cx - w; x <= cx + w; ++x) {
+                    graphics.drawLine(x, arrowTipY, x, arrowTipY);
+                }
+                arrowTipY++;
+            }
         }
 
-        // Ve icon con vat tu odat.png
-        graphics.drawRegion(imgODat, 0, slotIdx * slotW, slotW, slotW, 0, sx, sy, 0);
+        // Draw animal frame from odat.png
+        if (imgODat != null) {
+            DataUtils.a(graphics, imgODat, 0, slotIdx * slotW, slotW, slotW, 0, sx, sy, 0);
+        }
 
-        // Neu da quay xong va con vat nay trúng
+        // Winner highlight if round ended and won
         long elapsed = System.currentTimeMillis() - this.diceFinishTime;
         if (this.isDiceFinished && this.diceCountPerAnimal[slotIdx] > 0 && elapsed >= 3000L) {
-            graphics.setColor(0x00FF00);
+            graphics.setColor(65280);
             graphics.fillRect(sx, sy, slotW, slotW);
-            graphics.drawRegion(imgODat, 0, slotIdx * slotW, slotW, slotW, 0, sx, sy, 0);
+            if (imgODat != null) {
+                DataUtils.a(graphics, imgODat, 0, slotIdx * slotW, slotW, slotW, 0, sx, sy, 0);
+            }
             FontRenderer.f.a(graphics, String.valueOf(this.diceCountPerAnimal[slotIdx]), sx + slotW / 2, sy + slotW / 2, 2);
         }
 
-        // Ve cac chip cuoc o goc tren con vat
+        // Draw chips on slot
         drawChipsOnSlot(graphics, sx, sy, slotW, slotIdx);
     }
 
@@ -638,23 +725,36 @@ public final class ZoneScreen extends BoardScreen {
         int chipY = sy + slotW - 16;
         int chipSize = 12;
         int count = 0;
+        int masterId = this.getMasterId();
 
         for (int i = 0; i < 8 && count < 4; ++i) {
-            PlayerAccountInfo p = getPlayerAt(i);
-            if (p == null || p.var_int_a == -1 || p.var_int_a == getMasterId()) continue;
+            if (this.var_java_util_Vector_a == null || i >= this.var_java_util_Vector_a.size()) continue;
+            PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(i);
+            if (p == null || p.var_int_a == -1 || p.var_int_a == masterId) continue;
             int chips = this.playerBets[i][slotIdx];
             if (chips <= 0) continue;
 
             int cx = chipX - count * chipSize;
+            int nonMasterCount = 0;
+            for (int k = 0; k <= i; ++k) {
+                if (k >= this.var_java_util_Vector_a.size()) continue;
+                PlayerAccountInfo p2 = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(k);
+                if (p2.var_int_a == -1 || p2.var_int_a == masterId) continue;
+                if (k == i) break;
+                ++nonMasterCount;
+            }
+            int chipColor = nonMasterCount % 4;
+
             if (imgChip != null) {
-                int chipColorIdx = count % 4;
-                graphics.drawRegion(imgChip, 0, chipColorIdx * chipSize, chipSize, chipSize, 0, cx, chipY, 0);
+                DataUtils.a(graphics, imgChip, 0, chipColor * chipSize, chipSize, chipSize, 0, cx, chipY, 0);
                 graphics.setColor(0);
                 FontRenderer.e.a(graphics, String.valueOf(chips), cx + 6, chipY + 8, 2);
             } else {
-                int[] colors = new int[]{0x00FF00, 0xFFFF00, 0xFF0000, 0xFF00FF};
-                graphics.setColor(colors[count % 4]);
+                int[] colors = new int[]{65280, 0xFFFF00, 0xFF0000, 0xFF00FF};
+                graphics.setColor(colors[chipColor]);
                 graphics.fillRect(cx, chipY, chipSize, chipSize);
+                graphics.setColor(0);
+                graphics.drawRect(cx, chipY, chipSize, chipSize);
                 FontRenderer.a.a(graphics, String.valueOf(chips), cx + 6, chipY + 8, 2);
             }
             ++count;
@@ -662,47 +762,103 @@ public final class ZoneScreen extends BoardScreen {
     }
 
     private void paintPlayers(Graphics graphics) {
-        if (this.var_java_util_Vector_a.isEmpty()) return;
-        int[] posX = new int[]{24, GameCanvas.var_int_b - 24, 62, GameCanvas.var_int_b - 62, 62, GameCanvas.var_int_b - 62, 24, GameCanvas.var_int_b - 24};
-        int[] posY = new int[]{GameCanvas.var_int_c - 128, GameCanvas.var_int_c - 128, GameCanvas.var_int_c - 80, GameCanvas.var_int_c - 80, GameCanvas.var_int_c - 128, GameCanvas.var_int_c - 128, GameCanvas.var_int_c - 80, GameCanvas.var_int_c - 80};
+        if (this.var_java_util_Vector_a == null || this.var_java_util_Vector_a.isEmpty()) return;
+        int masterId = this.getMasterId();
 
-        for (int i = 0; i < 8; ++i) {
-            PlayerAccountInfo p = getPlayerAt(i);
-            if (p == null || p.var_int_a == -1) continue;
-            boolean isLeft = i % 2 != 0;
-            int px = posX[i] + (isLeft ? -2 : 2);
-            int py = posY[i] + (GameCanvas.var_boolean_d ? 8 : 13);
+        if (BoardScreen.var_byte_b != 7) {
+            for (int i = 0; i < 8 && i < this.var_java_util_Vector_a.size(); ++i) {
+                PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(i);
+                if (p == null || p.var_int_a == -1) continue;
+                boolean isRightSide = i % 2 != 0;
+                int px = this.var_int_arr_lIII1III11I[i] + (isRightSide ? -2 : 2);
+                int py = this.var_int_arr_llI1lI1Il[i] + (GameCanvas.var_boolean_d ? 8 : 13);
+                int dir = isRightSide ? 0 : 2;
 
-            PlayerEntity.a(graphics, p.var_byte_a, 5, px, py, isLeft ? 0 : 2, p.var_game_EquipSlotSet_a);
-            if (p.var_javax_microedition_lcdui_Image_a != null) {
-                graphics.drawImage(p.var_javax_microedition_lcdui_Image_a, posX[i] - 18, posY[i] - (BaseScreen.var_int_r - 4), 0);
+                PlayerEntity.a(graphics, p.var_byte_a, 5, px, py, dir, p.var_game_EquipSlotSet_a);
+                p.a(graphics, px, py, dir);
+                if (p.var_javax_microedition_lcdui_Image_a != null) {
+                    graphics.drawImage(p.var_javax_microedition_lcdui_Image_a, this.var_int_arr_lIII1III11I[i] - 18, this.var_int_arr_llI1lI1Il[i] - (BaseScreen.var_int_r - 4), 0);
+                }
+                BoardScreen.a(graphics, p.g, this.var_int_arr_lIII1III11I[i], this.var_int_arr_llI1lI1Il[i] - 21, 3);
+                (BoardScreen.var_byte_b != 5 && i % 2 == 0 ? FontRenderer.g : FontRenderer.h).a(graphics, p.var_java_lang_String_a, this.var_int_arr_lIII1III11I[i], this.var_int_arr_llI1lI1Il[i] + 15, 2);
+
+                paintPlayerTotalChips(graphics, i, this.var_int_arr_lIII1III11I[i], this.var_int_arr_llI1lI1Il[i] + 5, masterId);
+                paintPlayerMoney(graphics, p, this.var_int_arr_lIII1III11I[i], this.var_int_arr_llI1lI1Il[i] + 25);
+                paintPlayerStatus(graphics, p, this.var_int_arr_lIII1III11I[i], this.var_int_arr_llI1lI1Il[i], masterId);
             }
-            BoardScreen.a(graphics, p.g, posX[i], posY[i] - 15, 3);
+        } else {
+            for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
+                PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(i);
+                if (p == null || p.var_int_a == -1) continue;
+                boolean isRightSide = i % 2 != 0;
+                int px = this.var_int_arr_lIII1III11I[0] + (isRightSide ? -2 : 2);
+                int py = this.var_int_arr_llI1lI1Il[0] + (GameCanvas.var_boolean_d ? 8 : 13);
+                int dir = isRightSide ? 0 : 2;
 
-            // Ten nguoi choi
-            FontRenderer nameFont = (i % 2 == 0) ? FontRenderer.g : FontRenderer.h;
-            nameFont.a(graphics, p.var_java_lang_String_a, posX[i], posY[i] + 15, 2);
+                PlayerEntity.a(graphics, p.var_byte_a, 5, px, py, dir, p.var_game_EquipSlotSet_a);
+                p.a(graphics, px, py, dir);
+                if (p.var_javax_microedition_lcdui_Image_a != null) {
+                    graphics.drawImage(p.var_javax_microedition_lcdui_Image_a, this.var_int_arr_lIII1III11I[0] - 18, this.var_int_arr_llI1lI1Il[0] - (BaseScreen.var_int_r - 4), 0);
+                }
+                BoardScreen.a(graphics, p.g, this.var_int_arr_lIII1III11I[0], this.var_int_arr_llI1lI1Il[0] - 21, 3);
+                (i % 2 != 0 ? FontRenderer.h : FontRenderer.g).a(graphics, p.var_java_lang_String_a, this.var_int_arr_lIII1III11I[0], this.var_int_arr_llI1lI1Il[0] + 15, 2);
 
-            // Tien xu
-            String moneyStr = formatMoney(p.var_long_c);
-            FontRenderer.e.a(graphics, moneyStr, posX[i], posY[i] + 25, 2);
+                paintPlayerTotalChips(graphics, i, this.var_int_arr_lIII1III11I[0], this.var_int_arr_llI1lI1Il[0] + 5, masterId);
+                paintPlayerMoney(graphics, p, this.var_int_arr_lIII1III11I[0], this.var_int_arr_llI1lI1Il[0] + 25);
+                paintPlayerStatus(graphics, p, this.var_int_arr_lIII1III11I[0], this.var_int_arr_llI1lI1Il[0], masterId);
+            }
+        }
+    }
 
-            // Tong chip cua nguoi choi
-            int totalChips = 0;
-            for (int a = 0; a < 6; ++a) totalChips += this.playerBets[i][a];
-            if (totalChips > 0 && imgChip != null) {
-                int cx = posX[i] - 6;
-                int cy = posY[i] + 5;
-                graphics.drawRegion(imgChip, 0, (i % 4) * 12, 12, 12, 0, cx, cy, 0);
+    private void paintPlayerTotalChips(Graphics graphics, int pIdx, int px, int py, int masterId) {
+        if (this.var_java_util_Vector_a == null || pIdx < 0 || pIdx >= this.var_java_util_Vector_a.size()) return;
+        PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(pIdx);
+        if (p == null || p.var_int_a == -1 || p.var_int_a == masterId) return;
+
+        int total = 0;
+        for (int a = 0; a < 6; ++a) total += this.playerBets[pIdx][a];
+        if (total > 0) {
+            int nonMasterCount = 0;
+            for (int k = 0; k <= pIdx; ++k) {
+                if (k >= this.var_java_util_Vector_a.size()) continue;
+                PlayerAccountInfo p2 = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(k);
+                if (p2.var_int_a == -1 || p2.var_int_a == masterId) continue;
+                if (k == pIdx) break;
+                ++nonMasterCount;
+            }
+            int chipColor = nonMasterCount % 4;
+            int chipSize = 12;
+            int cx = px - chipSize / 2;
+            if (imgChip != null) {
+                DataUtils.a(graphics, imgChip, 0, chipColor * chipSize, chipSize, chipSize, 0, cx, py, 0);
                 graphics.setColor(0);
-                FontRenderer.e.a(graphics, String.valueOf(totalChips), cx + 6, cy + 8, 2);
+                FontRenderer.e.a(graphics, String.valueOf(total), cx + 6, py + 8, 2);
+            } else {
+                int[] colors = new int[]{65280, 0xFFFF00, 0xFF0000, 0xFF00FF};
+                graphics.setColor(colors[chipColor]);
+                graphics.fillRect(cx, py, chipSize, chipSize);
+                graphics.setColor(0);
+                graphics.drawRect(cx, py, chipSize, chipSize);
+                FontRenderer.a.a(graphics, String.valueOf(total), cx + 6, py + 8, 2);
             }
+        }
+    }
 
-            // Trang thai OK / San sang / Chu phong
-            if (p.var_int_a == getMasterId()) {
-                FontRenderer.e.a(graphics, "Chủ phòng", posX[i], posY[i] - 32, 2);
-            } else if (p.var_boolean_b && !isBetPeriod && !isTransferPeriod) {
-                FontRenderer.e.a(graphics, "Sẵn sàng", posX[i], posY[i] - 32, 2);
+    private void paintPlayerMoney(Graphics graphics, PlayerAccountInfo p, int px, int py) {
+        if (p == null || p.var_int_a == -1) return;
+        String mStr = formatMoney(p.var_long_c) + StringUtils.ca();
+        FontRenderer.e.a(graphics, mStr, px, py, 2);
+    }
+
+    private void paintPlayerStatus(Graphics graphics, PlayerAccountInfo p, int px, int py, int masterId) {
+        if (p == null || p.var_int_a == -1) return;
+        if (p.var_int_a == masterId) {
+            FontRenderer.e.a(graphics, StringUtils.cB(), px, py - 32, 2); // "Chủ phòng"
+        } else {
+            if (!(this.isTransferPeriod || this.isBetPeriod)) {
+                if (p.var_boolean_b) {
+                    FontRenderer.e.a(graphics, "ok", px, py - 32, 2);
+                }
             }
         }
     }
@@ -734,7 +890,7 @@ public final class ZoneScreen extends BoardScreen {
                 FontRenderer.e.a(graphics, "Giai đoạn cược - " + this.countdownBet + "s", centerX, 5 + dicePlateH + 15, 2);
             } else if (this.isTransferPeriod) {
                 String transferStr = "Giai đoạn tả - " + this.countdownTransfer + "s";
-                if (this.turnPlayerIdx >= 0 && this.turnPlayerIdx < this.var_java_util_Vector_a.size()) {
+                if (this.var_java_util_Vector_a != null && this.turnPlayerIdx >= 0 && this.turnPlayerIdx < this.var_java_util_Vector_a.size()) {
                     PlayerAccountInfo p = (PlayerAccountInfo) this.var_java_util_Vector_a.elementAt(this.turnPlayerIdx);
                     if (p != null) {
                         transferStr = "Tả cược - " + p.var_java_lang_String_a + " - " + this.countdownTransfer + "s";
@@ -744,13 +900,18 @@ public final class ZoneScreen extends BoardScreen {
             }
         }
 
-        // Huong dan ta cuoc
+        // Tả instruction
         if (this.isTransferPhase && canInteract() && this.transferSource >= 0) {
             if (this.transferDest < 0) {
                 FontRenderer.e.a(graphics, "Nguồn: " + animalNames[this.transferSource] + " - Chọn đích", 10, statusY, 0);
             } else {
                 FontRenderer.e.a(graphics, "Tả: " + animalNames[this.transferSource] + " -> " + animalNames[this.transferDest], 10, statusY, 0);
             }
+        }
+
+        // Room fee / bet at bottom center
+        if (this.var_int_lIII1III11I != 0) {
+            FontRenderer.e.a(graphics, this.var_int_lIII1III11I + StringUtils.ca(), centerX, 250, 3);
         }
     }
 
@@ -765,9 +926,8 @@ public final class ZoneScreen extends BoardScreen {
     public void void_b() {
         super.void_b();
         handleSlotTouch();
-        updateTimer();
 
-        // Xu ly phim ban phim ao / phim cung
+        // Key controls for selecting and placing bets
         if ((this.isBettingPhase || this.isTransferPhase) && canInteract()) {
             if (GameCanvas.var_boolean_arr_a[2]) {
                 GameCanvas.var_boolean_arr_a[2] = false;
@@ -798,7 +958,7 @@ public final class ZoneScreen extends BoardScreen {
             }
         }
 
-        // Xu ly softkeys
+        // Softkeys
         if (GameCanvas.var_boolean_arr_a[5] || BaseScreen.boolean_a((byte) 2)) {
             GameCanvas.var_boolean_arr_a[5] = false;
             if (this.h != null && this.h.var_game_IActionListener_a != null) {
@@ -845,6 +1005,11 @@ public final class ZoneScreen extends BoardScreen {
                         }
                     } else {
                         // Chu phong: Bat dau
+                        if ((long) this.screen.var_int_lIII1III11I > TerrainMidlet.myInfo.var_long_c) {
+                            GameCanvas.void_a(StringUtils.by()); // "Bạn không đủ tiền cược!"
+                        }
+                        GameCanvas.b(StringUtils.bw()); // "Xin chờ..."
+                        ConnectionWatchdog.game_ConnectionWatchdog_a().a(this.screen.var_int_arr_a);
                         ConnectionWatchdog.game_ConnectionWatchdog_a().e();
                     }
                     break;

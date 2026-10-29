@@ -67,10 +67,10 @@ extends BaseScreen {
     public static Image var_javax_microedition_lcdui_Image_c;
     public static byte[] var_byte_arr_a;
     public static byte[] var_byte_arr_b;
-    private int[] var_int_arr_lIII1III11I = new int[8];
-    private int[] var_int_arr_llI1lI1Il = new int[8];
-    private int var_int_lIII1III11I;
-    private int var_int_llI1lI1Il;
+    public int[] var_int_arr_lIII1III11I = new int[8];
+    public int[] var_int_arr_llI1lI1Il = new int[8];
+    public int var_int_lIII1III11I;
+    public int var_int_llI1lI1Il;
     private int var_int_Il111I11 = -1;
     public static byte var_byte_c;
     public int[] var_int_arr_a = new int[8];
@@ -274,7 +274,7 @@ extends BaseScreen {
         BaseScreen.m();
     }
 
-    public final void c() {
+    public void c() {
         PlayerAccountInfo playerAccountInfo;
         int n;
         if (this.var_int_a > 0) {
@@ -525,7 +525,7 @@ extends BaseScreen {
         }
     }
 
-    public final void b_() {
+    public void b_() {
         super.b_();
         this.var_int_arr_a = ExplosionEffect.int_arr_a(this.var_int_arr_a);
         PlayerEntity.var_boolean_c = false;
@@ -604,7 +604,15 @@ extends BaseScreen {
         }
     }
 
-    public final void void_a(int n) {
+    public int getMasterId() {
+        return this.var_int_llI1lI1Il;
+    }
+
+    public void setMasterId(int n) {
+        this.var_int_llI1lI1Il = n;
+    }
+
+    public void void_a(int n) {
         this.var_int_llI1lI1Il = n;
         for (n = 0; n < this.var_java_util_Vector_a.size(); ++n) {
             PlayerAccountInfo playerAccountInfo = (PlayerAccountInfo)this.var_java_util_Vector_a.elementAt(n);
@@ -613,14 +621,14 @@ extends BaseScreen {
         }
     }
 
-    public final void a(int n, String string) {
+    public void a(int n, String string) {
         n = this.IIIIII1llI(n);
         if (n >= 0 && n < this.var_int_arr_lIII1III11I.length) {
             new ChatPopup().a(90, this.var_int_arr_lIII1III11I[n], this.var_int_arr_llI1lI1Il[n] - 10, string);
         }
     }
 
-    public final void c(int n) {
+    public void c(int n) {
         for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
             PlayerAccountInfo playerAccountInfo = (PlayerAccountInfo)this.var_java_util_Vector_a.elementAt(i);
             if (playerAccountInfo.var_int_a != n) continue;
@@ -629,14 +637,14 @@ extends BaseScreen {
         }
     }
 
-    public final void f() {
+    public void f() {
         for (int i = 0; i < this.var_java_util_Vector_a.size(); ++i) {
             PlayerAccountInfo playerAccountInfo = (PlayerAccountInfo)this.var_java_util_Vector_a.elementAt(i);
             playerAccountInfo.var_boolean_b = playerAccountInfo.var_int_a == this.var_int_llI1lI1Il;
         }
     }
 
-    public final void d(int n) {
+    public void d(int n) {
         this.var_int_lIII1III11I = n;
         for (n = 0; n < this.var_java_util_Vector_a.size(); ++n) {
             ((PlayerAccountInfo)this.var_java_util_Vector_a.elementAt((int)n)).var_boolean_b = false;

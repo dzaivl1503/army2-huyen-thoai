@@ -124,6 +124,9 @@ implements IPacketListener {
             if (playerAccountInfo.var_int_a != n) continue;
             playerAccountInfo.var_boolean_b = bl;
         }
+        if (boardScreen instanceof ZoneScreen) {
+            ((ZoneScreen) boardScreen).updateCommands();
+        }
     }
 
     public final void a(String string, int n) {
