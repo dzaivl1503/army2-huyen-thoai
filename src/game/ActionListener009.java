@@ -29,6 +29,8 @@ implements IActionListener {
         PlayerEntity.var_int_q = n;
         PlayerEntity.isPullingForce = false;
         PlayerEntity.fireCooldown = 25;
+        PlayerEntity.waitingSecondPressRelease = false;
+        PlayerEntity.keyHoldFrames = 0;
         BaseScreen.m();
         GameCanvas.d();
     }

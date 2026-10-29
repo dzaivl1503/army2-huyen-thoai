@@ -83,6 +83,8 @@ public class PlayerEntity {
     public static int var_int_q;
     public static boolean isPullingForce = false;
     public static int fireCooldown = 0;
+    public static boolean waitingSecondPressRelease = false;
+    public static int keyHoldFrames = 0;
     public int var_int_r;
     private int var_int_IIllIll1I = 0;
     private static int var_int_III1l1II1lI;
@@ -712,16 +714,66 @@ public class PlayerEntity {
             if (fireCooldown > 0) {
                 fireCooldown--;
                 isPullingForce = false;
+                keyHoldFrames = 0;
             } else if ((GameCanvas.var_boolean_arr_a[5] || GameCanvas.var_boolean_arr_b[5]) && !this.var_boolean_n && !GameCanvas.var_boolean_arr_b[4] && !GameCanvas.var_boolean_arr_b[6]) {
-                isPullingForce = true;
+                if (waitingSecondPressRelease) {
+                    if (!GameCanvas.var_boolean_arr_b[5]) {
+                        waitingSecondPressRelease = false;
+                    }
+                } else {
+                    isPullingForce = true;
+                    if (GameCanvas.var_boolean_arr_b[5]) {
+                        keyHoldFrames++;
+                    }
+                }
+            } else {
+                if (waitingSecondPressRelease && !GameCanvas.var_boolean_arr_b[5]) {
+                    waitingSecondPressRelease = false;
+                }
+                if (isPullingForce && keyHoldFrames >= 3 && !GameCanvas.var_boolean_arr_b[5]) {
+                    keyHoldFrames = 0;
+                    if (!this.var_boolean_u) {
+                        if (this.var_byte_d > 1 && this.var_byte_f == 3) {
+                            this.var_byte_f = (byte)2;
+                            this.lll1IlI1lIII();
+                            BaseScreen.m();
+                            var_boolean_G = true;
+                            isPullingForce = false;
+                            fireCooldown = 25;
+                        } else {
+                            this.var_byte_d = 0;
+                            isPullingForce = false;
+                        }
+                    } else if (this.var_byte_f == 3) {
+                        if (!this.l111ll1l) {
+                            this.l111ll1l = true;
+                            isPullingForce = false;
+                            waitingSecondPressRelease = true;
+                            fireCooldown = 8;
+                            GameCanvas.var_boolean_arr_a[5] = false;
+                            GameCanvas.var_boolean_arr_b[5] = false;
+                        } else if (this.var_byte_e > 1) {
+                            this.var_byte_f = (byte)2;
+                            this.lll1IlI1lIII();
+                            this.l111ll1l = false;
+                            BaseScreen.m();
+                            var_boolean_G = true;
+                            isPullingForce = false;
+                            waitingSecondPressRelease = false;
+                            fireCooldown = 25;
+                        }
+                    }
+                }
             }
             if (isPullingForce && (this.var_boolean_n || GameCanvas.var_boolean_arr_b[4] || GameCanvas.var_boolean_arr_b[6])) {
                 isPullingForce = false;
+                keyHoldFrames = 0;
+                waitingSecondPressRelease = false;
             }
             if (isPullingForce) {
                 GameCanvas.var_boolean_arr_a[12] = false;
                 GameCanvas.var_boolean_arr_a[13] = false;
-                if (this.var_byte_f != 3 && this.var_byte_d > 1) {
+                if (this.var_byte_f != 3) {
                     this.var_byte_f = (byte)3;
                     this.var_byte_g = ShopScreen.a(this.var_byte_c);
                     this.var_boolean_u = ShopScreen.b(this.var_byte_g) && !this.var_boolean_o ? true : (this.var_boolean_p ? ShopScreen.b(this.var_byte_g) : false);
@@ -729,6 +781,7 @@ public class PlayerEntity {
                 } else if (!this.var_boolean_u) {
                     this.var_byte_d = (byte)(this.var_byte_d + 1);
                     if (this.var_byte_d >= var_int_p) {
+                        this.var_byte_f = (byte)2;
                         this.lll1IlI1lIII();
                         if (ShopScreen.b(this.var_byte_g)) {
                             this.var_boolean_u = true;
@@ -736,20 +789,32 @@ public class PlayerEntity {
                         BaseScreen.m();
                         var_boolean_G = true;
                         isPullingForce = false;
+                        keyHoldFrames = 0;
+                        fireCooldown = 25;
                     }
                 } else if (!this.l111ll1l) {
                     this.var_byte_d = (byte)(this.var_byte_d + 1);
                     if (this.var_byte_d >= var_int_p) {
                         this.l111ll1l = true;
+                        isPullingForce = false;
+                        keyHoldFrames = 0;
+                        waitingSecondPressRelease = true;
+                        fireCooldown = 8;
+                        GameCanvas.var_boolean_arr_a[5] = false;
+                        GameCanvas.var_boolean_arr_b[5] = false;
                     }
                 } else {
                     this.var_byte_e = (byte)(this.var_byte_e + 1);
                     if (this.var_byte_e >= var_int_q) {
+                        this.var_byte_f = (byte)2;
                         this.lll1IlI1lIII();
                         this.l111ll1l = false;
                         BaseScreen.m();
                         var_boolean_G = true;
                         isPullingForce = false;
+                        keyHoldFrames = 0;
+                        waitingSecondPressRelease = false;
+                        fireCooldown = 25;
                     }
                 }
             } else if (!this.var_boolean_u) {
@@ -1089,6 +1154,9 @@ public class PlayerEntity {
             if (this.var_int_k != 100 && this.l111ll1l) {
                 this.l111ll1l = false;
             }
+            isPullingForce = false;
+            waitingSecondPressRelease = false;
+            keyHoldFrames = 0;
         }
     }
 

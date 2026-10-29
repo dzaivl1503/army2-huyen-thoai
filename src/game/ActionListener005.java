@@ -33,6 +33,8 @@ implements IActionListener {
         PlayerEntity.var_int_p = n;
         PlayerEntity.isPullingForce = false;
         PlayerEntity.fireCooldown = 25;
+        PlayerEntity.waitingSecondPressRelease = false;
+        PlayerEntity.keyHoldFrames = 0;
         if (GameCanvas.var_game_BaseScreen_a != BattleScreen.var_game_BattleScreen_a || BattleScreen.var_game_BattleScreen_a == null || BattleManager.var_game_PlayerEntity_arr_a == null || BattleScreen.var_byte_b < 0 || BattleScreen.var_byte_b >= BattleManager.var_game_PlayerEntity_arr_a.length || BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b] == null) {
             BaseScreen.m();
             GameCanvas.d();
