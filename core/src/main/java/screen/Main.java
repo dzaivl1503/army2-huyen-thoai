@@ -40,13 +40,13 @@ public class Main extends Game {
 
     public static void updateVirtualSize(int screenWidth, int screenHeight) {
         if (Gdx.app != null && Gdx.app.getType() == Application.ApplicationType.Android) {
-            float density = Gdx.graphics.getDensity();
-            if (density <= 1.01f && screenWidth >= 600) {
-                density = (float) screenWidth / 390.0f;
-            }
-            if (density > 0.1f) {
-                WIDTH = Math.max(320, Math.round(screenWidth / density));
-                HEIGHT = Math.max(480, Math.round(screenHeight / density));
+            float targetWidth = 390.0f;
+            if (screenWidth > 0 && screenHeight > 0) {
+                float scale = (float) screenWidth / targetWidth;
+                WIDTH = Math.round(targetWidth);
+                HEIGHT = Math.round((float) screenHeight / scale);
+                if (WIDTH < 320) WIDTH = 320;
+                if (HEIGHT < 480) HEIGHT = 480;
                 return;
             }
         }
@@ -73,8 +73,10 @@ public class Main extends Game {
 
         int pWidth = Gdx.graphics.getWidth();
         int pHeight = Gdx.graphics.getHeight();
-        if (pWidth <= 0) pWidth = 380;
-        if (pHeight <= 0) pHeight = 680;
+        if (pWidth <= 0)
+            pWidth = 380;
+        if (pHeight <= 0)
+            pHeight = 680;
         updateVirtualSize(pWidth, pHeight);
 
         this.camera = new OrthographicCamera();
@@ -202,7 +204,8 @@ public class Main extends Game {
     public class MyInputProcessor implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {
-            if (screen == null) return false;
+            if (screen == null)
+                return false;
             int k = MapKey.map(keycode);
             screen.keyPressed(k);
             return false;
@@ -210,7 +213,8 @@ public class Main extends Game {
 
         @Override
         public boolean keyUp(int keycode) {
-            if (screen == null) return false;
+            if (screen == null)
+                return false;
             int k = MapKey.map(keycode);
             screen.keyReleased(k);
             return false;
@@ -223,9 +227,11 @@ public class Main extends Game {
 
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            if (screen == null) return false;
+            if (screen == null)
+                return false;
             Vector3 touch = new Vector3(screenX, screenY, 0.0f);
-            if (camera != null) camera.unproject(touch);
+            if (camera != null)
+                camera.unproject(touch);
             int x = (int) touch.x;
             int y = (int) touch.y;
             if (pointer < 2) {
@@ -239,9 +245,11 @@ public class Main extends Game {
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            if (screen == null) return false;
+            if (screen == null)
+                return false;
             Vector3 touch = new Vector3(screenX, screenY, 0.0f);
-            if (camera != null) camera.unproject(touch);
+            if (camera != null)
+                camera.unproject(touch);
             int x = (int) touch.x;
             int y = (int) touch.y;
             if (pointer < 2) {
@@ -260,9 +268,11 @@ public class Main extends Game {
 
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer) {
-            if (screen == null) return false;
+            if (screen == null)
+                return false;
             Vector3 touch = new Vector3(screenX, screenY, 0.0f);
-            if (camera != null) camera.unproject(touch);
+            if (camera != null)
+                camera.unproject(touch);
             int x = (int) touch.x;
             int y = (int) touch.y;
             if (pointer < 2) {
@@ -274,19 +284,60 @@ public class Main extends Game {
             return false;
         }
 
-        @Override public boolean mouseMoved(int screenX, int screenY) { return false; }
-        @Override public boolean scrolled(float amountX, float amountY) { return false; }
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+            return false;
+        }
     }
 
     public static class MyGestureHandler implements GestureDetector.GestureListener {
-        @Override public boolean touchDown(float x, float y, int pointer, int button) { return false; }
-        @Override public boolean tap(float x, float y, int count, int button) { return false; }
-        @Override public boolean longPress(float x, float y) { return false; }
-        @Override public boolean fling(float velocityX, float velocityY, int button) { return false; }
-        @Override public boolean pan(float x, float y, float deltaX, float deltaY) { return false; }
-        @Override public boolean panStop(float x, float y, int pointer, int button) { return false; }
-        @Override public boolean zoom(float initialDistance, float distance) { return false; }
-        @Override public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) { return false; }
-        @Override public void pinchStop() {}
+        @Override
+        public boolean touchDown(float x, float y, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean tap(float x, float y, int count, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean longPress(float x, float y) {
+            return false;
+        }
+
+        @Override
+        public boolean fling(float velocityX, float velocityY, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean pan(float x, float y, float deltaX, float deltaY) {
+            return false;
+        }
+
+        @Override
+        public boolean panStop(float x, float y, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean zoom(float initialDistance, float distance) {
+            return false;
+        }
+
+        @Override
+        public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+            return false;
+        }
+
+        @Override
+        public void pinchStop() {
+        }
     }
 }

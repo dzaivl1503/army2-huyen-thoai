@@ -17,8 +17,8 @@ implements IActionListener {
         if (n < 1) {
             n = 1;
         }
-        if (n > 20) {
-            n = 20;
+        if (n > 10) {
+            n = 10;
         }
         GameCanvas.l = n - 1;
         GameCanvas.a();

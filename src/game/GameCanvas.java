@@ -132,7 +132,10 @@ implements Runnable {
         this.var_game_GameHelper30_lI1IlIlIl1 = new GameHelper30();
         l = DataUtils.int_a("speed");
         if (l == -1) {
-            l = 5;
+            l = 4;
+            DataUtils.a("speed", l);
+        } else if (l > 9) {
+            l = 9;
             DataUtils.a("speed", l);
         }
         GameCanvas.a();
@@ -148,16 +151,7 @@ implements Runnable {
         if (speed <= 8) {
             return 2;
         }
-        if (speed <= 11) {
-            return 3;
-        }
-        if (speed <= 14) {
-            return 4;
-        }
-        if (speed <= 17) {
-            return 5;
-        }
-        return 6;
+        return 3;
     }
 
     public static void a() {
@@ -165,7 +159,7 @@ implements Runnable {
         if (speed <= 5) {
             var_long_lI1IlIlIl1 = 45L - (long)(speed - 1) * 5L;
         } else {
-            var_long_lI1IlIlIl1 = Math.max(1L, 20L - (long)(speed - 5) * 2L);
+            var_long_lI1IlIlIl1 = Math.max(8L, 25L - (long)(speed - 5) * 3L);
         }
     }
 

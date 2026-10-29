@@ -568,13 +568,13 @@ extends BaseScreen {
             case 0: {
                 if (GameCanvas.var_boolean_arr_a[4]) {
                     if (--GameCanvas.l < 0) {
-                        GameCanvas.l = 19;
+                        GameCanvas.l = 9;
                     }
                     GameCanvas.a();
                     BaseScreen.m();
                 }
                 if (GameCanvas.var_boolean_arr_a[6]) {
-                    if (++GameCanvas.l > 19) {
+                    if (++GameCanvas.l > 9) {
                         GameCanvas.l = 0;
                     }
                     GameCanvas.a();

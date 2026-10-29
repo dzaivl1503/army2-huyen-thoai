@@ -51,8 +51,8 @@ extends SettingItem {
         if (this.a < 0) {
             this.a = 0;
         }
-        if (this.a > this.IIII11lIl) {
-            this.a = this.IIII11lIl;
+        if (this.a > this.IIII11lIl - 1) {
+            this.a = this.IIII11lIl - 1;
         }
         return this.a != n2;
     }
