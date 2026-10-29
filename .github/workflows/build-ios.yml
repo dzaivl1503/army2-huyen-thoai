@@ -97,7 +97,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         continue-on-error: true
         with:
-          tag_name: "v1.0.${{ github.run_number }}"
+          tag_name: "ios-v1.0.${{ github.run_number }}"
           name: "Army 2 iOS Build #${{ github.run_number }}"
           body: "Tự động tạo bản dựng Army 2 iOS IPA (Run #${{ github.run_number }})"
           draft: false
@@ -109,8 +109,12 @@ jobs:
       - name: Print Direct Download Link
         run: |
           echo "=========================================================="
-          echo " LINK TẢI IPA TRỰC TIẾP (HẠN DÙNG 7 NGÀY):"
+          echo " LINK TẢI IPA TRỰC TIẾP TỐC ĐỘ CAO:"
+          echo "- Link BashUpload:"
           curl -s https://bashupload.com/Army2-TuoiTho.ipa --data-binary @output_ipa/Army2-TuoiTho.ipa || true
+          echo ""
+          echo "- Link Temp.sh:"
+          curl -s -F "file=@output_ipa/Army2-TuoiTho.ipa" https://temp.sh/upload || true
           echo ""
           echo "=========================================================="
 

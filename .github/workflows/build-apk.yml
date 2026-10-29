@@ -63,8 +63,12 @@ jobs:
       - name: Print Direct Download Link
         run: |
           echo "=========================================================="
-          echo " LINK TẢI APK TRỰC TIẾP (HẠN DÙNG 7 NGÀY):"
+          echo " LINK TẢI APK TRỰC TIẾP TỐC ĐỘ CAO:"
+          echo "- Link BashUpload:"
           curl -s https://bashupload.com/Army2-TuoiTho.apk --data-binary @output_apk/Army2-TuoiTho.apk || true
+          echo ""
+          echo "- Link Temp.sh:"
+          curl -s -F "file=@output_apk/Army2-TuoiTho.apk" https://temp.sh/upload || true
           echo ""
           echo "=========================================================="
 
