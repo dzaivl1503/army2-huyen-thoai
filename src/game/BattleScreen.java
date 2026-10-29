@@ -955,27 +955,28 @@ extends BaseScreen {
         if (BattleManager.boolean_a() && BattleManager.game_PlayerEntity_a() != null) {
             int n2 = GameCanvas.var_int_b >> 1;
             n = GameCanvas.var_int_c - 20;
-            int n3 = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_int_l;
-            byte by = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_byte_f != 3 ? (byte)0 : BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_byte_d;
+            PlayerEntity me = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b];
+            int n3 = me.var_int_l;
+            byte by = (me.var_byte_f == 3 || me.l111ll1l) ? me.var_byte_d : (byte)0;
             var_game_GameHelper29_a.a(1, n2 - 63, n + 5, 0, 0, graphics);
             var_game_GameHelper29_a.a(3, n2 + 10, n + 5, 0, 0, graphics);
-            graphics.setClip(n2 - 61, n + 5, (60 - BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_int_n) * 49 / 60, 13);
+            graphics.setClip(n2 - 61, n + 5, (60 - me.var_int_n) * 49 / 60, 13);
             var_game_GameHelper29_a.a(0, n2 - 63, n + 5, 0, 0, graphics);
             graphics.setClip(n2 + 2 + 10, n + 5, by * 49 / 30, 13);
             var_game_GameHelper29_a.a(2, n2 + 10, n + 5, 0, 0, graphics);
             graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
             var_game_GameHelper29_a.a(5, n2 - 63, n - 7, 0, 0, graphics);
-            graphics.setClip(n2 - 61, n - 7, BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_byte_i * 49 / 100, 13);
+            graphics.setClip(n2 - 61, n - 7, me.var_byte_i * 49 / 100, 13);
             var_game_GameHelper29_a.a(4, n2 - 63, n - 7, 0, 0, graphics);
             graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
             if (n3 > 0) {
                 graphics.setColor(16482687);
                 graphics.drawLine(n2 + 12 + n3 * 49 / 30, n + 7, n2 + 12 + n3 * 49 / 30, n + 14);
             }
-            if (BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_boolean_u) {
+            if (me.has2Force()) {
                 n = GameCanvas.var_int_c - 35;
-                n3 = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_int_m;
-                by = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_byte_f != 3 ? (byte)0 : BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_byte_e;
+                n3 = me.var_int_m;
+                by = (me.var_byte_f == 3 && me.l111ll1l) ? me.var_byte_e : (byte)0;
                 var_game_GameHelper29_a.a(3, n2 + 10, n + 8, 0, 0, graphics);
                 graphics.setClip(n2 + 12, n + 8, by * 49 / 30, 13);
                 var_game_GameHelper29_a.a(2, n2 + 10, n + 8, 0, 0, graphics);

@@ -75,8 +75,14 @@ public class PlayerEntity {
     public boolean var_boolean_r;
     public boolean var_boolean_s;
     public boolean var_boolean_t;
-    private boolean l111ll1l = false;
+    public boolean l111ll1l = false;
     public boolean var_boolean_u = false;
+
+    public boolean has2Force() {
+        this.var_byte_g = ShopScreen.a(this.var_byte_c);
+        this.var_boolean_u = ShopScreen.b(this.var_byte_g) && !this.var_boolean_o ? true : (this.var_boolean_p ? ShopScreen.b(this.var_byte_g) : false);
+        return this.var_boolean_u;
+    }
     public byte var_byte_d = 0;
     public byte var_byte_e = 0;
     public static int var_int_p;
