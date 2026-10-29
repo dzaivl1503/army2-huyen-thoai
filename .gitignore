@@ -1,6 +1,8 @@
 .gradle/
 build/
 */build/
+bin/
+*/bin/
 out/
 .idea/
 *.iml
@@ -12,4 +14,6 @@ AngelChipEmulator.jar
 dist/
 /rms/
 *.class
+tools/*.class
+tools/tools/
 local.properties
