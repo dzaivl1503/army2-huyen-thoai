@@ -129,7 +129,7 @@ extends PlayerEntity {
 
     public final void a(Graphics graphics) {
         if (this.var_boolean_g) {
-            if (this.c == 13) {
+            if (this.var_byte_c == 13) {
                 int n;
                 if (this.var_int_t == 2) {
                     n = 0;
