@@ -613,7 +613,7 @@ public final class ZoneScreen extends BoardScreen {
             int row2Y = row1Y + slotW + 10;   // 144
 
             // 4. Center top: 3 dice animation / results
-            if (imgBauCua != null && (this.hasDiceFinished || this.isTransferPhase)) {
+            if (imgBauCua != null && this.hasDiceFinished) {
                 int frameH = 54;
                 int maxFrames = imgBauCua.getHeight() / frameH;
                 int diceGap = 8;
@@ -624,15 +624,13 @@ public final class ZoneScreen extends BoardScreen {
                 for (int i = 0; i < 3; ++i) {
                     int dx = plateStartX + i * (frameH + diceGap);
                     int frameIdx;
-                    if (this.isDiceFinished) {
-                        frameIdx = this.diceResults[i];
-                    } else if (this.isTransferPhase) {
+                    if (elapsed < 3000L) {
                         if (now - this.lastRollAnimTime >= 200L) {
                             this.lastRollAnimTime = now;
                         }
                         frameIdx = DataUtils.b(0, 6);
                     } else {
-                        frameIdx = 0;
+                        frameIdx = this.diceResults[i];
                     }
                     if (frameIdx >= maxFrames) frameIdx = 0;
                     DataUtils.a(graphics, imgBauCua, 0, frameIdx * frameH, frameH, frameH, 0, dx, 10, 0);
@@ -859,7 +857,7 @@ public final class ZoneScreen extends BoardScreen {
 
     private void paintPlayerMoney(Graphics graphics, PlayerAccountInfo p, int px, int py) {
         if (p == null || p.var_int_a == -1) return;
-        String mStr = formatMoney(p.var_long_c) + StringUtils.ca();
+        String mStr = formatMoney(p.var_long_c) + " xu";
         FontRenderer.e.a(graphics, mStr, px, py, 2);
     }
 
@@ -924,7 +922,7 @@ public final class ZoneScreen extends BoardScreen {
 
         // Room fee / bet at bottom center
         if (this.var_int_lIII1III11I != 0) {
-            FontRenderer.e.a(graphics, this.var_int_lIII1III11I + StringUtils.ca(), centerX, 250, 3);
+            FontRenderer.e.a(graphics, this.var_int_lIII1III11I + " xu", centerX, 250, 3);
         }
     }
 
