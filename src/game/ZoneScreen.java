@@ -508,7 +508,6 @@ public final class ZoneScreen extends BoardScreen {
                         GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
                     }
                     GameCanvas.var_game_GameHelper21_a = null;
-                    GameCanvas.c("Đã chọn nguồn: " + animalNames[slot] + ". Chọn đích để tả.");
                 } else {
                     GameCanvas.c("Con vật này không có chip để tả!");
                 }
@@ -519,7 +518,6 @@ public final class ZoneScreen extends BoardScreen {
                 }
                 GameCanvas.var_game_GameHelper21_a = null;
                 this.sendTransfer(this.transferSource, this.transferDest);
-                GameCanvas.c("Đã tả: " + animalNames[this.transferSource] + " -> " + animalNames[this.transferDest]);
                 this.transferSource = -1;
                 this.transferDest = -1;
                 this.isSelectingSource = true;
@@ -615,7 +613,7 @@ public final class ZoneScreen extends BoardScreen {
             int row2Y = row1Y + slotW + 10;   // 144
 
             // 4. Center top: 3 dice animation / results
-            if (imgBauCua != null && (this.hasDiceFinished || this.isTransferPhase)) {
+            if (imgBauCua != null && this.hasDiceFinished) {
                 int frameH = 54;
                 int maxFrames = imgBauCua.getHeight() / frameH;
                 int diceGap = 8;
