@@ -630,7 +630,7 @@ public final class ZoneScreen extends BoardScreen {
                         if (now - this.lastRollAnimTime >= 200L) {
                             this.lastRollAnimTime = now;
                         }
-                        frameIdx = DataUtils.a(6, 8);
+                        frameIdx = DataUtils.b(0, 6);
                     } else {
                         frameIdx = 0;
                     }
