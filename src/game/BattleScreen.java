@@ -973,10 +973,10 @@ extends BaseScreen {
                 graphics.setColor(16482687);
                 graphics.drawLine(n2 + 12 + n3 * 49 / 30, n + 7, n2 + 12 + n3 * 49 / 30, n + 14);
             }
-            if (me.has2Force()) {
+            if (me.has2Force() && me.l111ll1l) {
                 n = GameCanvas.var_int_c - 35;
                 n3 = me.var_int_m;
-                by = (me.var_byte_f == 3 && me.l111ll1l) ? me.var_byte_e : (byte)0;
+                by = (me.var_byte_f == 3) ? me.var_byte_e : (byte)0;
                 var_game_GameHelper29_a.a(3, n2 + 10, n + 8, 0, 0, graphics);
                 graphics.setClip(n2 + 12, n + 8, by * 49 / 30, 13);
                 var_game_GameHelper29_a.a(2, n2 + 10, n + 8, 0, 0, graphics);
