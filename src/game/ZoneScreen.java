@@ -82,6 +82,7 @@ public final class ZoneScreen extends BoardScreen {
     @Override
     public void c() {
         super.c();
+        this.updateCommands();
         this.updateTimer();
     }
 
