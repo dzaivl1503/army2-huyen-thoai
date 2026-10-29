@@ -952,45 +952,67 @@ extends BaseScreen {
                 }
             }
         }
-        if (BattleManager.boolean_a() && BattleManager.game_PlayerEntity_a() != null) {
+        // Khung luc ban (thanh luc) luon duoc ve khi nhan vat cua minh con trong tran,
+        // khong phu thuoc luot hien tai. Chi phan "fill" moi phu thuoc viec dang keo luc.
+        PlayerEntity me = null;
+        if (BattleManager.var_game_PlayerEntity_arr_a != null
+                && BattleScreen.var_byte_b >= 0
+                && BattleScreen.var_byte_b < BattleManager.var_game_PlayerEntity_arr_a.length) {
+            me = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b];
+        }
+        if (me != null && var_game_GameHelper29_a != null) {
+            boolean myTurn = BattleManager.boolean_a();
             int n2 = GameCanvas.var_int_b >> 1;
             n = GameCanvas.var_int_c - 20;
-            PlayerEntity me = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b];
             int n3 = me.var_int_l;
             byte by = (me.var_byte_f == 3 || me.l111ll1l) ? me.var_byte_d : (byte)0;
+
+            // Bo clip cu (co the con sot lai tu lan ve truoc) de khung luc khong bi mat.
+            graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
+
+            // Thanh di chuyen (xanh)
             var_game_GameHelper29_a.a(1, n2 - 63, n + 5, 0, 0, graphics);
-            var_game_GameHelper29_a.a(3, n2 + 10, n + 5, 0, 0, graphics);
-            graphics.setClip(n2 - 61, n + 5, (60 - me.var_int_n) * 49 / 60, 13);
+            graphics.setClip(n2 - 61, n + 5, barWidth((60 - me.var_int_n) * 49 / 60), 13);
             var_game_GameHelper29_a.a(0, n2 - 63, n + 5, 0, 0, graphics);
-            graphics.setClip(n2 + 2 + 10, n + 5, by * 49 / 30, 13);
+            graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
+
+            // Khung luc 1 (do) - luon ve khung, chi fill khi dang keo
+            var_game_GameHelper29_a.a(3, n2 + 10, n + 5, 0, 0, graphics);
+            graphics.setClip(n2 + 12, n + 5, barWidth(by * 49 / 30), 13);
             var_game_GameHelper29_a.a(2, n2 + 10, n + 5, 0, 0, graphics);
             graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
+
+            // Thanh HP (vang)
             var_game_GameHelper29_a.a(5, n2 - 63, n - 7, 0, 0, graphics);
-            graphics.setClip(n2 - 61, n - 7, me.var_byte_i * 49 / 100, 13);
+            graphics.setClip(n2 - 61, n - 7, barWidth(me.var_byte_i * 49 / 100), 13);
             var_game_GameHelper29_a.a(4, n2 - 63, n - 7, 0, 0, graphics);
             graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
-            if (n3 > 0) {
+
+            if (myTurn && n3 > 0) {
                 graphics.setColor(16482687);
                 graphics.drawLine(n2 + 12 + n3 * 49 / 30, n + 7, n2 + 12 + n3 * 49 / 30, n + 14);
             }
+
+            // Khung luc 2 (do) - chi hien sau khi luc 1 da day
             if (me.has2Force() && me.l111ll1l) {
-                n = GameCanvas.var_int_c - 35;
-                n3 = me.var_int_m;
-                by = (me.var_byte_f == 3) ? me.var_byte_e : (byte)0;
-                var_game_GameHelper29_a.a(3, n2 + 10, n + 8, 0, 0, graphics);
-                graphics.setClip(n2 + 12, n + 8, by * 49 / 30, 13);
-                var_game_GameHelper29_a.a(2, n2 + 10, n + 8, 0, 0, graphics);
+                int y2 = GameCanvas.var_int_c - 35;
+                int mark = me.var_int_m;
+                byte by2 = (me.var_byte_f == 3) ? me.var_byte_e : (byte)0;
+                var_game_GameHelper29_a.a(3, n2 + 10, y2 + 8, 0, 0, graphics);
+                graphics.setClip(n2 + 12, y2 + 8, barWidth(by2 * 49 / 30), 13);
+                var_game_GameHelper29_a.a(2, n2 + 10, y2 + 8, 0, 0, graphics);
                 graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
-                if (n3 > 0) {
+                if (myTurn && mark > 0) {
                     graphics.setColor(16482687);
-                    graphics.drawLine(n2 + 12 + n3 * 49 / 30, n + 10, n2 + 12 + n3 * 49 / 30, n + 17);
+                    graphics.drawLine(n2 + 12 + mark * 49 / 30, y2 + 10, n2 + 12 + mark * 49 / 30, y2 + 17);
                 }
             }
+
             n = GameCanvas.var_int_c - 17;
-            n3 = BattleManager.var_game_PlayerEntity_arr_a[BattleScreen.var_byte_b].var_int_r;
+            n3 = me.var_int_r;
             graphics.drawImage(var_javax_microedition_lcdui_Image_I1IlIlll, n2, n + 2, 17);
             FontRenderer.h.a(graphics, String.valueOf(n3 < 90 ? n3 : 180 - n3), n2, n + 4, 2);
-            if (GameCanvas.var_boolean_d) {
+            if (GameCanvas.var_boolean_d && myTurn) {
                 graphics.setClip(0, 0, GameCanvas.var_int_b, GameCanvas.var_int_c);
                 if (!this.var_boolean_IlI111ll1I) {
                     graphics.drawImage(this.var_javax_microedition_lcdui_Image_Il1l11I1ll, l1I11lIl, ll1IIllIlI11, 0);
@@ -1100,6 +1122,14 @@ extends BaseScreen {
             GameCanvas.c(StringUtils.dU());
             ConnectionWatchdog.game_ConnectionWatchdog_a().void_a();
         }
+    }
+
+    // Gioi han be rong phan fill cua thanh luc trong khoang 0..49 pixel.
+    private static int barWidth(int n) {
+        if (n < 0) {
+            return 0;
+        }
+        return n > 49 ? 49 : n;
     }
 
     static {
