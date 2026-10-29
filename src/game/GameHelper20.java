@@ -44,5 +44,25 @@ extends GameHelper21 {
         }
         super.a(graphics);
     }
+
+    @Override
+    public final void void_a() {
+        if (GameCanvas.var_boolean_c) {
+            int n2 = 0;
+            if (this.lllll1l1 != null && this.lllll1l1.length > 3) {
+                n2 = this.lllll1l1.length - 3 << 3;
+            }
+            int boxY = GameCanvas.var_int_c - 112 - n2;
+            int boxH = 69 + (n2 << 1);
+            if (GameCanvas.a(8, boxY, GameCanvas.var_int_b - 16, boxH)) {
+                GameCanvas.var_boolean_c = false;
+                if (this.b != null && this.b.var_game_IActionListener_a != null) {
+                    this.b.var_game_IActionListener_a.a();
+                    return;
+                }
+            }
+        }
+        super.void_a();
+    }
 }
 

@@ -79,11 +79,11 @@ public class Graphics {
     }
 
     public int getClipX() {
-        return clipX;
+        return clipX - translateX;
     }
 
     public int getClipY() {
-        return clipY;
+        return clipY - translateY;
     }
 
     public int getClipWidth() {
@@ -136,10 +136,15 @@ public class Graphics {
     }
 
     public void setClip(int x, int y, int w, int h) {
+        if ((w >= 999 && h >= 999) || (w >= 1000 && h >= 1000) ||
+            (w >= Main.getWidth() && h >= Main.getHeight() && x <= 0 && y <= 0)) {
+            resetClip();
+            return;
+        }
         clipTX = translateX;
         clipTY = translateY;
-        clipX = x;
-        clipY = y;
+        clipX = x + translateX;
+        clipY = y + translateY;
         clipW = w;
         clipH = h;
         isClip = true;
@@ -213,25 +218,18 @@ public class Graphics {
         Vector2 start = new Vector2(x1, y1);
         Vector2 end = new Vector2(x2, y2);
         float angle = getAngle(start, end);
-        int num3;
-        int num4;
-        int num5;
-        int num6;
         boolean pushed = false;
         if (this.isClip) {
-            num3 = this.clipX;
-            num4 = this.clipY;
-            num5 = this.clipW;
-            num6 = this.clipH;
-            if (num5 > 0 && num6 > 0 && Main.instance != null && Main.instance.camera != null) {
+            if (this.clipW > 0 && this.clipH > 0 && Main.instance != null && Main.instance.camera != null) {
                 Rectangle scissors = new Rectangle();
-                if (this.isTranslate) {
-                    num3 += this.clipTX;
-                    num4 += this.clipTY;
-                }
-                Rectangle clipBounds = new Rectangle(num3, num4, num5, num6);
+                Rectangle clipBounds = new Rectangle(this.clipX, this.clipY, this.clipW, this.clipH);
                 ScissorStack.calculateScissors(Main.instance.camera, this.graphics.getTransformMatrix(), clipBounds, scissors);
                 pushed = ScissorStack.pushScissors(scissors);
+                if (!pushed) {
+                    return;
+                }
+            } else {
+                return;
             }
         }
         Texture tex = texture2D != null ? texture2D.getTexture() : null;
@@ -281,25 +279,18 @@ public class Graphics {
                 p.dispose();
                 cache(key, texture2D);
             }
-            int num3;
-            int num4;
-            int num5;
-            int num6;
             boolean pushed = false;
             if (this.isClip) {
-                num3 = this.clipX;
-                num4 = this.clipY;
-                num5 = this.clipW;
-                num6 = this.clipH;
-                if (num5 > 0 && num6 > 0 && Main.instance != null && Main.instance.camera != null) {
+                if (this.clipW > 0 && this.clipH > 0 && Main.instance != null && Main.instance.camera != null) {
                     Rectangle scissors = new Rectangle();
-                    if (this.isTranslate) {
-                        num3 += this.clipTX;
-                        num4 += this.clipTY;
-                    }
-                    Rectangle clipBounds = new Rectangle(num3, num4, num5, num6);
+                    Rectangle clipBounds = new Rectangle(this.clipX, this.clipY, this.clipW, this.clipH);
                     ScissorStack.calculateScissors(Main.instance.camera, this.graphics.getTransformMatrix(), clipBounds, scissors);
                     pushed = ScissorStack.pushScissors(scissors);
+                    if (!pushed) {
+                        return;
+                    }
+                } else {
+                    return;
                 }
             }
             Texture tex = texture2D != null ? texture2D.getTexture() : null;
@@ -334,25 +325,18 @@ public class Graphics {
             p.dispose();
             cache(key, texture2D);
         }
-        int num3;
-        int num4;
-        int num5;
-        int num6;
         boolean pushed = false;
         if (this.isClip) {
-            num3 = this.clipX;
-            num4 = this.clipY;
-            num5 = this.clipW;
-            num6 = this.clipH;
-            if (num5 > 0 && num6 > 0 && Main.instance != null && Main.instance.camera != null) {
+            if (this.clipW > 0 && this.clipH > 0 && Main.instance != null && Main.instance.camera != null) {
                 Rectangle scissors = new Rectangle();
-                if (this.isTranslate) {
-                    num3 += this.clipTX;
-                    num4 += this.clipTY;
-                }
-                Rectangle clipBounds = new Rectangle(num3, num4, num5, num6);
+                Rectangle clipBounds = new Rectangle(this.clipX, this.clipY, this.clipW, this.clipH);
                 ScissorStack.calculateScissors(Main.instance.camera, this.graphics.getTransformMatrix(), clipBounds, scissors);
                 pushed = ScissorStack.pushScissors(scissors);
+                if (!pushed) {
+                    return;
+                }
+            } else {
+                return;
             }
         }
         Texture tex = texture2D != null ? texture2D.getTexture() : null;
@@ -515,25 +499,18 @@ public class Graphics {
                     ix = -height;
                     break;
             }
-            int num3;
-            int num4;
-            int num5;
-            int num6;
             boolean pushed = false;
             if (this.isClip) {
-                num3 = this.clipX;
-                num4 = this.clipY;
-                num5 = this.clipW;
-                num6 = this.clipH;
-                if (num5 > 0 && num6 > 0 && Main.instance != null && Main.instance.camera != null) {
+                if (this.clipW > 0 && this.clipH > 0 && Main.instance != null && Main.instance.camera != null) {
                     Rectangle scissors = new Rectangle();
-                    if (this.isTranslate) {
-                        num3 += this.clipTX;
-                        num4 += this.clipTY;
-                    }
-                    Rectangle clipBounds = new Rectangle(num3, num4, num5, num6);
+                    Rectangle clipBounds = new Rectangle(this.clipX, this.clipY, this.clipW, this.clipH);
                     ScissorStack.calculateScissors(Main.instance.camera, this.graphics.getTransformMatrix(), clipBounds, scissors);
                     pushed = ScissorStack.pushScissors(scissors);
+                    if (!pushed) {
+                        return;
+                    }
+                } else {
+                    return;
                 }
             }
             Texture tex = image != null ? image.getTexture() : null;

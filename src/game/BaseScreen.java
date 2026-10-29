@@ -70,7 +70,7 @@ public abstract class BaseScreen {
     }
 
     public static void b(Graphics graphics) {
-        graphics.setClip(0, 0, 1000, 1000);
+        graphics.resetClip();
         graphics.translate(-graphics.getTranslateX(), -graphics.getTranslateY());
         if (++var_int_ll1111lIlll == 5) {
             var_int_ll1111lIlll = 0;
@@ -185,7 +185,7 @@ public abstract class BaseScreen {
     }
 
     public static void a(int n, int n2, int n3, int n4, Graphics graphics) {
-        graphics.setClip(0, 0, 1000, 1000);
+        graphics.resetClip();
         graphics.setColor(12965614);
         graphics.fillRect(n + 5, n2 + 5, n3 - 10, n4 - 10);
         graphics.setColor(6457531);

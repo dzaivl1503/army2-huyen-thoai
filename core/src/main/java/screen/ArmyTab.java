@@ -90,11 +90,9 @@ public class ArmyTab implements Screen, InputProcessor, IMainTab {
 
     @Override
     public void resize(int width, int height) {
-        if (Main.instance != null && Main.instance.viewport != null) {
-            Main.instance.viewport.update(width, height, true);
-        }
         if (Main.instance != null && Main.instance.camera != null) {
             Main.instance.camera.setToOrtho(true, width, height);
+            Main.instance.camera.position.set(width / 2f, height / 2f, 0);
             Main.instance.camera.update();
         }
         int gameH = height - ArmyKeypad.KEYPAD_TOTAL_HEIGHT;

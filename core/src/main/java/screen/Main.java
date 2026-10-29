@@ -1,5 +1,6 @@
 package screen;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -37,6 +38,22 @@ public class Main extends Game {
     public LibGDXFloatingButton floatingButton;
     public static Thread renderThread;
 
+    public static void updateVirtualSize(int screenWidth, int screenHeight) {
+        if (Gdx.app != null && Gdx.app.getType() == Application.ApplicationType.Android) {
+            float density = Gdx.graphics.getDensity();
+            if (density <= 1.01f && screenWidth >= 600) {
+                density = (float) screenWidth / 390.0f;
+            }
+            if (density > 0.1f) {
+                WIDTH = Math.max(320, Math.round(screenWidth / density));
+                HEIGHT = Math.max(480, Math.round(screenHeight / density));
+                return;
+            }
+        }
+        WIDTH = screenWidth;
+        HEIGHT = screenHeight;
+    }
+
     public static boolean isRenderThread() {
         return Thread.currentThread() == renderThread ||
                 (Gdx.graphics != null && "Main".equalsIgnoreCase(Thread.currentThread().getName()));
@@ -54,20 +71,20 @@ public class Main extends Game {
         instance = this;
         netRequest = new NetRequest();
 
-        WIDTH = Gdx.graphics.getWidth();
-        HEIGHT = Gdx.graphics.getHeight();
-        if (WIDTH <= 0) WIDTH = 800;
-        if (HEIGHT <= 0) HEIGHT = 480;
+        int pWidth = Gdx.graphics.getWidth();
+        int pHeight = Gdx.graphics.getHeight();
+        if (pWidth <= 0) pWidth = 380;
+        if (pHeight <= 0) pHeight = 680;
+        updateVirtualSize(pWidth, pHeight);
 
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(true, WIDTH, HEIGHT);
-        this.viewport = new ExtendViewport(Main.getWidth(), Main.getHeight(), camera);
-        this.viewport.apply();
-        camera.update();
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        this.camera.update();
 
         MapKey.load();
         try {
-            floatingButton = new LibGDXFloatingButton(Main.getWidth() - 50, 30.0f, camera);
+            floatingButton = new LibGDXFloatingButton(WIDTH - 50, 30.0f, camera);
         } catch (Throwable ignored) {
         }
 
@@ -111,16 +128,10 @@ public class Main extends Game {
     }
 
     public static int getWidth() {
-        if (Gdx.graphics != null && Gdx.graphics.getWidth() > 0) {
-            return Gdx.graphics.getWidth();
-        }
         return WIDTH;
     }
 
     public static int getHeight() {
-        if (Gdx.graphics != null && Gdx.graphics.getHeight() > 0) {
-            return Gdx.graphics.getHeight();
-        }
         return HEIGHT;
     }
 
@@ -152,20 +163,18 @@ public class Main extends Game {
 
     @Override
     public void resize(int width, int height) {
-        WIDTH = width;
-        HEIGHT = height;
-        if (viewport != null) {
-            viewport.update(width, height, true);
-        }
+        updateVirtualSize(width, height);
+        Gdx.gl.glViewport(0, 0, width, height);
         if (camera != null) {
-            camera.setToOrtho(true, width, height);
+            camera.setToOrtho(true, WIDTH, HEIGHT);
+            camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
             camera.update();
         }
         if (getScreen() != null) {
-            getScreen().resize(width, height);
+            getScreen().resize(WIDTH, HEIGHT);
         }
         if (floatingButton != null) {
-            floatingButton.resize(width, height);
+            floatingButton.resize(WIDTH, HEIGHT);
         }
     }
 

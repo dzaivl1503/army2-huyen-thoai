@@ -337,7 +337,7 @@ implements Runnable {
                 FontRenderer.a.a(graphics, ((GameCommand)GameCanvas.var_game_GameHelper10_a.var_java_util_Vector_a.elementAt((int)n2)).var_java_lang_String_a, 5, n, 0);
             }
             graphics.translate(-graphics.getTranslateX(), -graphics.getTranslateY());
-            graphics.setClip(-1000, -1000, 2000, 2000);
+            graphics.resetClip();
             n2 = (byte)(var_boolean_d ? 12 : 3);
             FontRenderer.a.a(graphics, StringUtils.dF(), 5, var_int_c - FontRenderer.a.a() - n2, 0);
             FontRenderer.a.a(graphics, StringUtils.cq(), var_int_b - 5, var_int_c - FontRenderer.a.a() - n2, 1);
@@ -356,7 +356,7 @@ implements Runnable {
                 FontRenderer.f.a(graphics, ((GameCommand)GameCanvas.var_game_PopupMenu_a.var_java_util_Vector_a.elementAt((int)i)).var_java_lang_String_a, var_int_d, n, 2);
             }
         }
-        graphics.setClip(0, 0, 1000, 1000);
+        graphics.resetClip();
         for (n2 = 0; n2 < var_java_util_Vector_a.size(); ++n2) {
             ((Point4D)var_java_util_Vector_a.elementAt(n2)).a(graphics);
         }
