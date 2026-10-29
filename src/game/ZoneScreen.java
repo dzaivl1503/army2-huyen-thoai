@@ -329,6 +329,11 @@ public final class ZoneScreen extends BoardScreen {
         this.diceFinishTime = 0L;
         this.roundStartTime = 0L;
         this.lastRollAnimTime = 0L;
+        // Dong cac dialog dang mo khi bat dau lai vong
+        if (GameCanvas.var_game_PopupMenu_a != null) {
+            GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
+        }
+        GameCanvas.var_game_GameHelper21_a = null;
         ConnectionWatchdog.game_ConnectionWatchdog_a().a(false);
         updateCommands();
     }
@@ -497,12 +502,18 @@ public final class ZoneScreen extends BoardScreen {
                 if (hasChips) {
                     this.transferSource = slot;
                     this.isSelectingSource = false;
+                    if (GameCanvas.var_game_PopupMenu_a != null) {
+                        GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
+                    }
                     GameCanvas.c("Đã chọn nguồn: " + animalNames[slot] + ". Chọn đích để tả.");
                 } else {
                     GameCanvas.c("Con vật này không có chip để tả!");
                 }
             } else if (slot != this.transferSource) {
                 this.transferDest = slot;
+                if (GameCanvas.var_game_PopupMenu_a != null) {
+                    GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
+                }
                 this.sendTransfer(this.transferSource, this.transferDest);
                 GameCanvas.c("Đã tả: " + animalNames[this.transferSource] + " -> " + animalNames[this.transferDest]);
                 this.transferSource = -1;
@@ -600,7 +611,7 @@ public final class ZoneScreen extends BoardScreen {
             int row2Y = row1Y + slotW + 10;   // 144
 
             // 4. Center top: 3 dice animation / results
-            if (imgBauCua != null && (this.hasDiceFinished || this.isBettingPhase || this.isTransferPhase)) {
+            if (imgBauCua != null && (this.hasDiceFinished || this.isTransferPhase)) {
                 int frameH = 54;
                 int maxFrames = imgBauCua.getHeight() / frameH;
                 int diceGap = 8;
@@ -1005,6 +1016,9 @@ public final class ZoneScreen extends BoardScreen {
                         }
                     } else {
                         // Chu phong: Bat dau
+                        if (GameCanvas.var_game_PopupMenu_a != null) {
+                            GameCanvas.var_game_PopupMenu_a.var_boolean_a = false;
+                        }
                         if ((long) this.screen.var_int_lIII1III11I > TerrainMidlet.myInfo.var_long_c) {
                             GameCanvas.void_a(StringUtils.by()); // "Bạn không đủ tiền cược!"
                         }
