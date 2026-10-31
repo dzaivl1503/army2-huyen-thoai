@@ -3,6 +3,18 @@ name: Build iOS IPA (Army 2)
 on:
   push:
     branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'core/**'
+      - 'ios/**'
+      - 'assets/**'
+      - 'resources/**'
+      - 'lib/**'
+      - '*.gradle'
+      - 'gradle/**'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - '.github/workflows/build-ios.yml'
   pull_request:
     branches: [ "**" ]
   workflow_dispatch:

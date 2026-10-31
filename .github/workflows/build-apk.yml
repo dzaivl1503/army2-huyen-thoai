@@ -3,6 +3,18 @@ name: Build Android APK (Army 2)
 on:
   push:
     branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'core/**'
+      - 'android/**'
+      - 'assets/**'
+      - 'resources/**'
+      - 'lib/**'
+      - '*.gradle'
+      - 'gradle/**'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - '.github/workflows/build-apk.yml'
   pull_request:
     branches: [ "**" ]
   workflow_dispatch:
@@ -27,7 +39,11 @@ jobs:
           cache: 'gradle'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        run: |
+          SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/usr/local/lib/android/sdk}}"
+          echo "ANDROID_SDK_ROOT=$SDK" >> $GITHUB_ENV
+          echo "ANDROID_HOME=$SDK" >> $GITHUB_ENV
+          ls "$SDK/platforms" || true
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
