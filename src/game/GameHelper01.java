@@ -116,6 +116,26 @@ implements INetworkCallback {
             if (object != null) {
                 try {
                     switch (((Message)object).a) {
+case -13: {
+((Message)object).java_io_DataInputStream_a().readByte();
+String pass2Prompt = ((Message)object).java_io_DataInputStream_a().readUTF();
+GameCanvas.var_game_InputScreen_a.a(pass2Prompt, new ActionListener402(), new ActionListener059(), 20);
+GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
+return;
+}
+case -16: {
+String nicknamePrompt = ((Message)object).java_io_DataInputStream_a().readUTF();
+GameCanvas.var_game_InputScreen_a.a(nicknamePrompt, new ActionListener400(), new ActionListener059(), 16);
+GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
+return;
+}
+case -11: {
+String renamePrompt = ((Message)object).java_io_DataInputStream_a().readUTF();
+GameCanvas.var_game_InputScreen_a.a(renamePrompt, new ActionListener401(), new ActionListener059(), 16);
+GameCanvas.var_game_GameHelper21_a = GameCanvas.var_game_InputScreen_a;
+return;
+}
+
                         case -98: {
                             BauCuaHandler.handleMessage((Message)object);
                             return;

@@ -869,6 +869,33 @@ public final class ConnectionWatchdog {
         message.void_a();
     }
 
+    public final void sendPassword2(String string) {
+        Message message = new Message((byte)-13);
+        try {
+            message.java_io_DataOutputStream_a().writeUTF(string);
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
+    public final void sendNickname(String string) {
+        Message message = new Message((byte)-16);
+        try {
+            message.java_io_DataOutputStream_a().writeUTF(string);
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
+    public final void sendRename(String string) {
+        Message message = new Message((byte)-11);
+        try {
+            message.java_io_DataOutputStream_a().writeUTF(string);
+        }
+        catch (Exception exception) {}
+        this.var_game_IServerListener_l11llllI.a(message);
+        message.void_a();
+    }
     public final void sendBauCuaTransfer(byte by, byte by2, byte by3, byte by4, byte by5) {
         Message message = new Message((byte)-98);
         try {
