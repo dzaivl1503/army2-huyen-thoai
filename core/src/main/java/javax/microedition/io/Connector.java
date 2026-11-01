@@ -38,12 +38,12 @@ public class Connector {
                 System.out.println("[Connector] Ket noi socket toi " + host + ":" + port + " (timeout 10s)...");
                 socket.connect(new java.net.InetSocketAddress(host, port), 10000);
             } catch (Exception ex) {
-                System.out.println("[Connector] Ket noi toi " + host + ":" + port + " that bai (" + ex + "), thu fallback IP 45.119.215.59...");
+                System.out.println("[Connector] Ket noi toi " + host + ":" + port + " that bai (" + ex + "), thu fallback IP 103.78.0.116...");
                 if (host.contains("mobiarmy2d") || host.contains("mobarmy2d")) {
                     socket = new Socket();
                     socket.setKeepAlive(true);
                     socket.setTcpNoDelay(true);
-                    socket.connect(new java.net.InetSocketAddress("45.119.215.59", port), 10000);
+                    socket.connect(new java.net.InetSocketAddress("103.78.0.116", port), 10000);
                 } else {
                     throw ex;
                 }

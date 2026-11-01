@@ -57,7 +57,7 @@ extends MIDlet {
             System.out.println("[coreLG/TerrainMidlet] PROVIDER= " + providerId);
         }
         catch (Exception exception) {}
-        serverHost = "103.178.235.112";
+        serverHost = "103.78.0.116";
         serverPort = 19129;
         GameHelper01.d().a(ServerManager.game_ServerManager_a());
         object = MessageHandler.game_MessageHandler_a();
@@ -67,10 +67,10 @@ extends MIDlet {
 
     public static void fetchAndSaveServerList() {
         GameCanvas.c(StringUtils.ds());
-        ServerInfo.var_java_lang_String_arr_a = new String[]{"Army2 Huyền Thoại"};
-        ServerInfo.var_java_lang_String_arr_b = new String[]{"103.178.235.112"};
+        ServerInfo.var_java_lang_String_arr_a = new String[]{"Army2 Promax"};
+        ServerInfo.var_java_lang_String_arr_b = new String[]{"103.78.0.116"};
         ServerInfo.var_short_arr_a = new short[]{(short)19129};
-        serverHost = "103.178.235.112";
+        serverHost = "103.78.0.116";
         serverPort = 19129;
         TerrainMidlet.I11Il1ll();
         GameCanvas.d();
@@ -96,10 +96,10 @@ extends MIDlet {
     }
 
     public static void loadServerList() {
-        ServerInfo.var_java_lang_String_arr_a = new String[]{"Army2 Huyền Thoại"};
-        ServerInfo.var_java_lang_String_arr_b = new String[]{"103.178.235.112"};
+        ServerInfo.var_java_lang_String_arr_a = new String[]{"Army2 Promax"};
+        ServerInfo.var_java_lang_String_arr_b = new String[]{"103.78.0.116"};
         ServerInfo.var_short_arr_a = new short[]{(short)19129};
-        serverHost = "103.178.235.112";
+        serverHost = "103.78.0.116";
         serverPort = 19129;
         TerrainMidlet.I11Il1ll();
     }
@@ -227,7 +227,7 @@ extends MIDlet {
 
     static {
         serverPort = 19129;
-        serverHost = "103.178.235.112";
+        serverHost = "103.78.0.116";
         isVip = new boolean[10];
         var_int_l1IIlIll = 100;
         version = "2.4.2";
