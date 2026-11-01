@@ -30,6 +30,8 @@ public class Main extends Game {
     private MyGestureHandler gestureHandler;
     private static int WIDTH = 380;
     private static int HEIGHT = 680;
+    /** Chieu cao ban phim ao (dung chung cho moi tab). */
+    public static final int KEYPAD_TOTAL_HEIGHT = 300;
     public static NetRequest netRequest;
     public IMainTab screen;
 

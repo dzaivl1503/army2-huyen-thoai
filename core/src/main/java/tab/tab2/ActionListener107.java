@@ -1,0 +1,16 @@
+/*
+ * Decompiled with CFR 0.152.
+ */
+package tab.tab2;
+
+
+final class ActionListener107
+implements IActionListener {
+    ActionListener107() {
+    }
+
+    public final void a() {
+        GameCanvas.void_a(StringUtils.aY());
+    }
+}
+

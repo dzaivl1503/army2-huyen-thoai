@@ -129,8 +129,7 @@ public class LibGDXFloatingButton {
         if (menuOpen) {
             for (int i = 0; i < NUM_TABS; i++) {
                 if (subButtonBounds[i].contains(touchX, touchY)) {
-                    handleSubButtonClick(i);
-                    menuOpen = false;
+                    // Chi doi tab khi nha tay, tranh xu ly 2 lan (down + up)
                     return true;
                 }
             }
@@ -180,13 +179,7 @@ public class LibGDXFloatingButton {
     }
 
         private void handleSubButtonClick(int index) {
-        if (index == 2) {
-            if (screen.ArmyTab.instance != null && screen.ArmyTab.instance.keypad != null) {
-                screen.ArmyTab.instance.keypad.isVisible = !screen.ArmyTab.instance.keypad.isVisible;
-            }
-        } else {
-            ScreenManager.instance.switchToTab(index);
-        }
+        ScreenManager.instance.switchToTab(index);
     }
 
     public void resize(int width, int height) {

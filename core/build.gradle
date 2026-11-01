@@ -5,8 +5,7 @@ sourceSets {
   main {
     java {
       srcDirs = [
-        'src/main/java',
-        rootProject.file('src')
+        'src/main/java'
       ]
       exclude '**/tool/**'
     }
@@ -23,4 +22,11 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+}
+// Sinh lai 6 tab doc lap (tab.tab1..tab.tab6) tu src/game + tools/tab_template.
+// Chay sau khi sua src/game:  gradlew :core:generateTabs   (Windows)
+tasks.register('generateTabs', Exec) {
+  onlyIf { System.getProperty('os.name').toLowerCase().contains('windows') }
+  workingDir rootProject.projectDir
+  commandLine 'powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'tools/generate_tabs.ps1'
 }

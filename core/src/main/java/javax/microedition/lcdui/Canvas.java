@@ -42,7 +42,7 @@ public abstract class Canvas extends Displayable {
 
     @Override
     public int getHeight() {
-        int h = screen.Main.getHeight() - screen.ArmyKeypad.KEYPAD_TOTAL_HEIGHT;
+        int h = screen.Main.getHeight() - screen.Main.KEYPAD_TOTAL_HEIGHT;
         return (h > 0) ? h : 324;
     }
 

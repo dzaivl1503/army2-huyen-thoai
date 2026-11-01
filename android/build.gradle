@@ -10,6 +10,7 @@ android {
     applicationId "com.teamobi.army2"
     minSdk 21
     targetSdk 34
+    multiDexEnabled true
     versionCode 1
     versionName projectVersion
   }

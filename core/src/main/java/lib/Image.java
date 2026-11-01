@@ -75,7 +75,7 @@ public class Image {
         }
         if (pixmap == null) {
             try {
-                java.io.InputStream is = game.DataUtils.java_io_InputStream_a(url);
+                java.io.InputStream is = (Main.instance != null) ? Main.instance.getResourceAsStream(url) : null;
                 if (is != null) {
                     java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
                     byte[] buf = new byte[4096];
