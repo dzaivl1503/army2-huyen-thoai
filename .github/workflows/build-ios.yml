@@ -81,26 +81,26 @@ jobs:
           # 1. If an IPA was generated directly by RoboVM
           if ls ios/build/robovm/*.ipa 1> /dev/null 2>&1; then
             echo "Found IPA created by RoboVM"
-            cp ios/build/robovm/*.ipa output_ipa/Army2-TuoiTho.ipa
+            cp ios/build/robovm/*.ipa output_ipa/Army2promax.ipa
           fi
           
           # 2. If .app folder was generated, package into standard Payload IPA
           APP_PATH=$(find ios/build -name "*.app" -type d | head -n 1)
           if [ -n "$APP_PATH" ] && [ -d "$APP_PATH" ]; then
-            echo "Packaging App from $APP_PATH into output_ipa/Army2-TuoiTho.ipa"
+            echo "Packaging App from $APP_PATH into output_ipa/Army2promax.ipa"
             mkdir -p payload_dir/Payload
             cp -R "$APP_PATH" payload_dir/Payload/
-            cd payload_dir && zip -qr ../output_ipa/Army2-TuoiTho.ipa Payload/ && cd ..
+            cd payload_dir && zip -qr ../output_ipa/Army2promax.ipa Payload/ && cd ..
           fi
           
           # 3. Fallback search
-          if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
+          if [ ! -f "output_ipa/Army2promax.ipa" ]; then
             echo "Searching whole build directory for any iOS artifacts..."
-            find ios/build -name "*.ipa" -exec cp {} output_ipa/Army2-TuoiTho.ipa \; || true
+            find ios/build -name "*.ipa" -exec cp {} output_ipa/Army2promax.ipa \; || true
           fi
           
           ls -la output_ipa/
-          if [ ! -f "output_ipa/Army2-TuoiTho.ipa" ]; then
+          if [ ! -f "output_ipa/Army2promax.ipa" ]; then
             echo "::error::No IPA artifact found in output_ipa!"
             exit 1
           fi
@@ -114,7 +114,7 @@ jobs:
           body: "Tự động tạo bản dựng Army 2 iOS IPA (Run #${{ github.run_number }})"
           draft: false
           prerelease: false
-          files: output_ipa/Army2-TuoiTho.ipa
+          files: output_ipa/Army2promax.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -123,10 +123,10 @@ jobs:
           echo "=========================================================="
           echo " LINK TẢI IPA TRỰC TIẾP TỐC ĐỘ CAO:"
           echo "- Link BashUpload:"
-          curl -s https://bashupload.com/Army2-TuoiTho.ipa --data-binary @output_ipa/Army2-TuoiTho.ipa || true
+          curl -s https://bashupload.com/Army2promax.ipa --data-binary @output_ipa/Army2promax.ipa || true
           echo ""
           echo "- Link Temp.sh:"
-          curl -s -F "file=@output_ipa/Army2-TuoiTho.ipa" https://temp.sh/upload || true
+          curl -s -F "file=@output_ipa/Army2promax.ipa" https://temp.sh/upload || true
           echo ""
           echo "=========================================================="
 
@@ -134,7 +134,7 @@ jobs:
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
-          name: Army2-TuoiTho-iOS-IPA
-          path: output_ipa/Army2-TuoiTho.ipa
+          name: Army2promax-iOS-IPA
+          path: output_ipa/Army2promax.ipa
           retention-days: 1
           if-no-files-found: warn

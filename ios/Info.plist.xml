@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>Tu&#7893;i Th&#417;</string>
+    <string>Army2promax</string>
     <key>CFBundleExecutable</key>
     <string>${app.executable}</string>
     <key>CFBundleIdentifier</key>

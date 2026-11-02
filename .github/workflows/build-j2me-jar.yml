@@ -1,0 +1,79 @@
+name: Build J2ME JAR (Army2promax)
+
+on:
+  push:
+    branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'resources/**'
+      - 'lib/**'
+      - 'tools/**'
+      - '.github/workflows/build-j2me-jar.yml'
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'resources/**'
+      - 'lib/**'
+      - 'tools/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-j2me-jar:
+    name: Build J2ME JAR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile build tools
+        run: |
+          javac -encoding UTF-8 -cp "lib/asm-9.6.jar:tools/proguard.jar" -d tools \
+            tools/PostProcessor.java tools/BuildAndObfuscate.java
+
+      - name: Build, obfuscate and package J2ME JAR
+        run: |
+          java -cp "tools:lib/asm-9.6.jar:tools/proguard.jar" tools.BuildAndObfuscate
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p output_jar
+          cp dist/Army2D.jar output_jar/Army2promax.jar
+          cp dist/Army2D_Light.jar output_jar/Army2promax-Light.jar
+          cp dist/Army2D_ModByNguyenVanBang.jar output_jar/Army2promax-ModByNguyenVanBang.jar
+          ls -la output_jar/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          tag_name: "jar-v1.0.${{ github.run_number }}"
+          name: "Army2promax J2ME JAR Build #${{ github.run_number }}"
+          body: "Tự động tạo bản dựng Army2promax J2ME JAR (Run #${{ github.run_number }})"
+          draft: false
+          prerelease: false
+          files: |
+            output_jar/Army2promax.jar
+            output_jar/Army2promax-Light.jar
+            output_jar/Army2promax-ModByNguyenVanBang.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: Army2promax-J2ME-JAR
+          path: output_jar/*.jar
+          retention-days: 1
+          if-no-files-found: warn

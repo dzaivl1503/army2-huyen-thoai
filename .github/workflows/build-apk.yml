@@ -55,10 +55,10 @@ jobs:
       - name: Package APK
         run: |
           mkdir -p output_apk
-          find android/build/outputs/apk/debug -name "*.apk" -exec cp {} output_apk/Army2-TuoiTho.apk \;
+          find android/build/outputs/apk/debug -name "*.apk" -exec cp {} output_apk/Army2promax.apk \;
           
-          if [ ! -f "output_apk/Army2-TuoiTho.apk" ]; then
-            find android/build/outputs/apk -name "*.apk" -exec cp {} output_apk/Army2-TuoiTho.apk \; || true
+          if [ ! -f "output_apk/Army2promax.apk" ]; then
+            find android/build/outputs/apk -name "*.apk" -exec cp {} output_apk/Army2promax.apk \; || true
           fi
 
           ls -la output_apk/
@@ -72,7 +72,7 @@ jobs:
           body: "Tự động tạo bản dựng Army 2 Android APK (Run #${{ github.run_number }})"
           draft: false
           prerelease: false
-          files: output_apk/Army2-TuoiTho.apk
+          files: output_apk/Army2promax.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -81,10 +81,10 @@ jobs:
           echo "=========================================================="
           echo " LINK TẢI APK TRỰC TIẾP TỐC ĐỘ CAO:"
           echo "- Link BashUpload:"
-          curl -s https://bashupload.com/Army2-TuoiTho.apk --data-binary @output_apk/Army2-TuoiTho.apk || true
+          curl -s https://bashupload.com/Army2promax.apk --data-binary @output_apk/Army2promax.apk || true
           echo ""
           echo "- Link Temp.sh:"
-          curl -s -F "file=@output_apk/Army2-TuoiTho.apk" https://temp.sh/upload || true
+          curl -s -F "file=@output_apk/Army2promax.apk" https://temp.sh/upload || true
           echo ""
           echo "=========================================================="
 
@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
-          name: Army2-TuoiTho-Android-APK
-          path: output_apk/Army2-TuoiTho.apk
+          name: Army2promax-Android-APK
+          path: output_apk/Army2promax.apk
           retention-days: 1
           if-no-files-found: warn

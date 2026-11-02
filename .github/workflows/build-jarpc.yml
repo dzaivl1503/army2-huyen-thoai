@@ -1,0 +1,77 @@
+name: Build PC JAR (Army2promax)
+
+on:
+  push:
+    branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'core/**'
+      - 'lwjgl3/**'
+      - 'assets/**'
+      - '*.gradle'
+      - 'gradle/**'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - '.github/workflows/build-jarpc.yml'
+  pull_request:
+    branches: [ "**" ]
+    paths:
+      - 'src/**'
+      - 'core/**'
+      - 'lwjgl3/**'
+      - 'assets/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-jarpc:
+    name: Build PC JAR (LWJGL3)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build desktop JAR
+        run: |
+          ./gradlew :lwjgl3:jar --stacktrace
+
+      - name: Collect artifact
+        run: |
+          mkdir -p output_pc
+          cp lwjgl3/build/libs/*.jar output_pc/Army2promax-PC.jar
+          ls -la output_pc/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          tag_name: "pc-v1.0.${{ github.run_number }}"
+          name: "Army2promax PC Build #${{ github.run_number }}"
+          body: "Tự động tạo bản dựng Army2promax PC JAR (Run #${{ github.run_number }}) — chạy bằng: java -jar Army2promax-PC.jar"
+          draft: false
+          prerelease: false
+          files: output_pc/Army2promax-PC.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: Army2promax-PC-JAR
+          path: output_pc/Army2promax-PC.jar
+          retention-days: 1
+          if-no-files-found: warn

@@ -20,7 +20,7 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("Army 2 - Tu\u1ed5i Th\u01a1");
+        configuration.setTitle("Army2promax");
         configuration.setForegroundFPS(60);
         configuration.setWindowedMode(380, 680);
         configuration.setWindowSizeLimits(320, 480, -1, -1);

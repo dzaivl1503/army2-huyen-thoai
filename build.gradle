@@ -59,7 +59,7 @@ configure(subprojects.findAll { it.name != 'android' }) {
 
 subprojects {
   version = "$projectVersion"
-  ext.appName = 'Army2'
+  ext.appName = 'Army2promax'
   repositories {
     google()
     mavenCentral()
